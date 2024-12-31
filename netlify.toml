@@ -1,0 +1,264 @@
+[build]
+publish = "dist"
+command = "yarn build"
+
+[build.environment]
+NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/beach"
+  to = "/igotshot-photo/guichinger-brauchtum-beach-party-2024/?utm_source=QR+Code&utm_medium=Visitenkarte&utm_campaign=igotshot+Ehrenamtlich&utm_content=Beach+Party+2024"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/hochzeit"
+  to = "/hochzeitsfotos/?utm_source=QR+Code&utm_medium=Zeitung&utm_campaign=W%C3%BChrmtahl+Werbung"
+  status = 301
+  force = true
+
+ [[redirects]]
+  from = "/bilder"
+  to = "/kundenbereich/?utm_source=QR+Code&utm_medium=Visitenkarte&utm_campaign=Hochzeit&utm_content=private+Hochzeitsgalerie"
+  status = 301
+  force = true 
+
+[[redirects]]
+  from = "/tve-film"
+  to = "/cinema/125-jahre-tv-emmering-film/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/allgemeine-geschaeftsbedingungen"
+  to = "/impressum/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/business"
+  to = "/bewerbungsbilder/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/hochzeit/hochzeitsgalerie"
+  to = "/hochzeitsfotos/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/portrait-business-fotografie/kontakt-fotografie"
+  to = "/kontakt/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/hochzeitsblog/:name"
+  to = "/kundenbereich/:name/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/hochzeitsblog"
+  to = "/kundenbereich/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/hochzeitsblog/hochzeitsfotos"
+  to = "/hochzeitsfotos/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/prices-for-wedding-photographer"
+  to = "/hochzeitsfotograf-preise/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/kundenbereich/hochzeitsfotos"
+  to = "/hochzeitsfotos/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/wedding-blog/judith-and-manfred"
+  to = "/kundenbereich/judith-manfred/"
+  status = 301
+  force = true
+  
+[[redirects]]
+  from = "/en/wedding-blog/britta-and-klaus"
+  to = "/kundenbereich/britta-klaus/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/projekt/bildwerk-olympia-s-bahn"
+  to = "/igotshot-photo/bildwerk-olympia-s-bahn/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/hochzeitsblog/igotshot-photo/bildwerk-olympia-s-bahn"
+  to = "/igotshot-photo/bildwerk-olympia-s-bahn/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/category/igotshot-photo/projekt"
+  to = "/categories/igotshot-photo/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/igotshot-lifetime"
+  to = "/igotshot/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/igotshot-photo"
+  to = "/igotshot/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/igotshot-photos"
+  to = "/igotshot/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/igotshot-photos"
+  to = "/igotshot/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/unruly-ghosts"
+  to = "/igotshot-photo/unruly-ghosts/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/category/wedding-blog/wedding"
+  to = "/categories/hochzeit/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/hanna-anne"
+  to = "/kundenbereich/hanna-anne/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/hochzeitsblog/igotshot-photo/graffiti-gegen-bomben-auf-wohngebiete"
+  to = "/igotshot-photo/graffiti-gegen-bomben-auf-wohngebiete/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/igotshot-photo-en/return-of-the-boomletters"
+  to = "/igotshot-photo/return-of-the-boomletters/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/freies-training"
+  to = "/igotshot-lifetime/tv-emmering/freies-training/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/wedding-blog/ann-kathrin-and-chris"
+  to = "/kundenbereich/ann-kathrin-chris/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/wedding-blog/mariana-and-mario"
+  to = "/kundenbereich/mariana-and-mario/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/clients-portfolio-categories/maibaum-gilching-2022"
+  to = "/igotshot-photo/maibaum-gilching-2022/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/maibaum-gilching-2022"
+  to = "/igotshot-photo/maibaum-gilching-2022/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/igotshot-photo-en/maibaum-gilching-2022"
+  to = "/igotshot-photo/maibaum-gilching-2022/"
+  status = 301
+  force = true
+  
+[[redirects]]
+  from = "/taiana-michael"
+  to = "/kundenbereich/taiana-michael/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/hochzeit/sandra-uwe"
+  to = "/kundenbereich/sandra-uwe/"
+  status = 301
+  force = true
+
+ [[redirects]]
+  from = "/kunst-und-kulturwoche-gilching-2020"
+  to = "/igotshot-lifetime/gilching/kukuwo20/"
+  status = 301
+  force = true 
+
+ [[redirects]]
+  from = "/mappen/tv-emmering/turnen/geraeteturnen-c-jugend-3-liga"
+  to = "/igotshot-lifetime/tv-emmering/geraeteturnen-c-jugend-3-liga/"
+  status = 301
+  force = true 
+
+ [[redirects]]
+  from = "/en/?attachment_id=46508"
+  to = "/"
+  status = 301
+  force = true 
+
+ [[redirects]]
+  from = "/hochzeit/hochzeitsfotograf-starnberg"
+  to = "/hochzeitsfotograf-starnberg/"
+  status = 301
+  force = true
+
+  [[redirects]]
+  from = "en/weddingblog/"
+  to = "/hochzeitsfotos/"
+  status = 301
+  force = true
+
+ [[redirects]]
+  from = "/testimonials/"
+  to = "/bewertungen/"
+  status = 301
+  force = true
+
+ [[redirects]]
+  from = "/bildwerk-olympia-s-bahn"
+  to = "/igotshot-photo/bildwerk-olympia-s-bahn/"
+  status = 301
+  force = true
+
+  [[redirects]]
+  from = "/graffiti-gegen-bomben-auf-wohngebiete"
+  to = "/igotshot-photo/graffiti-gegen-bomben-auf-wohngebiete/"
+  status = 301
+  force = true
