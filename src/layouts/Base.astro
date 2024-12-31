@@ -1,0 +1,791 @@
+---
+import TwSizeIndicator from "@/components/TwSizeIndicator.astro";
+import config from "@/config/config.json";
+
+import { plainify } from "@/lib/utils/textConverter";
+import Footer from "@/partials/Footer.astro";
+import Header from "@/partials/Header.astro";
+import "@/styles/main.scss";
+import "glightbox/dist/css/glightbox.min.css";
+import HeaderMobile from "./partials/HeaderMobile.astro";
+
+const {
+  theme_switcher,
+  default_theme,
+}: { theme_switcher: boolean; default_theme: string } = config.settings;
+
+// types for frontmatters
+export interface Props {
+  title?: string;
+  meta_title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  canonical?: string;
+  keywords?: string;
+  sections?: string;
+}
+
+// distructure frontmatters
+const {
+  title,
+  meta_title,
+  body_class,
+  description,
+  image,
+  noindex,
+  canonical,
+  keywords,
+  sections,
+} = Astro.props;
+const { pathname } = Astro.url;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- favicon -->
+    <link rel="shortcut icon" href={config.site.favicon} />
+    <!-- theme meta -->
+    <meta name="theme-name" content="CV" />
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#fff"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#000"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!-- responsive meta -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5"
+    />
+
+    <!-- title -->
+    <title>
+      {plainify(meta_title ? meta_title : title ? title : config.site.title)}
+    </title>
+
+    <!-- canonical url -->
+    {canonical && <link rel="canonical" href={canonical} item-prop="url" />}
+
+    <!-- noindex robots -->
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <!-- meta-description -->
+    <meta
+      name="description"
+      content={plainify(
+        description ? description : config.metadata.meta_description
+      )}
+    />
+
+    <!-- author from config.json -->
+    <meta name="author" content={config.metadata.meta_author} />
+
+    <!-- og-title -->
+    <meta
+      property="og:title"
+      content={plainify(
+        meta_title ? meta_title : title ? title : config.site.title
+      )}
+    />
+
+    <!-- og-description -->
+    <meta
+      property="og:description"
+      content={plainify(
+        description ? description : config.metadata.meta_description
+      )}
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content={`${config.site.base_url}/${Astro.url.pathname.replace("/", "")}`}
+    />
+    <!-- keywords meta -->
+    {keywords && <meta name="keywords" content={plainify(keywords)} />}
+
+    <!-- section meta -->
+    {sections && sections.map((section) => (
+      <meta name="section" content={plainify(section)} />
+    ))}
+
+    <!-- twitter-title -->
+    <meta
+      name="twitter:title"
+      content={plainify(
+        meta_title ? meta_title : title ? title : config.site.title
+      )}
+    />
+
+    <!-- twitter-description -->
+    <meta
+      name="twitter:description"
+      content={plainify(
+        description ? description : config.metadata.meta_description
+      )}
+    />
+
+    <!-- og-image -->
+    <meta
+      property="og:image"
+      content={`${config.site.base_url}${
+        image ? image : config.metadata.meta_image
+      }`}
+    />
+
+    <!-- twitter-image -->
+    <meta
+      name="twitter:image"
+      content={`${config.site.base_url}${
+        image ? image : config.metadata.meta_image
+      }`}
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="seobility" content="aa4a31e1c6b39f580d0c814ca8bcf744" />
+    <style>
+      @import "yet-another-react-lightbox/styles.css";
+      @import "yet-another-react-lightbox/plugins/counter.css";
+      @import "yet-another-react-lightbox/plugins/captions.css";
+      @import "yet-another-react-lightbox/plugins/thumbnails.css";
+    </style>
+    <link rel="stylesheet" href="/fonts/adobe-font.css" />
+  </head>
+
+  <body
+    class={`bg-bgweiss dark:bg-bgdark${body_class ? ` ` + body_class : ""}`}>
+    <TwSizeIndicator />
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <HeaderMobile />
+
+    <Footer />
+
+    <!-- prettier-ignore -->
+    <script
+      class="review-script"
+      type="text/javascript"
+      data-src="https://www.provenexpert.com/widget/richsnippet.js?u=1HwolOwA1DQplqGB1xmp5DQpkMmpk9Tp&v=2"></script>
+
+    <!-- theme switcher -->
+    <script>
+      import { settings } from "@/config/config.json";
+      const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
+
+      function toggleTheme(themeSwitch: NodeListOf<Element>) {
+        const defaulTheme =
+          settings.default_theme === "system"
+            ? matchMedia.matches
+              ? "dark"
+              : "light"
+            : settings.default_theme;
+        const currentTheme = localStorage.getItem("theme") || defaulTheme;
+        const isDarkTheme = currentTheme === "dark";
+        themeSwitch.forEach((sw: any) => (sw.checked = isDarkTheme));
+        document.documentElement.classList.toggle("dark", isDarkTheme);
+      }
+
+      const setDarkMode = () => {
+        const themeSwitch = document.querySelectorAll("[data-theme-switcher]");
+        toggleTheme(themeSwitch);
+
+        // Function to add click event listener conditionally
+        function addClickListener(element, callback) {
+          // Check if the element already has a click event listener
+          if (!element.hasEventListener) {
+            // Add the click event listener
+            element.addEventListener("click", callback);
+
+            // Mark the element as having an event listener
+            element.hasEventListener = true;
+          }
+        }
+
+        themeSwitch.forEach((sw) => {
+          addClickListener(sw, function () {
+            const defaulTheme =
+              settings.default_theme === "system"
+                ? matchMedia.matches
+                  ? "dark"
+                  : "light"
+                : settings.default_theme;
+            const currentTheme = localStorage.getItem("theme") || defaulTheme;
+            const newTheme = currentTheme === "light" ? "dark" : "light";
+            localStorage.setItem("theme", newTheme);
+            toggleTheme(themeSwitch);
+          });
+        });
+      };
+
+      // Runs on initial navigation
+      matchMedia.addEventListener("change", () =>
+        toggleTheme(document.querySelectorAll("[data-theme-switcher]"))
+      );
+      setDarkMode();
+
+      // Runs on swup navigation
+      document.addEventListener("swup:content:replace", setDarkMode);
+    </script>
+
+    <!-- reading indicator -->
+    <script>
+      const readingIndicator = document.querySelector(".reading-indicator");
+
+      function updateReadingIndicator(event) {
+        // Calculate page height and reading progress dynamically
+        const pageHeight = document.documentElement.scrollHeight;
+        const viewportHeight = window.innerHeight;
+        const scrollTop = window.scrollY || document.body.scrollTop; // Get scroll position
+
+        const progress = Math.min(scrollTop / (pageHeight - viewportHeight), 1); // Avoid exceeding 1
+
+        // Adjust indicator width based on progress
+        readingIndicator.style.width = `${progress * 100}%`; // Adjust percentage based on your desired width
+      }
+
+      // Update indicator on initial load and window resize
+      updateReadingIndicator();
+      window.addEventListener("scroll", updateReadingIndicator);
+
+      // Handle swup events (optional)
+      if (typeof Swup !== "undefined") {
+        const swup = new Swup();
+        swup.on("transitionStart", updateReadingIndicator);
+        swup.on("transitionEnd", updateReadingIndicator);
+      }
+    </script>
+
+    <script>
+      // Glightbox (https://biati-digital.github.io/glightbox/)
+      import GLightbox from "glightbox";
+      const lightbox = GLightbox({
+        loop: true,
+        zoomable: false,
+        touchNavigation: true,
+      });
+
+      var header = document.querySelector(".header-lg-devices");
+      var headerMobile = document.querySelector(".header-mobile");
+      var lastScroll = 0;
+      function stickyHeader() {
+        if (window.scrollY >= 50) {
+          header?.classList.add("header-sticky-top");
+          headerMobile?.classList.add("header-sticky-top");
+        } else {
+          header?.classList.remove("header-sticky-top");
+          headerMobile?.classList.remove("header-sticky-top");
+        }
+      }
+      stickyHeader();
+
+      window.onscroll = () => {
+        // header-sticky-top
+        stickyHeader();
+        // headerPinUnpin init
+        var currentScroll =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        if (currentScroll > 50 && lastScroll <= currentScroll) {
+          lastScroll = currentScroll;
+          header?.classList.add("header-unpinned");
+          headerMobile?.classList.add("header-mobile-unpinned");
+        } else {
+          lastScroll = currentScroll;
+          header?.classList.remove("header-unpinned");
+          headerMobile?.classList.remove("header-mobile-unpinned");
+        }
+      };
+
+      // Proven Expert
+      const src = document
+        .querySelector(".review-script")
+        ?.getAttribute("data-src");
+      document.querySelector(".review-script")?.setAttribute("src", src);
+
+      document.addEventListener("swup:page:view", () => {
+        var header = document.querySelector(".header-lg-devices");
+        var headerMobile = document.querySelector(".header-mobile");
+
+        var lastScroll = 0;
+        function stickyHeader() {
+          if (window.scrollY >= 50) {
+            header?.classList.add("header-sticky-top");
+            headerMobile?.classList.add("header-sticky-top");
+          } else {
+            header?.classList.remove("header-sticky-top");
+            headerMobile?.classList.remove("header-sticky-top");
+          }
+        }
+        stickyHeader();
+
+        window.onscroll = () => {
+          // header-sticky-top
+          stickyHeader();
+          // headerPinUnpin init
+          var currentScroll =
+            document.documentElement.scrollTop || document.body.scrollTop;
+          if (currentScroll > 50 && lastScroll <= currentScroll) {
+            lastScroll = currentScroll;
+            header?.classList.add("header-unpinned");
+            headerMobile?.classList.add("header-mobile-unpinned");
+          } else {
+            lastScroll = currentScroll;
+            header?.classList.remove("header-unpinned");
+            headerMobile?.classList.remove("header-mobile-unpinned");
+          }
+        };
+      });
+      document.addEventListener("swup:page:view", () => {
+        const lightbox = GLightbox({
+          touchNavigation: true,
+        });
+
+        const body = document.body;
+
+        // Hide preloader
+        const preloader = document.querySelector(".preloader");
+        preloader?.classList.add("hidden");
+
+        // back to top button in plain js
+        let backToTop = document.querySelector(".back-to-top");
+        backToTop?.addEventListener("click", function () {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        });
+
+        // Navbar Toggler
+        // ----------------------------------------
+        const navbarToggler = document.querySelector(".navbar-toggler");
+        navbarToggler?.addEventListener("click", function () {
+          navbarToggler.classList.toggle("active");
+          body.classList.toggle("navbar-nav-collapsed");
+        });
+
+        const projectWrapper = document.querySelector("#projects-filter");
+        const clearFilterBtn = document.querySelector(
+          "[data-clear-filter-btn]"
+        );
+        const listItems = Array.from(
+          document.querySelectorAll("[data-filter-type]")
+        );
+
+        const filterTypeBtns = Array.from(
+          document.querySelectorAll("[data-type-filter-btn]")
+        );
+
+        let filterType = "";
+        filterTypeBtns.forEach((filterTypeBtn) => {
+          filterTypeBtn.addEventListener("click", () => {
+            clearFilterBtn?.classList.remove("active");
+            // Remove "active" class from all buttons
+            filterTypeBtns.forEach((btn) => {
+              btn.classList.remove("active");
+            });
+
+            // Add "active" class to the clicked button
+            filterTypeBtn.classList.add("active");
+
+            filterType =
+              (filterTypeBtn as HTMLElement).dataset.typeFilterBtn || "";
+
+            const hasClass =
+              projectWrapper &&
+              Array.from(projectWrapper.children).some((child) =>
+                child.classList.contains("hidden")
+              );
+
+            if (!hasClass) {
+              projectWrapper?.classList.add("animate-parent");
+            }
+
+            setTimeout(() => {
+              listItems.forEach((listItem) => {
+                listItem.classList.remove("hidden");
+
+                if (
+                  (listItem as HTMLElement).dataset.filterType === filterType
+                ) {
+                  listItem.classList.remove("hidden");
+                } else {
+                  listItem.classList.add("hidden");
+                }
+              });
+              projectWrapper?.classList.remove("animate-parent");
+            }, 1);
+          });
+        });
+
+        clearFilterBtn?.addEventListener("click", () => {
+          clearFilterBtn?.classList.add("active");
+          filterTypeBtns.forEach((btn) => {
+            btn.classList.remove("active");
+          });
+
+          listItems.forEach((listItem) => {
+            listItem.classList.remove("hidden");
+          });
+        });
+      });
+
+      // Navbar Toggler
+      document.addEventListener("swup:page:load", () => {
+        const body = document.body;
+        const navbarToggler = document.querySelector(".navbar-toggler");
+        navbarToggler?.addEventListener("click", function () {
+          navbarToggler.classList.toggle("active");
+          body.classList.toggle("navbar-nav-collapsed");
+        });
+      });
+
+      // Hide preloader
+      const preloader = document.querySelector(".preloader");
+      preloader?.classList.add("hidden");
+
+      // back to top button in plain js
+      let backToTop = document.querySelector(".back-to-top");
+      backToTop?.addEventListener("click", function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      });
+
+      // Navbar Toggler
+      // ----------------------------------------
+      const navbarToggler = document.querySelector(".navbar-toggler");
+      navbarToggler?.addEventListener("click", function () {
+        navbarToggler.classList.toggle("active");
+        document.body.classList.toggle("navbar-nav-collapsed");
+      });
+    </script>
+
+    <script is:inline data-no-swup>
+      /**
+       * OverflowScroller ES5 class.
+       */
+
+      function OverflowScroller(element, options) {
+        this.element = element;
+        this.options = options;
+        this.lastKnownY = window.scrollY;
+        this.currentTop = 0;
+        this.initialTopOffset =
+          options["offsetTop"] ||
+          parseInt(window.getComputedStyle(this.element).top);
+        this.attachListeners();
+      }
+
+      OverflowScroller.prototype.destroy = function () {
+        window.removeEventListener("scroll", this.checkPositionListener);
+      };
+
+      OverflowScroller.prototype.attachListeners = function () {
+        this.checkPositionListener = this.checkPosition.bind(this);
+        window.addEventListener("scroll", this.checkPositionListener);
+      };
+
+      OverflowScroller.prototype.checkPosition = function () {
+        var $this = this;
+
+        fastdom.measure(function () {
+          var bounds = $this.element.getBoundingClientRect(),
+            maxTop =
+              bounds.top +
+              window.scrollY -
+              $this.element.offsetTop +
+              $this.initialTopOffset,
+            minTop =
+              $this.element.clientHeight -
+              window.innerHeight +
+              ($this.options["offsetBottom"] || 0);
+
+          if (window.scrollY < $this.lastKnownY) {
+            $this.currentTop -= window.scrollY - $this.lastKnownY;
+          } else {
+            $this.currentTop += $this.lastKnownY - window.scrollY;
+          }
+
+          $this.currentTop = Math.min(
+            Math.max($this.currentTop, -minTop),
+            maxTop,
+            $this.initialTopOffset
+          );
+          $this.lastKnownY = window.scrollY;
+        });
+
+        fastdom.mutate(function () {
+          $this.element.style.top = $this.currentTop + "px";
+        });
+      };
+
+      var stickyElements = document.querySelectorAll(".ms-sticky-sidebar");
+      stickyElements.forEach((stickyElement) => {
+        const offsetTop = parseInt(
+          stickyElement?.getAttribute("ms-sticky-top-offset")
+        );
+        const offsetBottom = parseInt(
+          stickyElement?.getAttribute("ms-sticky-bottom-offset")
+        );
+
+        new OverflowScroller(stickyElement, {
+          offsetTop: offsetTop,
+          offsetBottom: offsetBottom,
+        });
+      });
+
+      /* FastDom https://github.com/wilsonpage/fastdom */
+      !(function (t) {
+        "use strict";
+        function e() {
+          var e = this;
+          (e.reads = []), (e.writes = []), (e.raf = u.bind(t));
+        }
+        function n(t) {
+          t.scheduled || ((t.scheduled = !0), t.raf(i.bind(null, t)));
+        }
+        function i(t) {
+          var e,
+            i = t.writes,
+            o = t.reads;
+          try {
+            o.length, r(o), i.length, r(i);
+          } catch (t) {
+            e = t;
+          }
+          if (((t.scheduled = !1), (o.length || i.length) && n(t), e)) {
+            if ((e.message, !t.catch)) throw e;
+            t.catch(e);
+          }
+        }
+        function r(t) {
+          for (var e; (e = t.shift()); ) e();
+        }
+        function o(t, e) {
+          var n = t.indexOf(e);
+          return !!~n && !!t.splice(n, 1);
+        }
+        function s(t, e) {
+          for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n]);
+        }
+        var u =
+          t.requestAnimationFrame ||
+          t.webkitRequestAnimationFrame ||
+          t.mozRequestAnimationFrame ||
+          t.msRequestAnimationFrame ||
+          function (t) {
+            return setTimeout(t, 16);
+          };
+        e.prototype = {
+          constructor: e,
+          measure: function (t, e) {
+            var i = e ? t.bind(e) : t;
+            return this.reads.push(i), n(this), i;
+          },
+          mutate: function (t, e) {
+            var i = e ? t.bind(e) : t;
+            return this.writes.push(i), n(this), i;
+          },
+          clear: function (t) {
+            return o(this.reads, t) || o(this.writes, t);
+          },
+          extend: function (t) {
+            if ("object" != typeof t) throw new Error("expected object");
+            var e = Object.create(this);
+            return (
+              s(e, t), (e.fastdom = this), e.initialize && e.initialize(), e
+            );
+          },
+          catch: null,
+        };
+        var exports = (t.fastdom = t.fastdom || new e());
+        "function" == typeof define
+          ? define(function () {
+              return exports;
+            })
+          : "object" == typeof module && (module.exports = exports);
+      })("undefined" != typeof window ? window : this);
+    </script>
+
+    <script src="https://cdn.usefathom.com/script.js" data-site="KAMZYWNX" defer
+    ></script>
+
+    <!-- Vimeo Script -->
+    <script is:inline data-no-swup>
+      document.addEventListener("swup:enable", () => {
+        /**
+         * Ported from https://github.com/paulirish/lite-youtube-embed
+         *
+         * A lightweight vimeo embed. Still should feel the same to the user, just MUCH faster to initialize and paint.
+         *
+         * Thx to these as the inspiration
+         *   https://storage.googleapis.com/amp-vs-non-amp/youtube-lazy.html
+         *   https://autoplay-youtube-player.glitch.me/
+         *
+         * Once built it, I also found these:
+         *   https://github.com/ampproject/amphtml/blob/master/extensions/amp-youtube (👍👍)
+         *   https://github.com/Daugilas/lazyYT
+         *   https://github.com/vb/lazyframe
+         */
+        class LiteVimeo extends (globalThis.HTMLElement ?? class {}) {
+          /**
+           * Begin pre-connecting to warm up the iframe load
+           * Since the embed's network requests load within its iframe,
+           *   preload/prefetch'ing them outside the iframe will only cause double-downloads.
+           * So, the best we can do is warm up a few connections to origins that are in the critical path.
+           *
+           * Maybe `<link rel=preload as=document>` would work, but it's unsupported: http://crbug.com/593267
+           * But TBH, I don't think it'll happen soon with Site Isolation and split caches adding serious complexity.
+           */
+          static _warmConnections() {
+            if (LiteVimeo.preconnected) return;
+            LiteVimeo.preconnected = true;
+
+            // The iframe document and most of its subresources come right off player.vimeo.com
+            addPrefetch("preconnect", "https://player.vimeo.com");
+            // Images
+            addPrefetch("preconnect", "https://i.vimeocdn.com");
+            // Files .js, .css
+            addPrefetch("preconnect", "https://f.vimeocdn.com");
+            // Metrics
+            addPrefetch("preconnect", "https://fresnel.vimeocdn.com");
+          }
+
+          connectedCallback() {
+            this.videoId = this.getAttribute("videoid");
+
+            /**
+             * Lo, the vimeo placeholder image!  (aka the thumbnail, poster image, etc)
+             * We have to use the Vimeo API.
+             */
+            let { width, height } = getThumbnailDimensions(
+              this.getBoundingClientRect()
+            );
+            let devicePixelRatio = window.devicePixelRatio || 1;
+            if (devicePixelRatio >= 2) devicePixelRatio *= 0.75;
+            width = Math.round(width * devicePixelRatio);
+            height = Math.round(height * devicePixelRatio);
+
+            // fetch(`https://vimeo.com/api/v2/video/${(this.videoId)}.json`)
+            //   .then((response) => response.json())
+            //   .then((data) => {
+            //     let thumbnailUrl = data[0].thumbnail_large;
+            //     thumbnailUrl = thumbnailUrl.replace(
+            //       /-d_[\dx]+$/i,
+            //       `-d_${width}x${height}`
+            //     );
+            //     this.style.backgroundImage = `url("${thumbnailUrl}")`;
+            //   });
+
+            let playBtnEl = this.querySelector(".ltv-playbtn");
+            // A label for the button takes priority over a [playlabel] attribute on the custom-element
+            this.playLabel =
+              (playBtnEl && playBtnEl.textContent.trim()) ||
+              this.getAttribute("playlabel") ||
+              "Play video";
+
+            if (!playBtnEl) {
+              playBtnEl = document.createElement("button");
+              playBtnEl.type = "button";
+              playBtnEl.setAttribute("aria-label", this.playLabel);
+              playBtnEl.classList.add("ltv-playbtn");
+              this.append(playBtnEl);
+            }
+            playBtnEl.removeAttribute("href");
+
+            // On hover (or tap), warm up the TCP connections we're (likely) about to use.
+            this.addEventListener("pointerover", LiteVimeo._warmConnections, {
+              once: true,
+            });
+
+            // Once the user clicks, add the real iframe and drop our play button
+            // TODO: In the future we could be like amp-youtube and silently swap in the iframe during idle time
+            //   We'd want to only do this for in-viewport or near-viewport ones: https://github.com/ampproject/amphtml/pull/5003
+            this.addEventListener("click", this.addIframe);
+          }
+
+          addIframe() {
+            if (this.classList.contains("ltv-activated")) return;
+            this.classList.add("ltv-activated");
+
+            const iframeEl = document.createElement("iframe");
+            iframeEl.width = 640;
+            iframeEl.height = 360;
+            // No encoding necessary as [title] is safe. https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#:~:text=Safe%20HTML%20Attributes%20include
+            iframeEl.title = this.playLabel;
+            iframeEl.allow =
+              "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+            // AFAIK, the encoding here isn't necessary for XSS, but we'll do it only because this is a URL
+            // https://stackoverflow.com/q/64959723/89484
+            iframeEl.src = this.videoId.startsWith("http")
+              ? this.videoId
+              : `https://player.vimeo.com/video/${encodeURIComponent(this.videoId)}?autoplay=1`;
+            this.append(iframeEl);
+
+            // Set focus for a11y
+            iframeEl.addEventListener("load", iframeEl.focus, { once: true });
+          }
+        }
+
+        if (
+          globalThis.customElements &&
+          !globalThis.customElements.get("lite-vimeo")
+        ) {
+          globalThis.customElements.define("lite-vimeo", LiteVimeo);
+        }
+
+        /**
+         * Add a <link rel={preload | preconnect} ...> to the head
+         */
+        function addPrefetch(kind, url, as) {
+          const linkElem = document.createElement("link");
+          linkElem.rel = kind;
+          linkElem.href = url;
+          if (as) {
+            linkElem.as = as;
+          }
+          linkElem.crossorigin = true;
+          document.head.append(linkElem);
+        }
+
+        /**
+         * Get the thumbnail dimensions to use for a given player size.
+         *
+         * @param {Object} options
+         * @param {number} options.width The width of the player
+         * @param {number} options.height The height of the player
+         * @return {Object} The width and height
+         */
+        function getThumbnailDimensions({ width, height }) {
+          let roundedWidth = width;
+          let roundedHeight = height;
+
+          // If the original width is a multiple of 320 then we should
+          // not round up. This is to keep the native image dimensions
+          // so that they match up with the actual frames from the video.
+          //
+          // For example 640x360, 960x540, 1280x720, 1920x1080
+          //
+          // Round up to nearest 100 px to improve cacheability at the
+          // CDN. For example, any width between 601 pixels and 699
+          // pixels will render the thumbnail at 700 pixels width.
+          if (roundedWidth % 320 !== 0) {
+            roundedWidth = Math.ceil(width / 100) * 100;
+            roundedHeight = Math.round((roundedWidth / width) * height);
+          }
+
+          return {
+            width: roundedWidth,
+            height: roundedHeight,
+          };
+        }
+      });
+    </script>
+  </body>
+</html>

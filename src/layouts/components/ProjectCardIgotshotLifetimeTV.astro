@@ -1,0 +1,83 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify, slugify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+import dateFormat from "@/lib/utils/dateFormat";
+interface Props {
+  content: CollectionEntry<"tv-emmering">;
+}
+
+const {
+  content: {
+    data: { title, date, tags, image, category },
+    slug,
+  },
+} = Astro.props;
+---
+
+<div class="relative overflow-hidden">
+  <div class="group">
+    <div
+      class="md:overlay after:opacity-0 after:bg-igot/40 group-hover:after:opacity-100 after:duration-300">
+      {
+        image && (
+          <a href={`/igotshot-lifetime/tv-emmering/${slug}/`} class="">
+            <ImageMod
+              src={image}
+              width="full"
+              height={640}
+              class="w-full rounded"
+              alt={title}
+            />
+          </a>
+        )
+      }
+    </div>
+    <div
+      class="max-md:from-dark max-md:to-white/10 top-0 w-full h-full flex flex-col justify-end text-igot p-5 z-10">
+      {
+        title && (
+          <h3 class=" text-2xl mb-2 mt-auto text-dark dark:text-igot">
+            <a
+              href={`/igotshot-lifetime/tv-emmering/${slug}/`}
+              class="after:content-[''] after:inset-0 after:w-full duration-0">
+              <span class="block" set:html={markdownify(title)} />
+            </a>
+          </h3>
+        )
+      }
+      {
+        category && (
+          <p class="text-igot text-lg">
+            <DynamicIcon
+              className="inline-block fill-igot me-2"
+              icon="TfiTag"
+            />
+            <span class="capitalize text-text dark:text-inherit">
+              {category}
+              <span class="capitalize " set:html={dateFormat(date, "dd")} />
+              <span class="capitalize " set:html={dateFormat(date, "MMM")} />
+              <span class="capitalize " set:html={dateFormat(date, "yyyy")} />
+            </span>
+          </p>
+        )
+      }
+      {
+        tags &&
+          tags.map((tag) => {
+            {
+              (" . ");
+            }
+            return (
+              <a
+                href={`/tags/${slugify(tag)}/`}
+                class="capitalize underline ms-1">
+                {slugify(tag)}
+              </a>
+            );
+          })
+      }
+    </div>
+  </div>
+</div>

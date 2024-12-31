@@ -1,0 +1,88 @@
+{
+  "site": {
+    "title": "Campos Viola gUG (i.G.)",
+    "base_url": "https://camposviola.de",
+    "base_path": "/",
+    "trailing_slash": "always",
+    "favicon": "/images/favicon.svg",
+    "logo": "/images/LogoCV/CV.svg",
+    "logo_width": "125",
+    "logo_height": "125",
+    "logo_footer": "/images/LogoCV/CV.svg",
+    "logo_footer_width": "70",
+    "logo_footer_height": "70",
+    "logo_text": "Campos Viola gUG (i.G.)"
+  },
+
+  "settings": {
+    "theme_switcher": true,
+    "default_theme": "system",
+    "pagination": 21,
+    "blog_folder": "hochzeitsblog",
+    "summary_length": 150
+  },
+
+  "params": {
+    "top_header": true,
+    "preloder": true,
+    "contact_form_action": "/kontakt",
+    "footer_description": "Kontaktiere uns über WhatsApp oder Signal und folge uns auf Instagram, LinkedIn oder Vimeo",
+    "blog_description": "Unterstütze uns, indem du uns auf Instagram, LinkedIn oder Vimeo folgst.",
+    "copyright": "© 2009 – 2025 Campos Viola gUG (i.G.), All rights reserved",
+    "contact_info": {
+      "email": "werde Fördermitglied",
+      "phone": "+4981052080020"
+    },
+    "google_map": {
+      "enable": false,
+      "address": "https://www.google.com/maps/embed/v1/place?q=Hollywood+coffee+club,+Riyadh+Saudi+Arabia&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+    }
+  },
+
+  "navigation": {
+    "_comment": "If the submenu works, this can be deleted",
+    "enable": true,
+    "label": "#",
+    "link": "/weristcv"
+  },
+
+  "urheberrecht": {
+    "title":"Note:",
+    "description": "Die vorliegenden Aufnahmen wurden als Zeitdokumente im Kontext der Zeitgeschichte aufgenommen und stehen der Allgemeinheit kostenfrei als zeitgenössische Fotografien zur Verfügung. Daher ist die private Verwendung dieser Bilder und Videos gestattet, wobei eine Nennung des Urhebers sehr erwünscht ist. Bei Veröffentlichungen in öffentlichen Medien wie beispielsweise Wochenblättern sind Anfragen erforderlich und die entsprechenden Bildurheberrechte zu beachten. Die Nutzung für kostenpflichtigen Inhalt sowie von redaktionellen Artikeln oder für andere Inhalte unterliegt der Vergütung gemäß den MFM-Richtlinien und kommt dem jeweiligen Verein zugute."
+  },
+
+  "subscription_in_footer": {
+    "enable": true,
+    "title": "Subscribe Us",
+    "description": "Lorem ipsum dolor sit amet, consect etur adipisicing. elit sed do eiusmod.",
+    "placeholder": "Enter Your Email Address",
+    "mailchimp_form_action": "https://gmail.us4.list-manage.com/subscribe/post?u=463ee871f45d2d93748e77cad&amp;id=a0a2c6d074",
+    "mailchimp_form_name": "b_463ee871f45d2d93748e77cad_a0a2c6d074"
+  },
+
+  "subscription_in_blog_sidebar": {
+    "enable": true,
+    "title": "Kostenlos Kennenlernshooting",
+    "description": "Die beste Möglichkeit, um den wahren Wert eines Fotografen einzuschätzen, besteht darin, selbst vor die Linse zu treten und ihn persönlich kennenzulernen. Wir freuen uns darauf, von dir eine E-Mail zu bekommen um dein Termin für ein kostenloses Kennenlernshooting zu vereinbaren. Hierzu können wir auch gerne einfach telefonieren:",
+    "placeholder": "Enter Your Email Address",
+    "mailchimp_form_action": "https://gmail.us4.list-manage.com/subscribe/post?u=463ee871f45d2d93748e77cad&amp;id=a0a2c6d074",
+    "mailchimp_form_name": "b_463ee871f45d2d93748e77cad_a0a2c6d074"
+  },
+
+  "service_consultation_form": {
+    "enable": true,
+    "title": "Request Free Consultation",
+    "form_action": "#"
+  },
+
+  "disqus": {
+    "enable": true,
+    "shortname": "themefisher-template",
+    "settings": {}
+  },
+  "metadata": {
+    "meta_author": "Michael Campos Viola B.A.",
+    "meta_image": "/images/LogoCV/CV.svg",
+    "meta_description": "Campos Viola Photography"
+  }
+}

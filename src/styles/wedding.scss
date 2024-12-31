@@ -1,0 +1,57 @@
+body {
+  @apply  text-textdark dark:text-wedding;
+}
+p,
+.paragraph {
+  @apply  text-textdark dark:text-wedding;
+}
+li {
+  @apply  text-textdark dark:text-wedding;
+}
+a {
+  @apply hover:text-wedding duration-200 hover:underline;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply  text-textdark dark:text-wedding;
+}
+b,
+strong {
+  @apply  text-textdark dark:text-wedding;
+}
+
+code {
+  @apply text-textdark dark:text-wedding;
+}
+text {
+  @apply text-textdark dark:text-wedding;
+}
+table {
+  @apply text-textdark dark:text-wedding;
+}
+svg {
+  @apply text-textdark dark:text-wedding hover:fill-wedding;
+}
+/* Links */  
+p > a {
+  @apply text-wedding dark:text-wedding;
+} 
+.navbar-brand {
+  @apply text-wedding border-wedding; 
+}
+.social-icons li a {
+  @apply text-wedding border-wedding; 
+}
+.bg-primary{
+  @apply bg-wedding text-white; 
+}
+.border-2{
+  @apply border-wedding; 
+}
+.back-to-top{
+  @apply border-wedding bg-bgweiss dark:bg-bgdark; 
+}

@@ -1,0 +1,141 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import type { CollectionEntry } from "astro:content";
+import Social from "@/components/Social.astro";
+import social from "@/config/social.json";
+interface Props {
+  project: CollectionEntry<"tv-emmering">;
+}
+export async function getStaticPaths() {
+  const COLLECTION_FOLDER = "tv-emmering";
+  const postCollection = await getSinglePage(COLLECTION_FOLDER);
+
+  const paths = postCollection.map((post) => ({
+    params: {
+      single: post.slug,
+    },
+    props: { post },
+  }));
+  return paths;
+}
+
+const {
+  post: { data, body, render },
+} = Astro.props;
+const {
+  title,
+  beschreibung,
+  meta_title,
+  section,
+  description,
+  image,
+  keywords,
+  information,
+  btn_link,
+  text,
+} = data;
+
+const { Content } = await render();
+---
+
+<Base
+  title={title}
+  image={image}
+  section={section}
+  keywords={keywords}
+  meta_title={meta_title}
+  description={description}
+  body_class="page-color-dark-igotshot page-color-light-igotshot">
+  <PageHeader title={title} />
+
+  <section class="section">
+    <div class="container">
+      <div class="row items-start gy-4">
+        <aside
+          class="lg:col-4 lg:sticky lg:top-0 ms-sticky-sidebar"
+          ms-sticky-top-offset="230"
+          ms-sticky-bottom-offset="10">
+          <div class="flex flex-col gap-12">
+            <div class="text-center h-full md:rounded overflow-hidden group">
+              {
+                image && (
+                  <img
+                    src={image}
+                    width={300}
+                    height={400}
+                    alt={title ? title : "projekt image"}
+                    class="w-full inline-block object-cover object-center"
+                  />
+                )
+              }
+
+              {
+                information && (
+                  <div class="py-2 px-4 pb-3">
+                    {information.map((info) => {
+                      const { data, label, icon } = info;
+                      return (
+                        <div class="p-3 flex justify-between">
+                          <p class=" font-primary m-0">
+                            {icon && (
+                              <DynamicIcon
+                                className="inline-block me-2"
+                                icon={icon}
+                              />
+                            )}
+                            {label}
+                          </p>
+                          <span
+                            class="font-medium text-end text-dark dark:text-igot"
+                            set:html={markdownify(data)}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )
+              }
+            </div>
+            <!-- Social Links -->
+            <hr class="h-px my-2">
+              <h2 class="h5 pt-2 text-start ml-8" set:html="Folge uns auf" />
+                <p class="my-2 text-base text-start ml-8" set:html="Whatsapp, Instagram, LinkedIn, Vimeo" />
+                <div class="py-4"> 
+                  <Social source={social.main} className="social-icons" />
+                </div>
+          </div>
+        </aside>
+        <article class="lg:col-8">
+          {title && <h2 class="h3" set:html={markdownify(title)} />}
+          {
+            beschreibung && (
+              <p class="mb-10" set:html={markdownify(beschreibung)} />
+            )
+          }
+          <div class="row">
+            {
+              body && (
+                <p class="content">
+                  <Content />
+                </p>
+              )
+            }
+            <div class="py-4">
+              <a
+                data-te-nav-link-ref
+                class="text-center mx-2 border-2 border-igot rounded-xl hover:bg-igot hover:text-bgweiss py-2 px-4 dark:border-igot uppercase"
+                href={btn_link}
+                rel="nofollow">
+                {text}
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</Base>

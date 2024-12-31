@@ -1,0 +1,57 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import type { CallToActionType } from "@/types";
+
+interface Props {
+  content: CallToActionType;
+}
+
+const {
+  content: { enable, title, conten, button1, button2, beschreibung },
+} = Astro.props;
+
+
+---       
+  <div class="container ">
+    { enable && (
+      <section class="overlay rounded-md overflow-hidden after:bg-wedding/30 dark:after:bg-wedding/20 border-l-4 border-wedding" >
+        <div class="container overlay-content">
+          <div class="row items-center text-start">
+            <div class="lg:col-6">
+              {title && (
+                <h2 class="text-dark dark:text-wedding"
+                  set:html={markdownify(title)}/>
+              )}
+              {conten && (
+                <p class="text-dark dark:text-wedding"
+                  set:html={markdownify(conten)}/> 
+              )} 
+              <div class="py-8">         
+              {button1?.enable && button1.label && (
+                <a href={button1.link}
+                  class="mx-2 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss py-4 px-8 dark:border-wedding"
+                  set:html={markdownify(button1.label)}/>
+              )}</div>
+              <div class="py-8">
+              {button2?.enable && button1.label && (
+                <a href={button2.link}
+                  class="mx-2 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss py-4 px-8 dark:border-wedding"
+                  set:html={markdownify(button2.label)}/>
+              )}
+              </div>
+              {beschreibung && (
+                <p class="text-dark dark:text-wedding"
+                  set:html={markdownify(beschreibung)}/>
+              )}
+              </div> 
+              <div class="lg:col-6 items-end justify-end ">
+              <div>
+                <img class="justify-end items-end h-[650px] max-w-full" src="/images/hochzeitsblog/kennenlernshooting.webp" alt="kennenlernshooting">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      )
+    }
+  </div>

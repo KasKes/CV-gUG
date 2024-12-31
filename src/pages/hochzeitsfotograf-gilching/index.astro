@@ -1,0 +1,571 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+import ImageMod from "@/components/ImageMod.astro";
+
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+
+
+const {
+  render,
+  data: {
+    title,
+    description,
+    meta_title,
+    image,
+    keywords,
+    preisebild,
+    individuelleBilder,
+    individuelleErfahrung,
+    individuelleAnfang,
+    individuelleKennenlernshooting,
+  },
+} = await getEntry("landingpage", "hochzeitsfotograf-gilching");
+const { Content } = await render();
+
+
+
+const { data } = await getEntry("preise", "wedding-one");
+const {
+  pricingTable,
+} = data as PricingType;
+
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  image={image}
+  keywords={keywords}
+  description={description}
+  body_class="page-color-dark-hochzeits page-color-light-hochzeits">
+  <section class="overflow-hidden">
+    <div class="container">
+      <h1 class="text-center">Hochzeitsfotograf Gilching</h1>
+      <div class="pt-8">
+        <div class="col-12 text-center">
+          <a
+            href={image}
+            data-no-swup
+            class="glightbox"
+            data-gallery="gallery-group-1">
+            <ImageMod
+              src={image}
+              width="full"
+              height="full"
+              class="mx-auto rounded"
+              alt={title}
+            />
+          </a>
+        </div>
+      </div>
+
+      <!-- //ANCHOR -  für zeitgemäße und emotionale Bilder -->
+      
+      <section class="py-4"> 
+            <h2>
+              Hochzeitsfotograf in Gilching
+            </h2>
+            <p class="text-3xl text-wedding">
+              für zeitgemäße und emotionale Bilder
+            </p>
+            <p class="py-4 leading-relaxed">
+              Du wünschst Dir für Deine Trauung professionelle Hochzeitsfotografie in Gilching, um die einzigartige Atmosphäre dieses prägenden Erlebnisses bildlich festzuhalten. Als erfahrener Hochzeitsfotograf in Gilching bin ich stets darum bemüht, mit viel Einfühlungsvermögen einprägsame Bilder zu kreieren, die die individuelle Ausstrahlung jedes Brautpaars einfangen. Meine Hochzeitsfotografie in Gilching steht für professionelle Arbeit und zeitgemäßen Stil, um Eure Liebesgeschichte auf emotionale Weise zu porträtieren. </p>
+            <div>
+      </section>
+
+      <!-- //ANCHOR -  Bilder -->
+      <section class="py-4">
+        {
+          individuelleBilder.bilder && (
+            <div class="col-12">
+              <div class="row justify-center lg:justify-normal content-around items-center">
+                {individuelleBilder.bilder.map((item, index) => {
+                  return (
+                    <div class="col-12 lg:col-4 text-center pt-8">
+                      <a
+                        href={item}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={item}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded"
+                          alt={title}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </section>
+      <!-- //ANCHOR -  vielfältige Möglichkeiten für ein einzigartiges Ergebnis  -->
+      <section class="py-8">
+        <div class="row">
+          <div class="lg:col-6 text-start"> 
+            <h2>
+              Hochzeitsfotograf in Gilching
+            <h2/>
+            <p class="text-3xl text-wedding">
+              vielfältige Möglichkeiten für ein einzigartiges Ergebnis 
+            </p>
+            <p class="pt-4 pb-2">Als Brautpaar seid Ihr unverwechselbar – und dies möchtet Ihr auf Eurer Hochzeit der ganzen Welt zeigen. Als Hochzeitsfotograf in Gilching habe ich es mir zur Aufgabe gemacht, Eure Einzigartigkeit auf künstlerische Weise herauszuarbeiten. Nach meinem Studium der Fotografie und des Kommunikationsdesigns an der Akademie Deutsche POP München und der UNI London West habe ich mich dazu entschieden, professionelle und kreative Hochzeitsfotografie in Gilching anzubieten.</b>
+            <p class="pb-2">Heute fertige ich als erfahrener Fotograf mit meinem kreativen Know-how authentische Bilder von Eurem schönsten Tag an. Durch meine Mehrsprachigkeit und fließenden Englischkenntnisse bin ich als Fotograf auch der ideale Ansprechpartner für internationale Brautpaare (Kundenreferenzen). Ein wesentlicher Aspekt meiner Arbeit als Hochzeitsfotograf in Gilching ist mein intensiver Ausstauch mit Kollegen und Künstlern.</p>
+            <p class="pb-2">erlaubt mir, mit meiner Hochzeitsfotografie in Gilching immer mit der Zeit zu gehen und ein vielfältiges Spektrum an technischen und stilistischen Möglichkeiten in meine Arbeit einfließen zu lassen. 
+            </p>
+          </div>
+            <div class="lg:col-6 items-end justify-end ">
+              {
+                pricingTable &&
+                  pricingTable.map((table) => (
+                    <div class="">
+                      <div class="flex flex-col">
+                        <div class="rounded">
+                          <img                
+                            data-no-swup
+                            class="glightbox block w-[100%] h-[100%]  rounded"
+                            data-gallery="gallery-group-1"
+                            width="full"
+                            height="full"
+                            src={preisebild}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    ))
+              }
+            </div>  
+
+<!-- Prices -->
+<section>
+    <div class="mx-auto mt-16 max-w-2xl rounded border border-wedding bg-wedding/20 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+      <div class="p-8 sm:p-10 lg:flex-auto">
+        <h2 class="font-bold tracking-tight ">Klein und Fein</h2>
+        <p class="mt-6 leading-7 text-wedding ">z. B. Hochzeitsreportage beim Standesamt.</p>
+        <div class="mt-10 flex items-center gap-x-4">
+          <h4 class="flex-none  uppercase leading-6">Inklusiv</h4>
+          <div class="h-px flex-auto bg-wedding"></div>
+        </div>
+        <ul class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+          <li class="flex gap-x-3">
+            <svg class="h-6 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+            Vorab immer ein kostenloses Kennenlernshooting inkl. aller Bilder
+          </li>
+          <li class="flex gap-x-3">
+            <svg class="h-6 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+            Bilder kalibriert in Farbraum Adobe RGB D65 mit einer Helligkeit von 120 cd/m²
+          </li>
+          <li class="flex gap-x-3">
+            <svg class="h-6 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+            Visitenkarten mit Passwort SSL (Zugriffsverwaltung für Hochzeitsgäste)
+          </li>
+          <li class="flex gap-x-3">
+            <svg class="h-6 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+            Hochzeits-App mit kostenlosem Download der Bilder, ohne Wasserzeichen, voller Auflösung + USB-Stick
+          </li>
+        </ul>
+      </div>
+      <div class="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+        <div class="py-10 text-center lg:flex lg:flex-col lg:justify-center lg:py-16">
+          <div class="mx-auto max-w-xs px-8">
+            <p class="font-semibold text-wedding">90 min Begleitung</p>
+            <p class="mt-6 flex text-wedding items-baseline justify-center gap-x-2">
+              <span class="text-sm  text-wedding font-semibold leading-6 tracking-wide ">ab</span>
+              <span class="text-5xl text-wedding font-bold tracking-tight">350</span>
+              <span class="text-5xl text-wedding font-semibold leading-6 tracking-wide ">€</span>
+            </p>
+            <a class="text-center my-5 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss py-4 dark:border-wedding flex uppercase"
+            href="#kennenlernshooting">
+            Sichere dir jetzt dein Kostenlosses Kennenlernshooting! 
+            </a>
+            <p class="mt-6 text-xs leading-5 ">Keine Anzahlung, bequem per Rechnung nach vollständiger Auftragsabwicklung</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+
+
+        </div>
+
+      </section>
+
+      <!-- //ANCHOR -  Bilder 2 -->
+      <section class="py-4">
+        {
+          individuelleErfahrung.bilder && (
+            <div class="col-12">
+              <div class="row justify-center lg:justify-normal content-around items-center">
+                {individuelleErfahrung.bilder.map((item, count) => {
+                  return (
+                    <div class="col-12 lg:col-6 text-center pt-8">
+                      <a
+                        href={item}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={item}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded"
+                          alt={title}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </section>
+      <!-- //ANCHOR -  für eine emotionale Bildgestaltung -->
+      <section class="py-4">
+        <h2>
+          Hochzeitsfotograf in Gilching 
+        </h2>
+        <p class="text-3xl text-wedding">
+          für eine emotionale Bildgestaltung
+        </p>
+        <p class="pt-8 leading-relaxed">
+          Neben meinen hohen künstlerischen Ansprüchen habe ich es mir als Hochzeitsfotograf in Gilching auch zur Aufgabe gemacht, Brautpaare auf persönliche Art zu betreuen, um alle Emotionen und besonderen Augenblicke zwischen Euch festzuhalten. Mit meiner Hochzeitsfotografie in Gilching werden Eure Zeremonie und Feier unvergesslich bleiben. Damit ich als Hochzeitsfotograf alle Eure Vorstellungen in jedem Detail künstlerisch umsetzen kann, ist mir ein kostenloses Probeshooting im Vorfeld besonders wichtig. Dieses Kennenlernen ebnet den Weg zu einer Hochzeitsfotografie in Gilching, die Eure individuelle Persönlichkeit und Aura unterstreicht. Als engagierter Hochzeitsfotograf in Gilching stelle ich Euch im Rahmen des Probeshootings alle kreativen und technischen Möglichkeiten vor. Dadurch können wir zusammen einen unverwechselbaren Stil der Hochzeitsfotografie in Gilching erarbeiten, der genau zu Euch passt.</p>
+        </section>
+<!-- //ANCHOR - bewertung  -->
+<section>
+    <div class="bg-[color-mix(in_srgb,var(--pageColorDark),transparent_90%)] rounded-lg flex-col sm:flex-row flex mb-10">
+      <div class="sm:flex-[200px] max-sm:w-full min-w-[200px] sm:max-w-[200px] flex-col items-center sm:border-e max-sm:border-b py-4 border-[var(--pageColorDark)] flex justify-start">
+        <img
+          class="rounded-full border-2 border-[var(--pageColorDark)] object-cover mt-0"
+          src="/images/hochzeitsblog/wedding/babett-alex-rezension.jpg"
+          class="rounded-full border-2 border-[var(--pageColorDark)] object-cover mt-0"
+          width="100"
+          height="100"
+          alt="rezension babett und alex"
+        />
+        <h2 class="h6 font-normal text-center mt-4 mb-0">
+          Babett und Alex
+        </h2>
+        <div class="mt-2 flex justify-center gap-x-2">
+          <>
+            <svg
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9.15316 5.40838C10.4198 3.13613 11.0531 2 12 2C12.9469 2 13.5802 3.13612 14.8468 5.40837L15.1745 5.99623C15.5345 6.64193 15.7144 6.96479 15.9951 7.17781C16.2757 7.39083 16.6251 7.4699 17.3241 7.62805L17.9605 7.77203C20.4201 8.32856 21.65 8.60682 21.9426 9.54773C22.2352 10.4886 21.3968 11.4691 19.7199 13.4299L19.2861 13.9372C18.8096 14.4944 18.5713 14.773 18.4641 15.1177C18.357 15.4624 18.393 15.8341 18.465 16.5776L18.5306 17.2544C18.7841 19.8706 18.9109 21.1787 18.1449 21.7602C17.3788 22.3417 16.2273 21.8115 13.9243 20.7512L13.3285 20.4768C12.6741 20.1755 12.3469 20.0248 12 20.0248C11.6531 20.0248 11.3259 20.1755 10.6715 20.4768L10.0757 20.7512C7.77268 21.8115 6.62118 22.3417 5.85515 21.7602C5.08912 21.1787 5.21588 19.8706 5.4694 17.2544L5.53498 16.5776C5.60703 15.8341 5.64305 15.4624 5.53586 15.1177C5.42868 14.773 5.19043 14.4944 4.71392 13.9372L4.2801 13.4299C2.60325 11.4691 1.76482 10.4886 2.05742 9.54773C2.35002 8.60682 3.57986 8.32856 6.03954 7.77203L6.67589 7.62805C7.37485 7.4699 7.72433 7.39083 8.00494 7.17781C8.28555 6.96479 8.46553 6.64194 8.82547 5.99623L9.15316 5.40838Z"
+                fill="currentColor"
+              />
+            </svg>
+            <svg
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9.15316 5.40838C10.4198 3.13613 11.0531 2 12 2C12.9469 2 13.5802 3.13612 14.8468 5.40837L15.1745 5.99623C15.5345 6.64193 15.7144 6.96479 15.9951 7.17781C16.2757 7.39083 16.6251 7.4699 17.3241 7.62805L17.9605 7.77203C20.4201 8.32856 21.65 8.60682 21.9426 9.54773C22.2352 10.4886 21.3968 11.4691 19.7199 13.4299L19.2861 13.9372C18.8096 14.4944 18.5713 14.773 18.4641 15.1177C18.357 15.4624 18.393 15.8341 18.465 16.5776L18.5306 17.2544C18.7841 19.8706 18.9109 21.1787 18.1449 21.7602C17.3788 22.3417 16.2273 21.8115 13.9243 20.7512L13.3285 20.4768C12.6741 20.1755 12.3469 20.0248 12 20.0248C11.6531 20.0248 11.3259 20.1755 10.6715 20.4768L10.0757 20.7512C7.77268 21.8115 6.62118 22.3417 5.85515 21.7602C5.08912 21.1787 5.21588 19.8706 5.4694 17.2544L5.53498 16.5776C5.60703 15.8341 5.64305 15.4624 5.53586 15.1177C5.42868 14.773 5.19043 14.4944 4.71392 13.9372L4.2801 13.4299C2.60325 11.4691 1.76482 10.4886 2.05742 9.54773C2.35002 8.60682 3.57986 8.32856 6.03954 7.77203L6.67589 7.62805C7.37485 7.4699 7.72433 7.39083 8.00494 7.17781C8.28555 6.96479 8.46553 6.64194 8.82547 5.99623L9.15316 5.40838Z"
+                fill="currentColor"
+              />
+            </svg>
+            <svg
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9.15316 5.40838C10.4198 3.13613 11.0531 2 12 2C12.9469 2 13.5802 3.13612 14.8468 5.40837L15.1745 5.99623C15.5345 6.64193 15.7144 6.96479 15.9951 7.17781C16.2757 7.39083 16.6251 7.4699 17.3241 7.62805L17.9605 7.77203C20.4201 8.32856 21.65 8.60682 21.9426 9.54773C22.2352 10.4886 21.3968 11.4691 19.7199 13.4299L19.2861 13.9372C18.8096 14.4944 18.5713 14.773 18.4641 15.1177C18.357 15.4624 18.393 15.8341 18.465 16.5776L18.5306 17.2544C18.7841 19.8706 18.9109 21.1787 18.1449 21.7602C17.3788 22.3417 16.2273 21.8115 13.9243 20.7512L13.3285 20.4768C12.6741 20.1755 12.3469 20.0248 12 20.0248C11.6531 20.0248 11.3259 20.1755 10.6715 20.4768L10.0757 20.7512C7.77268 21.8115 6.62118 22.3417 5.85515 21.7602C5.08912 21.1787 5.21588 19.8706 5.4694 17.2544L5.53498 16.5776C5.60703 15.8341 5.64305 15.4624 5.53586 15.1177C5.42868 14.773 5.19043 14.4944 4.71392 13.9372L4.2801 13.4299C2.60325 11.4691 1.76482 10.4886 2.05742 9.54773C2.35002 8.60682 3.57986 8.32856 6.03954 7.77203L6.67589 7.62805C7.37485 7.4699 7.72433 7.39083 8.00494 7.17781C8.28555 6.96479 8.46553 6.64194 8.82547 5.99623L9.15316 5.40838Z"
+                fill="currentColor"
+              />
+            </svg>
+            <svg
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9.15316 5.40838C10.4198 3.13613 11.0531 2 12 2C12.9469 2 13.5802 3.13612 14.8468 5.40837L15.1745 5.99623C15.5345 6.64193 15.7144 6.96479 15.9951 7.17781C16.2757 7.39083 16.6251 7.4699 17.3241 7.62805L17.9605 7.77203C20.4201 8.32856 21.65 8.60682 21.9426 9.54773C22.2352 10.4886 21.3968 11.4691 19.7199 13.4299L19.2861 13.9372C18.8096 14.4944 18.5713 14.773 18.4641 15.1177C18.357 15.4624 18.393 15.8341 18.465 16.5776L18.5306 17.2544C18.7841 19.8706 18.9109 21.1787 18.1449 21.7602C17.3788 22.3417 16.2273 21.8115 13.9243 20.7512L13.3285 20.4768C12.6741 20.1755 12.3469 20.0248 12 20.0248C11.6531 20.0248 11.3259 20.1755 10.6715 20.4768L10.0757 20.7512C7.77268 21.8115 6.62118 22.3417 5.85515 21.7602C5.08912 21.1787 5.21588 19.8706 5.4694 17.2544L5.53498 16.5776C5.60703 15.8341 5.64305 15.4624 5.53586 15.1177C5.42868 14.773 5.19043 14.4944 4.71392 13.9372L4.2801 13.4299C2.60325 11.4691 1.76482 10.4886 2.05742 9.54773C2.35002 8.60682 3.57986 8.32856 6.03954 7.77203L6.67589 7.62805C7.37485 7.4699 7.72433 7.39083 8.00494 7.17781C8.28555 6.96479 8.46553 6.64194 8.82547 5.99623L9.15316 5.40838Z"
+                fill="currentColor"
+              />
+            </svg>
+            <svg
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9.15316 5.40838C10.4198 3.13613 11.0531 2 12 2C12.9469 2 13.5802 3.13612 14.8468 5.40837L15.1745 5.99623C15.5345 6.64193 15.7144 6.96479 15.9951 7.17781C16.2757 7.39083 16.6251 7.4699 17.3241 7.62805L17.9605 7.77203C20.4201 8.32856 21.65 8.60682 21.9426 9.54773C22.2352 10.4886 21.3968 11.4691 19.7199 13.4299L19.2861 13.9372C18.8096 14.4944 18.5713 14.773 18.4641 15.1177C18.357 15.4624 18.393 15.8341 18.465 16.5776L18.5306 17.2544C18.7841 19.8706 18.9109 21.1787 18.1449 21.7602C17.3788 22.3417 16.2273 21.8115 13.9243 20.7512L13.3285 20.4768C12.6741 20.1755 12.3469 20.0248 12 20.0248C11.6531 20.0248 11.3259 20.1755 10.6715 20.4768L10.0757 20.7512C7.77268 21.8115 6.62118 22.3417 5.85515 21.7602C5.08912 21.1787 5.21588 19.8706 5.4694 17.2544L5.53498 16.5776C5.60703 15.8341 5.64305 15.4624 5.53586 15.1177C5.42868 14.773 5.19043 14.4944 4.71392 13.9372L4.2801 13.4299C2.60325 11.4691 1.76482 10.4886 2.05742 9.54773C2.35002 8.60682 3.57986 8.32856 6.03954 7.77203L6.67589 7.62805C7.37485 7.4699 7.72433 7.39083 8.00494 7.17781C8.28555 6.96479 8.46553 6.64194 8.82547 5.99623L9.15316 5.40838Z"
+                fill="currentColor"
+              />
+            </svg>
+          </>
+        </div>
+      </div>
+      <div class="text-base px-6 py-4">
+        <div class="w-[60px] me-2 float-left h-[50px] relative">
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            version="1.1"
+            viewBox="0 0 17 17"
+            class="w-full text-[50px] absolute -translate-x-1/2 left-1/2 top-1/2 -translate-y-1/2"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg">
+            <>
+              <g />
+              <path d="M7.307 6.862c0-1.946-1.583-3.529-3.529-3.529-1.945 0-3.528 1.583-3.528 3.529 0 1.945 1.583 3.528 3.528 3.528 0.734 0 1.416-0.227 1.981-0.611-1.231 3.47-3.99 3.877-4.133 3.896l0.123 0.992c0.051-0.006 5.125-0.703 5.563-7.724l-0.013-0.001c0.001-0.027 0.008-0.052 0.008-0.080zM3.778 9.391c-1.394 0-2.528-1.134-2.528-2.528s1.134-2.529 2.528-2.529c1.395 0 2.529 1.135 2.529 2.529s-1.134 2.528-2.529 2.528zM16.734 6.942c0.001-0.027 0.008-0.053 0.008-0.080 0-1.946-1.583-3.529-3.528-3.529s-3.528 1.583-3.528 3.529c0 1.945 1.583 3.528 3.528 3.528 0.734 0 1.416-0.227 1.981-0.611-1.23 3.47-3.99 3.877-4.133 3.896l0.123 0.992c0.051-0.006 5.125-0.703 5.563-7.724l-0.014-0.001zM13.214 9.391c-1.394 0-2.528-1.134-2.528-2.528s1.134-2.529 2.528-2.529 2.528 1.135 2.528 2.529-1.134 2.528-2.528 2.528z" />
+            </>
+          </svg>
+        </div>
+        Wir sind mehr als glücklich mit unserer Wahl, Michael unsere
+        Hochzeit begleiten zu lassen. Michael steckt so viel Liebe,
+        Arbeit, Zeit und Ideen in die Bilder und in die Hochzeit rein.
+        Solch eine Leistung und Liebe zum Detail findet man sonst glaube
+        ich bei keinem anderen. Und sie lohnt sich aus. Es sind
+        großartige Bilder, an denen man sich nicht satt sehen kann und
+        immer wieder die Momente von neuem zu fühlen beginnt. Das
+        Fotobuch hat sowieso alles nochmal getoppt und da hat er sich
+        zum gefühlten 10x wieder mal selbst übertroffen. Sowas kriegt
+        man nirgends anders geboten. Riesiges großes Danke vom ganzen
+        Herzen an dich nochmal Michael.
+      </div>
+    </div>
+</section>
+      <!-- //ANCHOR -  Bilder 3 -->
+      <section class="py-4">
+        {
+          individuelleAnfang.bilder && (
+            <div class="col-12">
+              <div class="row justify-center lg:justify-normal content-around items-center">
+                {individuelleAnfang.bilder.map((item) => {
+                  return (
+                    <div class="col-12 lg:col-4 text-center pt-8">
+                      <a
+                        href={item}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={item}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded"
+                          alt={title}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </section>
+      <!-- //ANCHOR -  Kennelernshooting -->
+      <section class="py-4">
+        <p class="text-3xl text-wedding">
+          Hochzeitsfotograf in Gilching
+        </p>
+        <h2 class="pb-4 underline underline-offset-4">
+          Ablauf in 4 Schritte:
+        </h2>
+        <!-- 1 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4 text-end uppercase">
+            <span class="text-6xl">1</span>
+            <h3 class="text-3xl">kostenlose Kennenlernshooting</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            Das kostenlose Kennenlernshooting ist unverzichtbar. Hier lernen wir uns kennen und ich zeige Euch welche Mittel es bei der Hochzeitsfotografie gibt. Fachbegriffe, wie kurze Brennweiten, Buket oder Lifestyle , werden durch Beispielbilder sichtbar, weil ich nach dem kleinen Shooting Euch direkt die Bilder auf meinen PC (live aus der Kamera, keine Bearbeitung) zeige. Gemeinsam finden wir Euren Stil. Da entsteht auch die Auswahl für die Visitenkarten, die später Eure Gäste bekommen werden.
+          </p>
+          <div class="cal-4">
+            <div class="col-12 text-center pt-8">
+              <a
+                href={individuelleKennenlernshooting.bild1}
+                data-no-swup
+                class="glightbox"
+                data-gallery="gallery-group-1">
+                <ImageMod
+                  src={individuelleKennenlernshooting.bild1}
+                  width="full"
+                  height="full"
+                  class="rounded-full object-cover block w-[400px] h-[400px]"
+                  alt="kostenlose Kennenlernshooting"
+                />
+              </a>
+            </div> 
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4">
+            <div class="col-12 text-center pt-8">
+              <a
+                href="/images/hochzeitsblog/cards/babett-alex-cards.jpg"
+                data-no-swup
+                class="glightbox"
+                data-gallery="gallery-group-1">
+                <ImageMod
+                  src= "/images/hochzeitsblog/cards/babett-alex-cards.jpg"
+                  width="full"
+                  height="full"
+                  class="rounded-full object-cover block w-[400px] h-[400px]"
+                  alt="kostenlose Kennenlernshooting"
+                />
+              </a>
+            </div> 
+          </div>
+          <div class="cal-4 text-start uppercase">
+            <span class="text-6xl">2</span>
+            <h3 class="text-3xl">Unverbindliches Angebot</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            Nach dem Kennenlernshooting oder dem Verlobungsshooting erstelle ich Euch ein individuelles Angebot. So könnt ihr genau das buchen, was ihr für Euch und Eure Gäste eigentlich braucht. Ich stehe Euch bei der Umsetzung gerne beraten zur Seite. Unverbindlich reserviere ich Euren Hochzeitstag in meinem Kalender. Mein Angebot ist idr. 90 Tage gültig. Ihr habt genügend Zeit, die Bilder aus dem Kennenlernshooting zu teilen, um Euch zu beraten lassen oder ggf. ein Gegenangebot zu holen.
+          </p>
+        </div>
+        <!-- 3 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4 text-end uppercase">
+            <span class="text-6xl">3</span>
+            <h3 class="text-3xl">Hochzeit sorgenfrei genießen</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            Nach dem Buchen bekommt ihr eine Auftragsbestätigung. Es werden auch die Visitenkarten mit euren eigenen Bildern aus dem Kennenlernshooting für eure Gäste gedruckt. Dort ist der Code für eure geschütze Online-Galerie, wo die Bilder kostenloses heruntergeladen werden können.Zusätzlich kümmere ich mich um alle Details. die wichtige für die Fotodokumentation sind, z.B. das Standesamt oder Location zu besichtigen, alle Überraschungen Eurer Gäste im Vorfeld zu wissen, usw... Ich bin immer gut vorbereitet und tue alles in meiner Macht, damit Ihr am dem Tag Eure Hochzeit einfach genießt. 
+          </p>
+          <div class="cal-4">
+            <div class="col-12 text-center pt-8">
+              <a
+                href={individuelleKennenlernshooting.bild3}
+                data-no-swup
+                class="glightbox"
+                data-gallery="gallery-group-1">
+                <ImageMod
+                  src={individuelleKennenlernshooting.bild3}
+                  width="full"
+                  height="full"
+                  class="rounded-full object-cover block w-[400px] h-[400px]"
+                  alt="kostenlose Kennenlernshooting"
+                />
+              </a>
+            </div> 
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4">
+            <div class="col-12 text-center pt-8">
+              <a
+                href={individuelleKennenlernshooting.bild4}
+                data-no-swup
+                class="glightbox"
+                data-gallery="gallery-group-1">
+                <ImageMod
+                  src={individuelleKennenlernshooting.bild4}
+                  width="full"
+                  height="full"
+                  class="rounded-full object-cover block w-[400px] h-[400px]"
+                  alt="kostenlose Kennenlernshooting"
+                />
+              </a>
+            </div> 
+          </div>
+          <div class="cal-4 text-start uppercase">
+            <span class="text-6xl">4</span>
+            <h3 class="text-3xl">Abgabe aller Bilder</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            Die Abgaben erfolgen in 3 Schritten. Alle Bilder aus der Trauung, d.h. alles aus der Hochzeitsreportage, werden sehr zügig in Eurer Online-Galerie zur Verfügung gestellt. Mit dem Code aus der Visitenkarte können Eure Gäste die Bilder direkt kostenlos herunterladen. Die Bearbeitung der Bilder aus dem Brautshooting brauchen idr. 7 Werktage. Danach erfolgt auch die Schlussrechnung. Wenn ihr ein Hochzeitsbuch gebucht hat, gibt es hier noch eine Besonderheit, den diese werden ca. 6-8 Monate nach Eure Hochzeit erstellt. Damit ermögliche ich Euch ein Flashback an Euren schönsten Tag!
+          </p>
+        </div>
+        <!-- 5 -->
+        <div class="text-3xl pt-4 text-center" id="kennenlernshooting">
+          Hole dir ein Angebot ein
+        </div>
+        <h4 class="text-5xl text-center">
+          Unverbindlich 
+        </h4>
+            <section class="overlay rounded-md overflow-hidden after:bg-wedding/30 dark:after:bg-wedding/20 border-l-4 border-wedding" >
+              <div class="container overlay-content">
+                <div class="row items-center text-start">
+                  <div class="lg:col-6 py-4">
+                      <h2 >
+                        Kostenloses Kennenlernshooting
+                      </h2>
+                        <p class="pb-2">Um herauszufinden, wie gut ein Fotograf wirklich ist, sollte man sich selbst fotografieren lassen und ihn persönlich kennenlernen.</p>
+                        <p class="pb-2">Wir freuen uns darauf, wenn du uns eine E-Mail schickst, um deinen Termin für ein kostenloses Kennenlernshooting zu vereinbaren.</p>
+                        <p class="pb-2">Wir können auch einfach telefonieren, wenn du möchtest.</p>
+                      <div class="py-4">         
+                      <div class="py-4">  
+                        <a
+                        data-te-nav-link-ref
+                        class="text-center mx-2 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss py-4 px-8 dark:border-wedding flex uppercase"
+                        href="tel: +4981052080020">
+                        +49 08105 20 800 20
+                      </a></div>
+                      <div class="py-4">
+                        <a
+                      data-te-nav-link-ref
+                      class="text-center mx-2 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss py-4 px-8 dark:border-wedding flex uppercase"
+                      href="mailto:info@camposviola.de">
+                      E-Mail - Termin Vereinbaren
+                    </a></div>
+                    </div>
+                        <p class="pb-2">Du musst keine vorgefertigten Felder in einem Kontaktformular ausfüllen, sondern kannst mir stattdessen eine persönliche E-Mail mit den Details eurer Hochzeit schreiben.</p>
+                        <p class="pb-2">Ich freue mich!</p>
+                        <p class="pb-2">m</p>
+                    </div> 
+                    <div class="lg:col-6 items-end justify-end ">
+                       <a
+                          href={individuelleKennenlernshooting.bild5}
+                          data-no-swup
+                          class="glightbox"
+                          data-gallery="gallery-group-1">
+                          <ImageMod
+                            src={individuelleKennenlernshooting.bild5}
+                            width="full"
+                            height="full"
+                            class="object-cover"
+                            alt="kostenlose Kennenlernshooting"
+                          />
+                      </a>
+                  </div>
+                </div>
+              </div>
+            </section>
+        <div class="text-center justify-center">
+          <div class="py-4">
+            <h4 class="pt-8 text-3xl text-center">
+              Hochzeitsfotograf in Gilching
+            </h4>
+            <p class="cal-4 leading-relaxed">
+              Als Hochzeitsfotograf in Gilching ist es mir wichtig, Top-Qualität zu einem fairen Preis-Leistungs-Verhältnis anzubieten. Ganz gleich, welches Budget Euch zur Verfügung steht, meine Pakete sind auf meiner Webseite transparent ersichtlich und können auf Wunsch an Eure individuellen Vorstellungen angepasst werden. Alle Angebote umfassen eine eigene Visitenkarte, damit Eure Gäste mit einem Passwort Zugang zu Euren Bildern mit kostenlosem Download erhalten – und sich ihrerseits lang an die schönsten Momente Eurer Trauung zurück erinnern zu können.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</Base>

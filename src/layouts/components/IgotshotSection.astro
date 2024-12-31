@@ -1,0 +1,106 @@
+---
+import ProjectCardIgot from "@/components/ProjectCardHomeIgotshotPhoto.astro";
+import ProjectCardIgotL from "@/components/ProjectCardHomeIgotshotLife.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+
+const { body, Content } = Astro.props;
+const BLOG_FOLDERS = ["igotshot-photo", "igotshot-lifetime"] as const;
+const [blogCollectionIgot, blogCollectionIgotL] = await Promise.all(
+  BLOG_FOLDERS.map((folder) => getSinglePage(folder))
+);
+
+const sortedProjects = [
+sortByDate(blogCollectionIgot),
+sortByDate(blogCollectionIgotL),
+];
+
+---
+
+<section class="py-4 lg:py-10 bg-igot/10" id="igot-section">
+    <div class="container mx-auto">
+      <!-- Desktop Ansicht -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 hidden lg:grid">
+        <div class="lg:sticky lg:top-60 self-start">
+          <div class="text-start">
+            <h2 id="igot-title" class="!text-igot uppercase">igotshot.photo</h2>
+            <img src="/images/icons/community-vibes.svg" alt="Community Vibes" class="mb-4" />
+            <p class="pb-4 dark:!text-igot" id="igot-text">Mit igotshot.photo halten wir die lebendige Vielfalt kultureller und künstlerischer Veranstaltungen fest. Ob lokale Feste, Vereinstreffen oder besondere Ereignisse – unsere Bilder erzählen die Geschichten der Menschen und Momente, die sie unvergesslich machen. Zeitgenössische Dokumentation bedeutet für uns, die Kreativität und Energie einer Gemeinschaft einzufangen und für kommende Generationen zu bewahren. Jede Aufnahme schafft eine Brücke zwischen Vergangenheit, Gegenwart und Zukunft – nahbar, emotional und voller Leben.</p>
+            <a href="/igotshot/" id="igot-button" class="mt-4 border !text-igot border-igot rounded-xl hover:bg-igot hover:no-underline hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4 inline-block">Projekte ansehen bei igotshot.photo</a>
+          </div>
+        </div>
+        <div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {blogCollectionIgot.slice(0, 4).map((post, index) => (
+              <div class={`block ${index >= 1 ? 'hidden md:block' : ''} ${index >= 4 ? 'hidden xl:block' : 'block'}`}>
+                <ProjectCardIgot content={post} />
+              </div>
+            ))}
+          </div>
+          <hr class="border-t-2 border-igot my-4 w-full igot-divider" />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {blogCollectionIgotL.slice(0, 4).map((post, index) => (
+              <div class={`block ${index >= 1 ? 'hidden md:block' : ''} ${index >= 4 ? 'hidden xl:block' : 'block'}`}>
+                <ProjectCardIgotL content={post} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <!-- Mobile Ansicht -->
+      <div class="block lg:hidden">
+        <div class="text-center my-14">
+          <img src="/images/icons/community-vibes.svg" alt="Community Vibes" class="mb-4 mx-auto" />
+          <h2 class="!text-igot uppercase">igotshot.photo</h2>
+          <p class="pb-4 dark:!text-igot" id="igot-text-mobile">Mit igotshot.photo halten wir die lebendige Vielfalt kultureller und künstlerischer Veranstaltungen fest. Ob lokale Feste, Vereinstreffen oder besondere Ereignisse – unsere Bilder erzählen die Geschichten der Menschen und Momente, die sie unvergesslich machen. Zeitgenössische Dokumentation bedeutet für uns, die Kreativität und Energie einer Gemeinschaft einzufangen und für kommende Generationen zu bewahren. Jede Aufnahme schafft eine Brücke zwischen Vergangenheit, Gegenwart und Zukunft – nahbar, emotional und voller Leben.</p>
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            {blogCollectionIgot.slice(0, 4).map((post, index) => (
+              <div key={index} class="block">
+                <ProjectCardIgot content={post} />
+              </div>
+            ))}
+          </div>
+          <a href="/igotshot/" id="igot-button-mobile" class="mt-4 border !text-igot border-igot rounded-xl hover:bg-igot hover:no-underline hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4 inline-block">Projekte ansehen bei igotshot.photo</a>
+        </div>
+        <div class="text-center my-14">
+          <h2 class="!text-igot uppercase">igotshot.lifetime</h2>
+          <p class="pb-4 dark:!text-igot">igotshot.lifetime ist unsere Antwort auf langfristige kulturelle Begleitung und Dokumentation. Über Monate oder Jahre hinweg begleiten wir Gemeinschaftsprojekte, kulturelle Initiativen und besondere Partnerschaften. Unsere Bilder und Videos dokumentieren nicht nur einzelne Ereignisse, sondern erzählen die Entwicklung und den Fortschritt dieser Geschichten. Hier entstehen nicht nur Momentaufnahmen, sondern lebendige Chroniken, die den Wandel und die Leidenschaft einer Gemeinschaft sichtbar machen – nachhaltig, umfassend und voller Respekt für das Engagement der Beteiligten.</p>
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            {blogCollectionIgotL.slice(0, 4).map((post, index) => (
+              <div key={index} class="block">
+                <ProjectCardIgotL content={post} />
+              </div>
+            ))}
+          </div>
+          <a href="/igotshot/" id="igot-lifetime-button-mobile" class="mt-4 border !text-igot border-igot rounded-xl hover:bg-igot hover:no-underline hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4 inline-block">Langzeitprojekte ansehen bei igotshot.lifetime</a>
+        </div>
+      </div>
+    </div>
+  </section>  
+
+  <script>
+    document.addEventListener('scroll', function () {
+      const igotDivider = document.querySelector('.igot-divider');
+
+      if (igotDivider instanceof HTMLElement) {
+        const igotTitle = document.getElementById('igot-title');
+        const igotText = document.getElementById('igot-text');
+        const igotButton = document.getElementById('igot-button');
+        const igotRect = igotDivider.getBoundingClientRect();
+
+        if (igotTitle && igotText && igotButton && igotButton instanceof HTMLAnchorElement) {
+          if (igotRect.top < 300) {
+            igotTitle.textContent = 'igotshot.lifetime';
+            igotText.textContent = 'igotshot.lifetime ist unsere Antwort auf langfristige kulturelle Begleitung und Dokumentation. Über Monate oder Jahre hinweg begleiten wir Gemeinschaftsprojekte, kulturelle Initiativen und besondere Partnerschaften. Unsere Bilder und Videos dokumentieren nicht nur einzelne Ereignisse, sondern erzählen die Entwicklung und den Fortschritt dieser Geschichten. Hier entstehen nicht nur Momentaufnahmen, sondern lebendige Chroniken, die den Wandel und die Leidenschaft einer Gemeinschaft sichtbar machen – nachhaltig, umfassend und voller Respekt für das Engagement der Beteiligten.';
+            igotButton.textContent = 'Langzeitprojekte ansehen bei igotshot.lifetime';
+            igotButton.href = '/igotshot/';
+          } else {
+            igotTitle.textContent = 'igotshot.photo';
+            igotText.textContent = 'Mit igotshot.photo halten wir die lebendige Vielfalt kultureller und künstlerischer Veranstaltungen fest. Ob lokale Feste, Vereinstreffen oder besondere Ereignisse – unsere Bilder erzählen die Geschichten der Menschen und Momente, die sie unvergesslich machen. Zeitgenössische Dokumentation bedeutet für uns, die Kreativität und Energie einer Gemeinschaft einzufangen und für kommende Generationen zu bewahren. Jede Aufnahme schafft eine Brücke zwischen Vergangenheit, Gegenwart und Zukunft – nahbar, emotional und voller Leben.';
+            igotButton.textContent = 'Projekte ansehen bei igotshot.photo';
+            igotButton.href = '/igotshot/';
+          }
+        }
+      }
+    });
+  </script>

@@ -1,0 +1,99 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { getEntry } from "astro:content";
+import ProjectCard from "@/components/BilderCardWeristcv.astro";
+import ImageMod from "@/components/ImageMod.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+const {
+  body,
+  render,
+  data: { title, meta_title, description, image, keywords, philosophy, },
+} = await getEntry("weristcv", "-index");
+
+const COLLECTION_FOLDER = "weristcv";
+const projects = await getSinglePage(COLLECTION_FOLDER);
+const { Content } = await render();
+
+const categories: string[] = [];
+projects.map(
+  (project) => project.data.category && categories.push(project.data.category),
+);
+const uniqCategories = [...new Set([...categories])];
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  keywords={keywords}
+  image={image}
+  body_class="page-color-dark-weristcv page-color-light-weristcv">
+  <PageHeader title=""/>
+    {/* Philosophy Section */}
+    { philosophy?.enable && (
+      <section>
+        <div class="container">
+          <div class="row gy-5 flex-col-reverse lg:flex-row">
+            <div class="lg:col-7">
+              <h1 class="uppercase">#weristcv </h1>
+              {philosophy.title && (
+                <h2 class="excluded-from-color-scheme" set:html={markdownify(philosophy.title)} />
+              )}
+              {philosophy.content && (
+                <p class="mt-8" set:html={markdownify(philosophy.content)} />
+              )}
+            </div>
+            <div class="lg:col-5">
+              {philosophy.image && (
+                <ImageMod
+                  src={philosophy.image}
+                  width={530}
+                  height={400}
+                  class="w-full rounded"
+                  alt={philosophy.title || "Filipa und Michael"}
+                />
+                <figcaption class="text-right text-sm">
+						    Filipa und Michael
+					   </figcaption>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+
+  {
+    (
+      <section class="section pt-10">
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-12 text-center mb-10">
+              {body && (
+                <div class="content">
+                  <Content />
+                </div>
+              )}
+            </div>
+            <div class="col-12">
+              <div id="projects-filter" class="row gy-4">
+                {projects.map((project) => {
+                  return (
+                    <div
+                      class="md:col-5 xl:col-4"
+                      data-filter-type={project.data.category}>
+                      <ProjectCard content={project} />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Base>

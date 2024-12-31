@@ -1,0 +1,79 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+const {
+  data: { title, description, meta_title, image, keywords },
+} = await getEntry("artist-statement", "-index");
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  keywords={keywords}
+  description={description}
+  image={image}
+  body_class="page-color-dark-fotografie page-color-light-fotografie">
+  <PageHeader title={title} />
+  <section class="section">
+    <div class="container">
+      <img
+        class="gap-x-4 rounded"
+        src="/images/fotografie/art/mathias.jpg"
+        width={1500}
+        height={999}
+        quality={99}
+        format="webp"
+        alt="Hochzeitsfotograf Starnberg"
+      /> 
+    <div class="flex flex-col md:flex-row justify-between gap-8 items-start">
+      <div class="w-full xl:w-1/3 flex flex-col justify-center">
+        <h2 class="py-8 text-center">Portrait für Künstler und Musiker</h2>
+        <ul class="list-disc pl-16 pb-16">
+          <li>Künsterlerportraits</li>
+          <li>Artist Statment</li>
+          <li>Personal Branding</li>
+        </ul>
+        <p class="py-8 bg-portrait/10 rounded text-center">
+          in kürze Mehr...
+        </p>
+      </div>
+      <div class="w-full xl:w-2/3 flex flex-col py-4 justify-between">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 py-12">
+          <div>
+            <img
+              class="gap-x-4 rounded"
+              src="/images/fotografie/art/cesar.jpg"
+              width={1000}
+              height={1000}
+              quality={99}
+              format="webp"
+              alt="Hochzeitsfotograf Starnberg"
+            />
+          </div>
+
+          <div>
+            <img
+              class="gap-x-4 rounded"
+              src="/images/fotografie/art/ddd.jpg"
+              width={1000}
+              height={1000}
+              quality={99}
+              format="webp"
+              alt="Hochzeitsfotograf Starnberg"
+            />
+          </div>
+        </div>
+        <img
+          class="gap-x-4 rounded"
+          src="/images/fotografie/art/hnrx.jpg"
+          width={1500}
+          height={1000}
+          quality={99}
+          format="webp"
+          alt="Hochzeitsfotograf Starnberg"
+        />
+      </div>
+    </div>
+  </section>
+</Base>

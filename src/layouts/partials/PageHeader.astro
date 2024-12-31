@@ -1,0 +1,22 @@
+---
+import { humanize } from "@/lib/utils/textConverter";
+interface Props {
+  title: string;
+  meta_title?: string;
+}
+const {
+  title,
+  meta_title,
+} = Astro.props;
+
+---
+<section class="section pb-0">
+  <div class="container text-center z-10 relative">
+    <div class="sm:px-8 sm:pt-0 pt-8">
+      <h1
+        class="tracking-widest sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-2xl"
+        set:text={humanize(meta_title ? meta_title : title)}
+      />
+    </div>
+  </div>
+</section>

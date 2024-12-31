@@ -1,0 +1,45 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import type { CollectionEntry } from "astro:content";
+import dateFormat from "@/lib/utils/dateFormat";
+import { humanize, slugify } from "@/lib/utils/textConverter";
+interface Props {
+  content: CollectionEntry<"kundenbereich">;
+}
+const {
+  content: {
+    data: { title, image, tags, category, date, width, height },
+    slug,
+  },
+} = Astro.props;
+---
+
+<div class="relative overflow-hidden">
+  <div class="group">
+    {
+      image && (
+        <>
+          <ImageMod
+            src={image}
+            width={width}
+            height={height}
+            class="w-full rounded"
+            alt={title}
+          />
+          <figcaption class="text-center text-base mt-2 text-text dark:text-inherit">
+            {title} • {dateFormat(date, "MMM")} {dateFormat(date, "yyyy")} •{" "}
+            {category}
+            {tags &&
+              tags.map((tag) => (
+                <a
+                  class="text-sm text-textdark dark:text-wedding"
+                  href={`/tags/${slugify(tag)}/`}>
+                  {humanize(tag)}
+                </a>
+              ))}
+          </figcaption>
+        </>
+      )
+    }
+  </div>
+</div>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  id: string;
+  className?: string;
+  poster?: string;
+}
+
+const { id, className, poster, ...rest } = Astro.props;
+---
+
+<div class={className} style="padding:41.89% 0 0 0;position:relative;">
+  <lite-vimeo
+    videoid={id}
+    style={`background-image: url('${poster}');position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px`}
+    {...rest}>
+  </lite-vimeo>
+</div>

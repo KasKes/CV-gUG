@@ -1,0 +1,29 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+export interface ISocial {
+  name: string;
+  icon: string;
+  link: string;
+}
+
+const { source, className }: { source?: ISocial[]; className?: string } =
+  Astro.props;
+---
+
+<ul class={className}>
+  {
+    source &&
+      source.map((social: ISocial) => (
+        <li>
+          <a
+            aria-label={social.name}
+            href={social.link}
+            target="_blank"
+            rel="noopener noreferrer nofollow">
+            <span class="sr-only">{social.name}</span>
+            <DynamicIcon className="inline-block h-2 w-2" icon={social.icon} />
+          </a>
+        </li>
+      ))
+  }
+</ul>

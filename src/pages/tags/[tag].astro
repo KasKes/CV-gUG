@@ -1,0 +1,168 @@
+---
+import TaxonomyCard from "@/components/TaxonomyCard.astro";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { getTaxonomy } from "@/lib/taxonomyParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+import taxonomyFilter from "@/lib/utils/taxonomyFilter";
+import { slugify } from "@/lib/utils/textConverter";
+import PostSidebar from "@/partials/PostSidebar.astro";
+
+export async function getStaticPaths() {
+  const pagesFolder = [
+    "kundenbereich",
+    "igotshot",
+    "video",
+    "cinema",
+    "igotshot",
+    "tv-emmering",
+    "igotshot-photo",
+    "igotshot-lifetime",
+
+  ];
+
+  // All Pages of target folders
+  const tags = [] as any[];
+  for (const name of pagesFolder) {
+    const content = await getTaxonomy(name, "tags");
+    tags.push(...content);
+  }
+
+  return tags.map(({ name, slug }) => {
+    return {
+      params: { tag: slug },
+      props: { name },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { name } = Astro.props;
+
+const pagesFolder = [
+  "kundenbereich",
+  "igotshot",
+  "video",
+  "cinema",
+  "igotshot",
+  "tv-emmering",
+  "igotshot-photo",
+  "igotshot-lifetime",
+
+
+];
+const categoriesFolder = [
+  "kundenbereich",
+  "video",
+  "igotshot-photo",
+  "igotshot-lifetime",
+  "cinema",
+
+
+];
+
+// All Pages of target folders
+const pages = [] as any[];
+for (const name of pagesFolder) {
+  const content = await getSinglePage(name);
+  pages.push(...content);
+}
+
+// All taxonomies (Tag) of target tag folder array
+const allTags = [] as any[];
+for (const name of pagesFolder) {
+  const tags = await getTaxonomy(name, "tags");
+  allTags.push(...tags);
+}
+const countedTags = allTags.reduce((acc, tag) => {
+  const slug = tag.slug;
+  const count = taxonomyFilter(pages, "tags", tag.slug!);
+  acc[slug] = {
+    ...acc[slug], // Preserve existing count if any
+    name: tag.name || slug, // Use `name` if possible, fallback to `slug`
+    count: count.length, // Increment count or start from 1
+  };
+  return acc;
+}, {});
+const uniqTagsWithCount = Object.entries(countedTags).map(
+  ([slug, tag]: any[]) => ({
+    name: tag.name,
+    slug,
+    count: tag.count,
+  }),
+);
+
+// All taxonomies (category) of target categories folder array
+const allCategories = [] as any[];
+for (const name of categoriesFolder) {
+  const categories = await getTaxonomy(name, "categories");
+  allCategories.push(...categories);
+}
+
+const countedCategories = allCategories.reduce((acc, category) => {
+  const slug = category.slug;
+  const count = taxonomyFilter(pages, "categories", category.slug!);
+  acc[slug] = {
+    ...acc[slug], // Preserve existing count if any
+    name: category.name || slug, // Use `name` if possible, fallback to `slug`
+    count: count.length, // Increment count or start from 1
+  };
+  return acc;
+}, {});
+const uniqCategoriesWithCount = Object.entries(countedCategories).map(
+  ([slug, category]: any[]) => ({
+    name: category.name,
+    slug,
+    count: category.count,
+  }),
+);
+
+const postsFilterByTags = taxonomyFilter(pages, "tags", tag!);
+const sortedPosts = sortByDate(postsFilterByTags);
+---
+
+<Base title={name}>
+  <section class="pt-2">
+  <div class="container">
+    <p class="italic inline-block uppercase">Tag:</p>
+    <h1 class="ml-4 pt-10 inline-block">{name}</h1>
+    <hr class="pb-10">
+    <div class="row items-start">
+      <aside
+      class="lg:col-4 lg:sticky lg:top-0 ms-sticky-sidebar"
+      ms-sticky-top-offset="230"
+      ms-sticky-bottom-offset="10"> 
+    <div class="row lg:gx-6">
+     <!-- sidebar -->
+     <PostSidebar class=""
+     ms-sticky-top-offset="230"
+     ms-sticky-bottom-offset="10"
+     categories={uniqCategoriesWithCount}
+     tags={uniqTagsWithCount}
+     allCategories={allCategories}
+     sortedPosts={sortedPosts}
+   />
+    </div>
+      </aside>
+      <!-- blog posts --> 
+      <article class="lg:col-8 justify-end items-end"> 
+        <div class="row g-4">
+            {
+              postsFilterByTags?.map((post, index) => {
+                return (
+                  <div class="md:col-4">
+                    <TaxonomyCard
+                      content={{
+                        ...post,
+                      }}
+                    />
+                  </div>
+                );
+              })
+            }
+        </div>
+      </article>
+    </div>
+  </div>
+  </section>
+</Base>

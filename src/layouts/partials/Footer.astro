@@ -1,0 +1,120 @@
+---
+import Logo from "@/components/Logo.astro";
+import Social from "@/components/Social.astro";
+import config from "@/config/config.json";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import menu from "@/config/menu.json";
+import social from "@/config/social.json";
+import { markdownify } from "@/lib/utils/textConverter";
+---
+<footer class="text-sm">
+  <div class="py-8 relative">
+    <div class="container pt-4 border-t border-bgdark dark:border-[var(--pageColorDark)]">
+      <div class="mx-6 pt-10 md:py-10 text-center md:text-left">
+        <div class="grid-1 grid gap-x-20 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Öffnungszeiten -->
+          <div class="w-fit max-md:mx-auto">
+            <legend class="font-thin mb-4 uppercase underline underline-offset-8 text-2xl">
+              Erreichbar
+            </legend>
+            <ul class="grid grid-cols-2 gap-x-4 md:gap-x-16 gap-y-4 text-start">
+              <li>Montag</li>
+              <li>10:30 - 18:00</li>
+              <li>Dienstag</li>
+              <li>10:30 - 18:00</li>
+              <li>Mittwoch</li>
+              <li>10:30 - 18:00</li>
+              <li>Donnerstag</li>
+              <li>12:00 - 20:00</li>
+              <li>Freitag</li>
+              <li>10:30 - 18:00</li>
+              <li>Samstag</li>
+              <li>10:00 - 16:00</li>
+              <li>Sonntag</li>
+              <li>Geschlossen</li>
+            </ul>
+          </div>
+
+          <!-- Kontaktinformationen -->
+          <div>
+            <legend class="font-thin mb-4 uppercase underline underline-offset-8 text-2xl">
+              Kontakt
+            </legend>
+            <!-- Kontaktinformationen -->
+            <p class="mb-4 text-base flex items-center justify-center md:justify-start">
+              Campos Viola Photography<br />
+              Lantfridstraße 37<br />
+              Emmering, Bayern 82275<br />
+              Deutschland<br />
+              <br />
+              USt.ID.nr.: DE280344932
+            </p>
+            <!-- Kontaktmöglichkeiten -->
+            <p class="mb-4 flex items-center justify-center md:justify-start">
+              <!-- Email -->
+              <DynamicIcon
+                className="w-6 h-6 mr-3"
+                icon="TfiEmail"
+              />
+              <a href="mailto:info@camposviola.de" class="text-textdark text-base">info@camposviola.de</a>
+            </p>
+            <p class="mb-4 flex items-center justify-center md:justify-start text-lg">
+              <!-- Telefon -->
+              <DynamicIcon
+                className="w-6 h-6 mr-3"
+                icon="TfiBriefcase"
+              />
+              
+              <a href="tel:+4981052080020" class="text-textdark text-base">+49 8105 20 800 20</a>
+            </p>
+            <p class="mb-4 flex items-center justify-center md:justify-start text-lg">
+              <!-- Mobile -->
+              <DynamicIcon
+                className="mr-3 h-6 w-6"
+                icon="TfiMobile"
+              />
+              <a href="tel:+4915174309863" class="text-textdark text-base">+49 151 74 30 98 63</a>
+            </p>
+          </div>
+
+          <!-- Logo und Social Links -->
+          <div class="text-center">
+            <div class="justify-center justify-items-center">
+              <Logo src={config.site.logo_footer} class="justify-items-center py-2 px-2" footerLogo={true} />
+            </div>
+            {config.params.footer_description && (
+              <p class="my-8 text-sm" set:html={markdownify(config.params.footer_description)} />
+            )}
+            <Social source={social.main} className="social-icons" />
+            <!-- Profen expert-->
+            <div class="pe-richsnippets pt-8"></div>
+          </div>
+        </div>
+      </div>
+      <!-- copyright -->
+      <footer class="text-sm">
+        <div class="container pt-8 pb-2 relative">
+          <div class="flex flex-col md:flex-row justify-center md:justify-between gap-x-5 gap-y-2">
+            {menu.footer && menu.footer[0] && (
+              <ul class="flex flex-wrap gap-y-0 gap-x-4 lg:gap-x-10 justify-end text-center md:text-end md:order-2 pb-8">
+                {menu.footer.map((menu) => (
+                  <li>
+                    <a class="capitalize text-sm" href={menu.url} title={menu.name} set:html={menu.name} />
+                  </li>
+                ))}
+              </ul>
+            )}
+            {config.params.copyright && (
+              <p class="max-md:text-center text-sm md:order-1">{config.params.copyright}</p>
+            )}
+          </div>
+        </div>
+      </footer>
+        <!-- back to top -->
+        <button class="back-to-top" aria-label="scroll to top" data-swup-preload>
+          <DynamicIcon className="inline-block" icon="TfiAngleUp" />
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>

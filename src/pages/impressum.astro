@@ -1,0 +1,113 @@
+---
+import config from "@/config/config.json";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+import ImageMod from "@/components/ImageMod.astro";
+
+
+interface data {
+  title: string;
+  description: string;
+  image: string;
+  meta_title: string;
+  bg_image: string;
+  content: string;
+  kontakt_info: {
+    name: string;
+    icon: string;
+    content: string;
+  }[];
+  verein_info: {
+    name: string;
+    content: string;
+    link: string;
+  }[];
+}
+
+const {
+  body,
+  render,
+  data: { title, description, image, kontakt_info, verein_info, meta_title, },
+} = await getEntry("sections", "impressum");
+
+const { Content } = await render();
+
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  keywords="Impressum"
+  image={image}>
+  <PageHeader title={title}/>
+  <section class="section">
+    <div class="container">
+      <div class="pb-8">
+      <Content />
+    </div>
+            {
+              kontakt_info && (
+                <ul class="pl-0">
+
+                  {kontakt_info.map((info) => {
+                    const { name, name2, icon, content } = info;
+                    return (
+                    <p class="py-10" set:html={name2}></p>
+                      <li class="flex">
+                        <span
+                          class={`mr-4${
+                            icon ? ` ${icon}` : ""
+                          } h-[50px] xl:h-[70px] min-w-[50px] max-w-[50px] xl:min-w-[70px] xl:max-w-[70px] border border-textdark text-center leading-[50px] xl:leading-[70px] text-2xl xl:text-3xl text-primary inline-block rounded-full border-solid`}>
+                          <span class="sr-only" set:html={name} />
+                          <DynamicIcon className="inline-block" icon={icon} />
+                        </span>
+                        <div class="self-center font-primary">
+                          <div
+                            set:html={markdownify(content)}
+                          />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )
+            }
+            <div class="pt-8">
+              <hr /> 
+            </div>
+<!-- Mitgliedschaften -->            
+            {
+              verein_info && (
+              <ul class="pl-0 pt-8">
+                  {verein_info.map((info) => {
+                    const { name, content } = info;
+                    return (
+                      <li class="flex mb-4">
+                        <span
+                          class="mr-4 text-center leading-[50px] xl:leading-[70px] text-2xl xl:text-3xl inline-block">
+                          <span class="sr-only" set:html={name}/>
+                         
+                        </span>
+                        <div class="self-center font-primary">
+                          <div
+                            set:html={markdownify(content)}
+                          />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )
+            }
+          </div>
+
+          <div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,248 @@
+---
+import Logo from "@/components/Logo.astro";
+import ThemeSwitcher from "@/components/ThemeSwitcher.astro";
+import config from "@/config/config.json";
+import menu from "@/config/menu.json";
+import { markdownify, slugify } from "@/lib/utils/textConverter";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import ImageMod from "@/components/ImageMod.astro";
+
+export interface NavigationLink {
+  name: string;
+  url: string;
+  icon?: string;
+}
+const { main }: { main: NavigationLink[] } = menu;
+const { pathname } = Astro.url;
+
+let submenu = "";
+let submenuParent = "";
+let submenuChildUrl = "";
+let activeMenu = "";
+let activeSubmenu = "";
+let claim = "";
+
+/**
+ * Determines the active menu and child menu based on the current path.
+ * If the current path matches the menu's child URL, the menu is considered active.
+ * If the current path is a nested child of the menu, the corresponding child menu is also considered active.
+ * Example: If the current path is /hochzeitsfotos, the menu with URL /hochzeitsfotos is active.
+ * If the current path is /hochzeitsfotos/hochzeitsblog/, the child menu with URL /hochzeitsblog is active.
+ * If the current path is /hochzeitsfotos/hochzeitsblog/example, the child menu with URL /hochzeitsblog is active
+ * because it's a nested child of /hochzeitsfotos/hochzeitsblog.
+ *
+ * @param {string} menuName - The name of the menu
+ * @returns {string} - The URL of the active child menu
+ */
+
+main.forEach((menu) => {
+  // Check if the current path matches or is a nested child of the menu's child URL
+  menu.children?.forEach((item) => {
+    // Extract the current path segment and construct current and next paths
+    const currentPathSegment = Astro.url.pathname.split("/")[1];
+    const currentPath = `/${currentPathSegment}`;
+    const nextPath = `/${currentPathSegment}/${Astro.url.pathname.split("/")[2]}`;
+
+    // Check if the current path matches or is a nested child of the menu's child URL
+    if (
+      pathname !== "/" &&
+      (item.url.startsWith(nextPath) || item.url.startsWith(currentPath))
+    ) {
+      // Set submenu items to display below the main menu
+      submenu = menu.children;
+      // Set the active menu object
+      activeMenu = menu;
+
+      // Set the active submenu
+      if (currentPathSegment === slugify(item.url)) {
+        // Get the child URL of the active menu to set it as active in the child menu list
+        let childUrl = submenu
+          .filter(
+            (child) =>
+              child.url.startsWith(nextPath) ||
+              child.url.startsWith(currentPath)
+          )
+          .filter((child) => child.url === item.url)[0]?.url;
+
+        // If the path is "/hochzeitsfotos/hochzeitsblog/example," the child menu "hochzeitsblog" is active
+        if (childUrl?.startsWith(nextPath)) {
+          submenuChildUrl = childUrl;
+        } else if (childUrl?.startsWith(currentPath)) {
+          // If the path is "/hochzeitsfotos/hochzeitsblog," the child menu "hochzeitsblog" is active
+          submenuChildUrl = childUrl;
+        }
+
+        // Useful for the parent menu to be active when the child menu is active
+        submenuParent = submenuParent || currentPathSegment;
+      } else {
+        // Get the child URL for the current menu
+        let childUrl = submenu.filter(
+          (child) =>
+            child.url.startsWith(nextPath) || child.url.startsWith(currentPath)
+        )[0]?.url;
+
+        // If the path is "/hochzeitsfotos/hochzeitsblog/example," the child menu "hochzeitsblog" is active
+        if (childUrl?.startsWith(nextPath)) {
+          submenuChildUrl = childUrl;
+        } else if (childUrl?.startsWith(currentPath)) {
+          // If the path is "/hochzeitsfotos/hochzeitsblog," the child menu "hochzeitsblog" is active
+          submenuChildUrl = childUrl;
+        }
+      }
+    }
+  });
+});
+
+if (!activeMenu.claim) {
+  claim = activeMenu.children?.filter((item) => item.url === submenuChildUrl)[0]
+    ?.claim;
+}
+---
+
+<!-- Reading Indicator -->
+<div class="reading-indicator"></div>
+<header class={`header header-lg-devices group sticky-navbar max-lg:hidden`}>
+  <div class="hidden md:hidden lg:block">
+    <div class="pb-4">
+      <!--   email kontakt oben -->
+      {
+        config.params.top_header &&
+          (config.params.contact_info.email ||
+            config.params.contact_info.phone) && (
+            <div class=" group-[&:not(.header-sticky-top)]:bg-bgweiss group-[&:not(.header-sticky-top)]:dark:bg-bgdark py-3 top-header">
+              <div class="container">
+                <ul
+                  class="lg:mr-10 flex-wrap lg:justify-end lg:gap-y-2 flex lg:list-separator lg:items-center"
+                  data-swup-preload-all
+                >
+                  {config.params.contact_info.email && (
+                    <li
+                      class="text-sm max-lg:w-1/2 lg:text-base max-lg:order-1"
+                      set:html={markdownify(config.params.contact_info.email)}
+                    />
+                  )}
+                  {config.params.contact_info.email && (
+                    <li class="max-lg:order-3 max-lg:w-1/2">
+                      <a
+                        href={`tel:${config.params.contact_info.phone}`}
+                        class="text-sm lg:text-base"
+                        set:html="+49 (0) 8105 20 800 20"
+                      />
+                    </li>
+                  )}
+                  <li class="max-lg:order-2 max-lg:w-1/2 max-lg:text-end lg:after:hidden lg:!pr-0">
+                    <ThemeSwitcher className="mt-2 text-sm lg:text-base" />
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )
+      }
+      <nav class="navbar container max-lg:justify-center">
+        <!-- logo -->
+        <div class="order-1">
+          <Logo />
+        </div>
+        <!-- /navbar toggler -->
+        <div class="navbar-nav-wrapper h-24 flex-1 w-full order-2">
+          <div
+            class="nav-wrapper relative max-lg:max-h-full max-lg:overflow-auto"
+          >
+            <ul
+              class="navbar-nav max-lg:items-center max-lg:justify-center max-lg:gap-4 lg:items-center max-lg:flex-wrap flex lg:w-auto lg:mx-8"
+            >
+              {
+                main.map((menu) => {
+                  if (!(menu.url === "/" && pathname === "/")) {
+                    return (
+                      <li
+                        class={`nav-item lg:border-none text-xl/none border border-bgdark dark:border-[var(--pageColor)] rounded ${menu.classname ? menu.classname : ""}`}
+                      >
+                        <a
+                          href={menu.url}
+                          aria-label={menu.name ? menu.name : "navigation menu"}
+                          class={`nav-link ${
+                            pathname === `${menu.url}/` ||
+                            pathname === menu.url ||
+                            menu.name === activeMenu.name
+                              ? "active"
+                              : ""
+                          }`}
+                        >
+                          {menu.icon && (
+                            <DynamicIcon
+                              className="inline-block min-w-3 min-h-3 -mt-1 mr-0"
+                              icon={menu.icon}
+                            />
+                          )}
+                          <span>{menu.name}</span>
+                        </a>
+                      </li>
+                    );
+                  } else {
+                    <li
+                      class={`nav-item md:border-none text-xl/none border-2 border-bgdark dark:border-bgweiss rounded ${menu.classname ? menu.classname : ""}`}
+                    >
+                      <a
+                        href={menu.url}
+                        class={`nav-link ${
+                          pathname === `${menu.url}/` ||
+                          pathname === menu.url ||
+                          menu.name === activeMenu.name
+                            ? "active"
+                            : ""
+                        }`}
+                      >
+                        <span>{menu.name}</span>
+                      </a>
+                    </li>;
+                  }
+                })
+              }
+            </ul>
+            {
+              (activeMenu.claim || claim) && (
+                <div class="absolute top-[45px] left-8 xl:top-[60px]">
+                  <ImageMod
+                    class="xl:h-[60px] h-[70px]"  // Höhe verdoppelt
+                    src={activeMenu.claim || claim}
+                    height={60}  // Höhe im Attribut verdoppelt
+                    alt="claim"
+                  />
+                </div>
+              )
+            }
+            {
+              submenu && activeMenu.hasChildren && (
+                <ul class="navbar-nav navbar-child-nav items-center max-lg:justify-center flex gap-4 lg:w-auto lg:mx-8 max-lg:flex-wrap max-lg:py-4">
+                  {submenu &&
+                    submenu.map((menu) => {
+                      return (
+                        menu.name && (
+                          <li class="nav-item border-bgdark dark:border-wedding rounded lg:py-0 lg:my-0 last:mb-0">
+                            <a
+                              href={menu.url}
+                              class={`nav-link block ${
+                                (pathname === `${menu.url}/` ||
+                                  pathname === menu.url ||
+                                  submenuChildUrl === menu.url ||
+                                  activeSubmenu === menu.url ||
+                                  slugify(menu.name) === submenuParent) &&
+                                "active"
+                              }`}
+                            >
+                              <span>{menu.name}</span>
+                            </a>
+                          </li>
+                        )
+                      );
+                    })}
+                </ul>
+              )
+            }
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>

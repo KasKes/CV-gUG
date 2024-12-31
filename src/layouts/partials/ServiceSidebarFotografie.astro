@@ -1,0 +1,199 @@
+---
+import config from "@/config/config.json";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify, slugify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  content: CollectionEntry<"services">;
+  servicesCollection: CollectionEntry<"services">[];
+}
+
+const {
+  content: {
+    data: { 
+      brochure, 
+      beschreibung1, 
+      beschreibung2,
+      beschreibung3,
+      beschreibung4,
+      beschreibung5,
+      beschreibung6,
+      beschreibung7,
+      beschreibung8,
+      preis,
+      beschreibung_text1, 
+      beschreibung_text2, 
+      beschreibung_text3, 
+      beschreibung_text4, 
+      beschreibung_text5, 
+      beschreibung_text6, 
+      beschreibung_text7, 
+      beschreibung_text8,
+      preis_beschreibung, 
+      extras, 
+      dauer,
+      extra_beschreibung, 
+      time },
+    slug,
+  },
+  servicesCollection,
+} = Astro.props;
+---
+
+<aside class="lg:col-4 lg:order-1 order-2">
+  <div class="flex flex-col gap-10 lg:gap-14">
+    {
+      servicesCollection && (
+        <ul class="[&>:not(:last-child)]: border border-[var(--pageColor)] pl-0 rounded overflow-hidden">
+          {servicesCollection.map((serviceItem) => {
+            if (!serviceItem.data.title) return null;
+            const { title } = serviceItem.data;
+
+            return (
+              <li>
+                <a
+                  href={`/fotografie/${slugify(title)}`}
+                  class={`btn  hover:bg-portrait/20 hover:text-underline hover:text-textdark dark:hover:text-portrait underline-offset-8 w-full rounded-none px-6 py-6${
+                    serviceItem.slug === slug ? ` bg-portrait/20 underline` : ""
+                  }`}
+                  set:html={markdownify(title)}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      )
+    }
+
+    {
+      brochure && (
+        <div class="rounded border py-4 px-6 flex gap-1">
+          <DynamicIcon
+            className="inline-block mr-2 mt-1 text-portrait"
+            icon="TfiFiles"
+            style={{ fontSize: "20px" }}
+          />
+          <div class="ml-1">
+            <h2 class="mb-1 inline-block h5" set:html="Service Brochure" />
+            <a
+              download=""
+              class="block text-dark underline"
+              href={brochure}
+              set:html="Download pdf"
+            />
+          </div>
+        </div>
+      )
+    }
+
+    <div>
+      
+      <ul class="flex flex-col gap-3 border rounded px-6 py-8 h5">
+        <h2 class="mb-5 h5" set:html="Leistung:"/>
+        {
+          time && (
+            <li class=" flex">
+              <span class="inline-block font-light w-[80px]">
+                {dauer}:
+              </span>
+              {time}
+            </li>
+          )
+        }
+        {
+          beschreibung1 && (
+            <li class=" flex">
+              <span class="inline-block font-light w-[80px]">
+                {beschreibung1}:
+              </span>
+              {beschreibung_text1}</li>
+              )
+        }
+        {
+          beschreibung2 && (
+            <li class="flex">
+              <span class="inline-block font-light text-bgweiss dark:text-bgdark w-[80px]">
+                {beschreibung2}
+              </span>
+              {beschreibung_text2}</li>
+              )
+        }
+        {
+          beschreibung3 && (
+            <li class="flex">
+              <span class="inline-block font-light text-bgweiss dark:text-bgdark w-[80px]">
+                {beschreibung3}
+              </span>
+              {beschreibung_text3}</li>
+              )
+        }
+        {
+          beschreibung4 && (
+            <li class="flex">
+              <span class="inline-block font-light text-bgweiss dark:text-bgdark w-[80px]">
+                {beschreibung4}
+              </span>
+              {beschreibung_text4}</li>
+              )
+        }
+        {
+          beschreibung5 && (
+            <li class="flex">
+              <span class="inline-block font-light text-bgweiss dark:text-bgdark w-[80px]">
+                {beschreibung5}
+              </span>
+              {beschreibung_text5}</li>
+              )
+        }
+        {
+          beschreibung6 && (
+            <li class="flex">
+              <span class="inline-block font-light text-bgweiss dark:text-bgdark w-[80px]">
+                {beschreibung6}
+              </span>
+              {beschreibung_text6}</li>
+              )
+        }
+        {
+          beschreibung7 && (
+            <li class="flex">
+              <span class="inline-block font-light text-bgweiss dark:text-bgdark w-[80px]">
+                {beschreibung7}
+              </span>
+              {beschreibung_text7}</li>
+              )
+        }
+        {
+          beschreibung8 && (
+            <li class="flex">
+              <span class="inline-block font-light text-bgweiss dark:text-bgdark w-[80px]">
+                {beschreibung8}
+              </span>
+              {beschreibung_text8}</li>
+              )
+        }
+        {
+          preis && (
+            <li class="flex">
+              <span class="inline-block font-light  w-[80px]">
+                {preis}:
+              </span>
+              {preis_beschreibung}
+            </li>
+          )
+        }
+        {
+          extras && (
+            <li class="flex border-t py-2">
+              <span class="inline-block font-light w-[80px]">
+                {extras}:
+              </span>
+              {extra_beschreibung}
+            </li>
+          )
+        }
+      </ul>
+    </div>
+  </div>
+</aside>

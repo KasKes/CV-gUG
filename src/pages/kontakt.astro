@@ -1,0 +1,147 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+import ImageMod from "@/components/ImageMod.astro";
+
+interface KontaktInfo {
+  name: string;
+  icon: string;
+  content: string;
+}
+
+interface VereinInfo {
+  name: string;
+  content: string;
+  link: string;
+}
+
+interface PageData {
+  title: string;
+  description: string;
+  image: string;
+  meta_title: string;
+  bg_image: string;
+  content: string;
+  kontakt_info: KontaktInfo[];
+  kontakt_studio: KontaktInfo[];
+  kontakt_bild: KontaktInfo[];
+  verein_info: VereinInfo[];
+}
+
+const { data }: { data: PageData } = await getEntry("kontakt", "-index");
+---
+<Base
+  title={data.title}
+  meta_title={data.meta_title}
+  description={data.description}
+  keywords="Kontakt, Telefon, E-Mail"
+  image={data.image}
+  body_class="page-color-dark-weristcv page-color-light-weristcv">
+  <PageHeader title={data.title} />
+  <section>
+    <div class="container">
+      <div class="row">
+        {/* Bild */}
+        <div class="lg:col-6 md:col-5 pt-10">
+          {data.image && (
+            <ImageMod
+              src={data.image}
+              height={1500}
+              width={1000}
+              alt={data.title}
+              class="w-full rounded"
+            />
+          )}
+        </div>
+
+        <div class="lg:col-6 md:col-7">
+          <div class="p-5">
+            <h2 class="text-2xl mb-2" set:html="...bei Fragen, schreib mir einfach eine E-Mail" />
+            <p class="mb-8">{data.description}</p>
+
+            {/* Kontaktinformationen */}
+            <div class="flex flex-col md:flex-row">
+              <div class="w-full md:w-1/2 pr-0 md:pr-4 flex flex-col justify-end">
+                {data.kontakt_info && data.kontakt_info.length > 0 && (
+                  <ul class="pl-0">
+                    {data.kontakt_info.map((info) => (
+                      <li class="flex mb-8">
+                        {info.icon && (
+                          <span class={`mr-4 ${info.icon} h-[50px] xl:h-[70px] min-w-[50px] max-w-[50px] xl:min-w-[70px] xl:max-w-[50px] border border-weristcv text-center leading-[50px] xl:leading-[70px] text-2xl xl:text-3xl text-weristcv rounded-full border-solid flex items-center justify-center`}>
+                            <span class="sr-only" set:html={info.name} />
+                            <DynamicIcon className="inline-block" icon={info.icon} />
+                          </span>
+                        )}
+                        <div class="self-center font-primary">
+                          <div set:html={markdownify(info.content)} />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div class="w-full md:w-1/2 pl-0 md:pl-4 mt-4 md:mt-0 flex flex-col justify-end">
+                {data.kontakt_bild && data.kontakt_bild.length > 0 && (
+                  <ul class="pl-0">
+                    {data.kontakt_bild.map((info) => (
+                      <li class="flex mb-8">
+                        <img
+                          src={info.icon}
+                          class="h-[50px] xl:h-[70px] min-w-[50px] max-w-[50px] xl:min-w-[70px] xl:max-w-[50px] mr-4 border border-dark text-center leading-[50px] xl:leading-[70px] text-2xl xl:text-3xl text-primary inline-block rounded-full border-solid"
+                          alt={info.name}
+                        />
+                        <div class="self-center font-primary">
+                          <div set:html={markdownify(info.content)} />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {data.kontakt_studio && data.kontakt_studio.length > 0 && (
+                  <ul class="pl-0">
+                    {data.kontakt_studio.map((info) => (
+                      <li class="flex mb-8">
+                        {info.icon && (
+                          <span class={`mr-4 ${info.icon} h-[50px] xl:h-[70px] min-w-[50px] max-w-[50px] xl:min-w-[70px] xl:max-w-[50px] border border-weristcv text-center leading-[50px] xl:leading-[70px] text-2xl xl:text-3xl text-weristcv rounded-full border-solid flex items-center justify-center`}>
+                            <span class="sr-only" set:html={info.name} />
+                            <DynamicIcon className="inline-block" icon={info.icon} />
+                          </span>
+                        )}
+                        <div class="self-center font-primary">
+                          <div set:html={markdownify(info.content)} />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+
+            <hr />
+
+            {/* Mitgliedschaften */}
+            {data.verein_info && data.verein_info.length > 0 && (
+              <ul class="pl-0 pt-8">
+                {data.verein_info.map((info) => (
+                  <li class="flex mb-4">
+                    <span class="mr-4 text-center leading-[50px] xl:leading-[70px] text-2xl xl:text-3xl inline-block">
+                      <span class="sr-only" set:html={info.name} />
+                    </span>
+                    <div class="self-center font-primary">
+                      <div set:html={markdownify(info.content)} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>;

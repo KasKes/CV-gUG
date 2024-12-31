@@ -1,0 +1,23 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+---
+<Base
+  title="404" >
+  <section class="max-h-[800px] overflow-hidden">
+    <img
+      src="/images/background/404-page.jpg"
+      width="100%"
+      height={1080}
+      class="object-cover"
+      alt="404 error image"
+    />
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+     var path = window.location.pathname;
+     fathom.trackEvent('404: ' + path);
+   });
+   </script>
+</Base>

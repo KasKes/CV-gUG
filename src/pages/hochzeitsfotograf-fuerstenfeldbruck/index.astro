@@ -1,0 +1,445 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+import ImageMod from "@/components/ImageMod.astro";
+
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+
+
+const {
+  render,
+  data: {
+    title,
+    description,
+    meta_title,
+    image,
+    keywords,
+    individuelleBilder,
+    individuelleErfahrung,
+    individuelleAnfang,
+    individuelleKennenlernshooting,
+  },
+} = await getEntry("landingpage", "hochzeitsfotograf-fuerstenfeldbruck");
+const { Content } = await render();
+
+
+
+const { data } = await getEntry("preise", "wedding-one");
+const {
+  pricingTable,
+} = data as PricingType;
+
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  image={image}
+  keywords={keywords}
+  description={description}
+  body_class="page-color-dark-hochzeits page-color-light-hochzeits">
+  <section class="overflow-hidden">
+    <div class="container">
+      <h1 class="text-center">Hochzeitsfotograf Fürstenfeldbruck</h1>
+      <div class="pt-8">
+        <div class="col-12 text-center">
+          <a
+            href={image}
+            data-no-swup
+            class="glightbox"
+            data-gallery="gallery-group-1">
+            <ImageMod
+              src={image}
+              width="full"
+              height="full"
+              class="mx-auto rounded"
+              alt={title}
+            />
+          </a>
+        </div>
+      </div>
+
+      <!-- //ANCHOR -  für individuelle Bilder -->
+      
+      <section class="py-4"> 
+            <h2>
+              Hochzeitsfotograf in Fürstenfeldbruck
+            </h2>
+            <p class="text-3xl text-wedding">
+              für individuelle Bilder
+            </p>
+            <p class="py-4 leading-relaxed">
+              Eine Hochzeit ist für das Brautpaar und Gäste mit vielen unvergesslichen Erinnerungen verbunden. Ich habe es mir als erfahrener <b>Hochzeitsfotograf in Fürstenfeldbruck </b>zur Aufgabe gemacht, diese Eindrücke auf individuelle Weise zu verewigen. Als Euer Hochzeitsfotograf in Fürstenfeldbruck begleite ich Euch an Eurem großen Tag, um mit meinen Bildern Eure unverwechselbare Art einzufangen. 
+            </p>
+            <div>
+      </section>
+
+      <!-- //ANCHOR -  Bilder -->
+      <section class="py-4">
+        {
+          individuelleBilder.bilder && (
+            <div class="col-12">
+              <div class="row justify-center lg:justify-normal content-around items-center">
+                {individuelleBilder.bilder.map((item, index) => {
+                  return (
+                    <div class="col-12 lg:col-6 text-center pt-8">
+                      <a
+                        href={item}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={item}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded"
+                          alt={title}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </section>
+      <!-- //ANCHOR -  Erfahrung und Kreativität für individuelle Bilder -->
+      <section class="py-4">
+        <div class="row">
+          <div class="lg:col-6 text-start"> 
+            <h2>
+              Hochzeitsfotograf in Fürstenfeldbruck
+            <h2/>
+            <p class="text-3xl text-wedding">
+              Erfahrung und Kreativität für individuelle Bilder 
+            </p>
+            <p class="pt-4 pb-2">Ihr wünscht Euch für Eure Hochzeit eine authentische und professionelle Fotodokumentation, die zu hundert Prozent Eurem individuellen Stil entspricht? Dann bin ich als <b>erfahrener Hochzeitsfotograf in Fürstenfeldbruck für Dich der richtige Ansprechpartner.</b>
+            <p class="pb-2">Seit über fünf Jahren widme ich mich als studierter Fotograf meiner Leidenschaft, um für Brautpaare all die besonderen Momente der Trauung und anschließenden Feier einzufangen. Als Fotograf habe ich mir an der Akademie Deutsche POP München und der UNI London West eine umfassende Fachausbildung in den Bereichen Fotografie und Kommunikationsdesign angeeignet.</p>
+            <p class="pb-2">Dies ermöglicht mir, als Hochzeitsfotograf in Fürstenfeldbruck professionelle Qualität auf dem modernsten Stand anzubieten. Mit meinem breiten Spektrum an Stilrichtungen und technischen Möglichkeiten kann ich als Hochzeitsfotograf in Fürstenfeldbruck alle Eure Ideen realisieren und dabei Euch und die Atmosphäre Eurer Feierlichkeiten auf emotionale Weise bildlich festhalten.
+            </p>
+          </div>
+            <div class="lg:col-6 items-end justify-end ">
+              {
+                pricingTable &&
+                  pricingTable.map((table) => (
+                    <div class="">
+                      <div class="border border-wedding h-full rounded flex flex-col">
+                        <div class="border-b border-wedding rounded-0">
+                          <img                
+                            data-no-swup
+                            class="glightbox block w-[100%] h-[280px] rounded-t bg-cover object-cover bg-no-repeat"
+                            data-gallery="gallery-group-1"
+                            width="full"
+                            height="full"
+
+
+                            src={table.imageLPF}
+                          />
+                          <>
+                            <h3
+                              class="text-color pt-2 px-7 mb-0 dark:text-wedding"
+                              set:html={table.title}
+                            />
+                            <h4
+                              class="text-color pt-2 px-7 mb-0 dark:text-wedding"
+                              set:html={table.subtitle}
+                            />
+                          </>
+                          <span class="ml-auto mr-5 w-[50px] sm:w-[70px] h-[50px] sm:h-[70px] !leading-[50px] sm:!leading-[70px] border border-wedding text-center text-lg/none sm:text-2xl/none xl:text-4xl/none dark:bg-bgdark bg-bgweiss block rounded translate-y-4">
+                            <DynamicIcon
+                              className="inline-block"
+                              icon={table.icon}
+                            />
+                          </span>
+                        </div>
+                        <div class="pt-10 px-7">
+                          {table.value && (
+                            <span class="font-bold mb-3 block h2  dark:text-wedding">
+                              {table.value}
+                              <span class="h5 font-medium ">/{table.unit}</span>
+                            </span>
+                          )}
+                          {table.features && table.features[0] && (
+                            <ul class="pl-0 mb-8 first:pt-0">
+                              {table.features.map((feature) => (
+                                <li class="text-color py-1.5">
+                                  <DynamicIcon
+                                    icon="TfiCheck"
+                                    className="me-3 text-wedding inline-block"
+                                  />
+                                  {feature}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))
+              }
+          </div>
+        </div>
+
+      </section>
+
+      <!-- //ANCHOR -  Bilder 2 -->
+      <section class="py-4">
+        {
+          individuelleErfahrung.bilder && (
+            <div class="col-12">
+              <div class="row justify-center lg:justify-normal content-around items-center">
+                {individuelleErfahrung.bilder.map((item, count) => {
+                  return (
+                    <div class="col-12 lg:col-6 text-center pt-8">
+                      <a
+                        href={item}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={item}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded"
+                          alt={title}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </section>
+      <!-- //ANCHOR -  Erfahrung und Kreativität für individuelle Bilder -->
+      <section class="py-4">
+        <h2>
+          Fotograf für Hochzeiten in Fürstenfeldbruck
+        </h2>
+        <p class="text-3xl text-wedding">
+          von Anfang an rundum betreut 
+        </p>
+        <p class="pt-8 leading-relaxed">
+          Bei meiner Arbeit als <b>Hochzeitsfotograf in Fürstenfeldbruck</b> lege ich größten Wert auf die richtige <b>Chemie</b> , um alle Eure kreativen Vorstellungen für Euch umsetzen zu können. Daher biete ich Dir und Deinem Ehepartner oder Deiner Ehepartnerin in ein kostenloses Probeshooting in Fürstenfeldbruck an, damit wir uns in entspanntem Rahmen kennenlernen können.Im Rahmen des rund einstündigen Shootings kann ich als Euer Hochzeitsfotograf in Fürstenfeldbruck in aller Ruhe auf Eure individuellen Wünsche eingehen und darauf abgestimmt verschiedene technische Möglichkeiten wie etwa analoge Objektive, die Motivwahl und stilistische Umsetzungen vorschlagen.Unser Treffen bietet auch die ideale Gelegenheit, um die optionale Gestaltung von einem Fotobuch zu erarbeiten. Durch das <b>Kostenloses Kennenlernshooting </b>kann ich mich als<b> Euer Hochzeitsfotograf in Fürstenfeldbruck </b> auf Euren großen Tag umfassend vorbereiten und Ihr könnt Euch hundertprozentig darauf verlassen, dass ich an eurem großen Tag mit meinen Bildern alle für Euch wichtigen Details einfangen werde.
+        </p>
+      </section>
+
+      <!-- //ANCHOR -  Bilder 3 -->
+      <section class="py-4">
+        {
+          individuelleAnfang.bilder && (
+            <div class="col-12">
+              <div class="row justify-center lg:justify-normal content-around items-center">
+                {individuelleAnfang.bilder.map((item) => {
+                  return (
+                    <div class="col-12 lg:col-6 text-center pt-8">
+                      <a
+                        href={item}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={item}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded"
+                          alt={title}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </section>
+      <!-- //ANCHOR -  Kennelernshooting -->
+      <section class="py-4">
+        <p class="text-3xl text-wedding">
+          Hochzeitsfotograf in Fürstenfeldbruck 
+        </p>
+        <h2 class="pb-4 underline underline-offset-4">
+          Ablauf in 4 schritte:
+        </h2>
+        <!-- 1 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4 text-end uppercase">
+            <span class="text-6xl">1</span>
+            <h3 class="text-3xl">kostenlose Kennenlernshooting</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            Das kostenlose Kennenlernshooting ist unverzichtbar. Hier lernen wir uns kennen und ich zeige Euch welche Mittel es bei der Hochzeitsfotografie gibt. Fachbegriffe, wie kurze Brennweiten, Buket oder Lifestyle , werden durch Beispielbilder sichtbar, weil ich nach dem kleinen Shooting Euch direkt die Bilder auf meinen PC (live aus der Kamera, keine Bearbeitung) zeige. Gemeinsam finden wir Euren Stil. Da entsteht auch die Auswahl für die Visitenkarten, die später Eure Gäste bekommen werden.
+          </p>
+          <div class="cal-4">
+            <div class="col-12 text-center pt-8">
+              <a
+                href={individuelleKennenlernshooting.bild1}
+                data-no-swup
+                class="glightbox"
+                data-gallery="gallery-group-1">
+                <ImageMod
+                  src={individuelleKennenlernshooting.bild1}
+                  width="full"
+                  height="full"
+                  class="rounded-full object-cover"
+                  alt="kostenlose Kennenlernshooting"
+                />
+              </a>
+            </div> 
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4">
+            <div class="col-12 text-center pt-8">
+              <a
+                href={individuelleKennenlernshooting.bild2}
+                data-no-swup
+                class="glightbox"
+                data-gallery="gallery-group-1">
+                <ImageMod
+                  src={individuelleKennenlernshooting.bild2}
+                  width="full"
+                  height="full"
+                  class="rounded-full object-cover"
+                  alt="kostenlose Kennenlernshooting"
+                />
+              </a>
+            </div> 
+          </div>
+          <div class="cal-4 text-start uppercase">
+            <span class="text-6xl">2</span>
+            <h3 class="text-3xl">Unverbindliches Angebot</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            Nach dem Kennenlernshooting oder dem Verlobungsshooting erstelle ich Euch ein individuelles Angebot. So könnt ihr genau das buchen, was ihr für Euch und Eure Gäste eigentlich braucht. Ich stehe Euch bei der Umsetzung gerne beraten zur Seite. Unverbindlich reserviere ich Euren Hochzeitstag in meinem Kalender. Mein Angebot ist idr. 90 Tage gültig. Ihr habt genügend Zeit, die Bilder aus dem Kennenlernshooting zu teilen, um Euch zu beraten lassen oder ggf. ein Gegenangebot zu holen.
+          </p>
+        </div>
+        <!-- 3 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4 text-end uppercase">
+            <span class="text-6xl">3</span>
+            <h3 class="text-3xl">Hochzeit sorgenfrei genießen</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            Nach dem Buchen bekommt ihr eine Auftragsbestätigung. Ich arbeite mit 40% Anzahlung. Es werden auch die Visitenkarten mit euren eigenen Bildern aus dem Kennenlernshooting für eure Gäste gedruckt. Dort ist der Code für eure geschütze Online-Galerie, wo die Bilder kostenloses heruntergeladen werden können.Zusätzlich kümmere ich mich um alle Details. die wichtige für die Fotodokumentation sind, z.B. das Standesamt oder Location zu besichtigen, alle Überraschungen Eurer Gäste im Vorfeld zu wissen, usw... Ich bin immer gut vorbereitet und tue alles in meiner Macht, damit Ihr am dem Tag Eure Hochzeit einfach genießt. 
+          </p>
+          <div class="cal-4">
+            <div class="col-12 text-center pt-8">
+              <a
+                href={individuelleKennenlernshooting.bild3}
+                data-no-swup
+                class="glightbox"
+                data-gallery="gallery-group-1">
+                <ImageMod
+                  src={individuelleKennenlernshooting.bild3}
+                  width="full"
+                  height="full"
+                  class="rounded-full object-cover"
+                  alt="kostenlose Kennenlernshooting"
+                />
+              </a>
+            </div> 
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4">
+            <div class="col-12 text-center pt-8">
+              <a
+                href={individuelleKennenlernshooting.bild4}
+                data-no-swup
+                class="glightbox"
+                data-gallery="gallery-group-1">
+                <ImageMod
+                  src={individuelleKennenlernshooting.bild4}
+                  width="full"
+                  height="full"
+                  class="rounded-full object-cover"
+                  alt="kostenlose Kennenlernshooting"
+                />
+              </a>
+            </div> 
+          </div>
+          <div class="cal-4 text-start uppercase">
+            <span class="text-6xl">4</span>
+            <h3 class="text-3xl">Abgabe aller Bilder</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            Die Abgaben erfolgen in 3 Schritten. Alle Bilder aus der Trauung, d.h. alles aus der Hochzeitsreportage, werden sehr zügig in Eurer Online-Galerie zur Verfügung gestellt. Mit dem Code aus der Visitenkarte können Eure Gäste die Bilder direkt kostenlos herunterladen. Die Bearbeitung der Bilder aus dem Brautshooting brauchen idr. 7 Werktage. Danach erfolgt auch die Schlussrechnung. Wenn ihr ein Hochzeitsbuch gebucht hat, gibt es hier noch eine Besonderheit, den diese werden ca. 6-8 Monate nach Eure Hochzeit erstellt. Damit ermögliche ich Euch ein Flashback an Euren schönsten Tag!
+          </p>
+        </div>
+        <!-- 5 -->
+        <div class="text-3xl pt-4 text-center">
+          Hole dir ein Angebot ein
+        </div>
+        <h4 class="text-5xl text-center">
+          Unverbindlich 
+        </h4>
+            <section class="overlay rounded-md overflow-hidden after:bg-wedding/30 dark:after:bg-wedding/20 border-l-4 border-wedding" >
+              <div class="container overlay-content">
+                <div class="row items-center text-start">
+                  <div class="lg:col-6 py-4">
+                      <h2 >
+                        Kostenloses Kennenlernshooting
+                      </h2>
+                        <p class="pb-2">Die beste Möglichkeit, um den wahren Wert eines Fotografen einzuschätzen, besteht darin, selbst vor die Linse zu treten und ihn persönlich kennenzulernen.</p>
+                        <p class="pb-2">Wir freuen uns darauf, von dir eine E-Mail zu bekommen um dein Termin für ein kostenloses Kennenlernshooting zu vereinbaren.</p>
+                        <p class="pb-2">Hierzu können wir auch gerne einfach telefonieren</p>
+                      <div class="py-4">         
+                      <div class="py-4">  
+                        <a
+                        data-te-nav-link-ref
+                        class="text-center mx-2 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss py-4 px-8 dark:border-wedding flex uppercase"
+                        href="tel: +4981052080020">
+                        +49 08105 20 800 20
+                      </a></div>
+                      <div class="py-4">
+                        <a
+                      data-te-nav-link-ref
+                      class="text-center mx-2 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss py-4 px-8 dark:border-wedding flex uppercase"
+                      href="mailto:info@camposviola.de">
+                      E-Mail - Termin Vereinbaren
+                    </a></div>
+                    </div>
+                        <p class="pb-2"> Statt ein Kontaktformular mit festen Felder, gebe ich Dir die Freiheit, eine persönliche E-Mail mit Details über Eure Hochzeit mit mir mitzuteilen.</p>
+                        <p class="pb-2">Ich freue mich!</p>
+                        <p class="pb-2">m</p>
+                    </div> 
+                    <div class="lg:col-6 items-end justify-end ">
+                       <a
+                          href={individuelleKennenlernshooting.bild5}
+                          data-no-swup
+                          class="glightbox"
+                          data-gallery="gallery-group-1">
+                          <ImageMod
+                            src={individuelleKennenlernshooting.bild5}
+                            width="full"
+                            height="full"
+                            class="rounded object-cover"
+                            alt="kostenlose Kennenlernshooting"
+                          />
+                      </a>
+                  </div>
+                </div>
+              </div>
+            </section>
+        <div class="text-center justify-center">
+          <div class="py-4">
+            <h4 class="pt-8 text-3xl text-center">
+              Hochzeitsfotografie in FFB
+            </h4>
+            <p class="cal-4 leading-relaxed">
+              Als Hochzeitsfotograf in Fürstenfeldbruck ist es mir wichtig, Top-Qualität zu einem fairen Preis-Leistungs-Verhältnis anzubieten. Ganz gleich, welches Budget Euch zur Verfügung steht, meine Pakete sind auf meiner Webseite transparent ersichtlich und können auf Wunsch an Eure individuellen Vorstellungen angepasst werden. Alle Angebote umfassen eine eigene Visitenkarte, damit Eure Gäste mit einem Passwort Zugang zu Euren Bildern mit kostenlosem Download erhalten – und sich ihrerseits lang an die schönsten Momente Eurer Trauung zurück erinnern zu können.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</Base>

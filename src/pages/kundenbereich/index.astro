@@ -1,0 +1,176 @@
+---
+import BlogCard from "@/components/BlogCard.astro";
+import Pagination from "@/components/Pagination.astro";
+import config from "@/config/config.json";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { getAllTaxonomy, getTaxonomy } from "@/lib/taxonomyParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+import { getEntry, type CollectionEntry } from "astro:content";
+import PageHeader from "@/partials/PageHeader.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+const BLOG_FOLDER = "kundenbereich";
+
+const posts = await getSinglePage(BLOG_FOLDER);
+const sortedPosts = sortByDate(posts) as CollectionEntry<"kundenbereich">[];
+const totalPages: number = Math.ceil(posts.length / config.settings.pagination);
+const currentPosts = sortedPosts.slice(0, config.settings.pagination);
+
+const {
+  body,
+  render,
+  data: { title, meta_title, image, keywords, description },
+} = await getEntry("kundenbereich", "-index");
+
+const COLLECTION_FOLDER = "kundenbereich";
+const projects = await getSinglePage(COLLECTION_FOLDER);
+const { Content } = await render();
+const sortedProjects = sortByDate(projects);
+const categories: string[] = [];
+projects.map(
+  (project) => project.data.category && categories.push(project.data.category),
+);
+const uniqCategories = [...new Set([...categories])];
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  image={image}
+  keywords={keywords}
+  description={description}
+  body_class="page-color-dark-hochzeits page-color-light-hochzeits">
+  <PageHeader title={title} />
+  <section class="overflow-hidden">
+    <div class="container">
+      <div class="md:px-20 justify-center items-center mr-8">
+        <p class="pb-8 text-center">{description}</p>
+      </div>
+      <div class="lg:gx-6">
+        <div class="col-12 pb-8">
+          {
+            uniqCategories && (
+              <ul class="flex flex-wrap justify-center gap-2 md:gap-x-4 items-center gap-y-4">
+                <li>
+                  <button
+                    class="transition group block px-6 py-[.2rem] border border-wedding rounded-full text-textdark dark:text-wedding group text-base hover:bg-wedding hover:text-white [&.active]:bg-wedding [&.active]:text-white active"
+                    data-clear-filter-btn="all">
+                    <DynamicIcon
+                      className="inline-block group-[.active]:!text-white group-hover:!text-white"
+                      icon="TfiReload"
+                    />
+                  </button>
+                </li>
+                {uniqCategories.map((category) => (
+                  <li>
+                    <button
+                      class="filter-btn transition block px-6 py-1.5 border border-wedding rounded-full text-textdark dark:text-wedding text-sm md:text-base hover:bg-wedding hover:!text-white [&.active]:bg-wedding [&.active]:text-white"
+                      data-type-filter-btn={category}
+                      set:html={category}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+
+        <div class="col-12">
+          <div id="projects-filter" class="row gy-4">
+            {
+              projects.map((project) => {
+                return (
+                  <div
+                    class="sm:col-12 lg:col-4"
+                    data-filter-type={project.data.category}>
+                    <BlogCard content={project} />
+                  </div>
+                );
+              })
+            }
+          </div>
+
+          <!--   blog posts 
+        <div class="col">
+          <div class="section max-lg:pb-0">
+            <div class="row g-4">
+              {
+                currentPosts.map((post) => (
+                  <div class="md:col-4">
+                    <BlogCard content={post} />
+                  </div>
+                ))
+              }
+            </div>
+            <Pagination
+              class="mt-10"
+              currentPage={1}
+              section={BLOG_FOLDER}
+              totalPages={totalPages}
+            />-->
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const projectWrapper = document.querySelector("#projects-filter");
+  const clearFilterBtn = document.querySelector("[data-clear-filter-btn]");
+  const listItems = Array.from(document.querySelectorAll("[data-filter-type]"));
+
+  const filterTypeBtns = Array.from(
+    document.querySelectorAll("[data-type-filter-btn]"),
+  );
+
+  let filterType = "";
+  filterTypeBtns.forEach((filterTypeBtn) => {
+    filterTypeBtn.addEventListener("click", () => {
+      clearFilterBtn?.classList.remove("active");
+      // Remove "active" class from all buttons
+      filterTypeBtns.forEach((btn) => {
+        btn.classList.remove("active");
+      });
+
+      // Add "active" class to the clicked button
+      filterTypeBtn.classList.add("active");
+
+      filterType = (filterTypeBtn as HTMLElement).dataset.typeFilterBtn || "";
+
+      const hasClass =
+        projectWrapper &&
+        Array.from(projectWrapper.children).some((child) =>
+          child.classList.contains("hidden"),
+        );
+
+      if (!hasClass) {
+        projectWrapper?.classList.add("animate-parent");
+      }
+
+      setTimeout(() => {
+        listItems.forEach((listItem) => {
+          listItem.classList.remove("hidden");
+
+          if ((listItem as HTMLElement).dataset.filterType === filterType) {
+            listItem.classList.remove("hidden");
+          } else {
+            listItem.classList.add("hidden");
+          }
+        });
+        projectWrapper?.classList.remove("animate-parent");
+      }, 1);
+    });
+  });
+
+  clearFilterBtn?.addEventListener("click", () => {
+    clearFilterBtn?.classList.add("active");
+    filterTypeBtns.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+
+    listItems.forEach((listItem) => {
+      listItem.classList.remove("hidden");
+    });
+  });
+</script>

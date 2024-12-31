@@ -1,0 +1,280 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getEntry } from "astro:content";
+import TestimonialSlider from "@/layouts/react-partials/TestmonialSlider.jsx";
+import ImageMod from "@/components/ImageMod.astro";
+
+const COLLECTION_FOLDER = "fotografie";
+const {
+  body,
+  render,
+  data: { title, image, meta_title, description, keywords, intro1 },
+} = await getEntry(COLLECTION_FOLDER, "-index");
+const { Content } = await render();
+
+const testimonials = (await getEntry("testimonial", "-index")).data.testimonial_items;
+const fotografieTestimonials = testimonials.filter(
+  (item) => item.section === "business"
+);
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  keywords={keywords}
+  image={image}
+  description={description}
+  body_class="page-color-dark-fotografie page-color-light-fotografie"
+>
+  <!-- Hero Banner -->
+  <section class="relative w-full h-screen bg-cover bg-center" style="background-image: url('/images/fotografie/corperate/eingang-schule.jpg');">
+    <div class="absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center">
+      <div class="text-center px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Erstklassige Fotografie</h1>
+        <p class="text-lg !text-gray-400 md:text-2xl mb-8">Businessporträts, Bewerbungsfotos und Künstleraufnahmen</p>
+        <a href="#corporate-fotografie" class="btn bg-fotografie  py-3 px-6 rounded-lg hover:bg-white hover:text-fotografie transition duration-300">Mehr erfahren</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-8">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-12 mb-5">
+          <div class="content py-6">
+            <p>Authentische Fotografie, die Charaktere einfängt: Ob dynamische <a href="#corporate-fotografie">Corporate-Porträts</a>, eindrucksvolle <a href="/artist-statement/">Artist Statements</a>, Musiker mit Leidenschaft oder professionelle <a href="/bewerbungsbilder/">Bewerbungsfotos</a> – wir präsentieren jede Persönlichkeit im besten Licht.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-8">
+    <div class="container">
+      <h2>Unsere Fotografie-Dienstleistungen umfassen:</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+        <div>
+          <h3><a href="#corporate-fotografie">Corporate-Porträts:</a></h3>
+          <p>Setze Dein professionelles Image perfekt in Szene. Unsere Corporate-Porträts vermitteln Dynamik und Kompetenz.</p>
+        </div>
+        <div>
+          <h3><a href="/bewerbungsbilder/">Bewerbungsfotos:</a></h3>
+          <p>Der erste Eindruck zählt. Lass Dich für Deine Bewerbung perfekt fotografieren, um Deine Chancen auf den Traumjob zu maximieren.</p>
+        </div>
+        <div>
+          <h3><a href="/artist-statement/">Artist Statements:</a></h3>
+          <p>Halte die Essenz Deiner Kunst in eindrucksvollen Bildern fest. Ideal für Musiker, Schauspieler und andere kreative Persönlichkeiten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-8">
+    <div class="container">
+      <TestimonialSlider
+        className="[&_.swiper-slide]:h-auto [&_.swiper-wrapper]:pb-20 mb-5"
+        client:load
+        testimonials={fotografieTestimonials}
+      />
+      <div class="text-xs uppercase text-end">
+        Referenzen quelle:
+        <a href="https://www.google.com/search?client=firefox-b-d&sa=X&sca_esv=1fd21f177eb912ee&sca_upv=1&tbm=lcl&q=CV+-+Campos+Viola+Photography+Rezensionen&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxI2NDAxNzE3NDMA0pYGJsamluYbGBlfMWo6hynoKjgn5hbkFyuEZebnJCoEZOSX5KcXJRZkVCoEpVal5hVn5uel5i1iJV4tAGYe69hyAAAA&rldimm=1047471600479043597&hl=de-DE&ved=2ahUKEwio5rmnm7WFAxUOQfEDHa1mC_QQ9fQKegQIGhAF&biw=1482&bih=902&dpr=2#lkt=LocalPoiReviews">Google</a> -
+        <a href="https://www.provenexpert.com/michael-campos-viola/">provenexpert</a>
+      </div>
+      <a href="/bewertungen/"
+        class="btn border border-fotografie dark:border-fotografie rounded-xl uppercase bg-fotografie/10 dark:bg-fotografie/10 hover:bg-fotografie/80 hover:underline-offset-8 underline-textweiss dark:hover:bg-fotografie/80 text-fotografie dark:hover:text-textweiss text-base mb-10 w-fit block mx-auto">
+        Referenzen
+      </a>
+    </div>
+  </section>
+
+  <section id="corporate-fotografie" class="pt-8">
+    <div class="container">
+      <h2>Corporate Fotografie – Maßgeschneiderte Bildkonzepte für Dein Unternehmen</h2>
+      <p>Es handelt sich hier um Richis Farshui, die wir seit mehreren Jahren begleiten und unterstützen. Wir erstellen die gesamte Werbekampagne und setzen kreative Konzepte in professionelle Bilder um.</p>
+      
+      <h3 class="pt-10">Corporate-Porträts</h3>
+      <p>Durch unsere professionellen Prozesse können wir sicherstellen, dass die Fotos deiner Mitarbeiter auch über Jahre hinweg einheitlich wirken, als wären sie am selben Tag aufgenommen worden. Dies zeigt die hohe Wertschätzung, die du deinen Mitarbeitern entgegenbringst, und vermittelt dem Betrachter deiner Webseite das Bild eines beständigen, harmonischen Teams, das zusammenwächst und gemeinsam Erfolge feiert, ohne ständige Veränderungen.</p>
+      {intro1.bilder && (
+        <div class="col-12">
+          <div class="row justify-center lg:justify-normal content-around items-center">
+            {intro1.bilder.map((item, index) => {
+              return (
+                <div class="col-12 lg:col-4 text-center pt-8" key={index}>
+                  <a
+                    href={item.src}
+                    data-no-swup
+                    class="glightbox"
+                    data-gallery="gallery-group-1">
+                    <ImageMod
+                      src={item.src}
+                      width="full"
+                      height="full"
+                      class="mx-auto rounded"
+                      alt={title}
+                    />
+                  </a>
+                  <p class="mt-2 text-sm italic text-center">{item.caption}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+<h3 class="pt-10">Corporate Logos</h3>
+<p>Unsere vielseitigen Logos für Richis Fahrschule sind so gestaltet, dass sie sowohl auf weißem als auch auf schwarzem Hintergrund professionell und ansprechend wirken. Ob als vollständiges Logo, nur die Initialen oder als minimalistischer Hintergrund – unsere Designs bieten flexible Lösungen für jede Anwendung und vermitteln stets eine starke, einheitliche Markenidentität.</p>
+{intro1.logos && (
+  <div class="col-12">
+    <div class="row justify-center lg:justify-normal content-around items-center">
+      {intro1.logos.map((item, index) => {
+        return (
+          <div class="col-12 lg:col-4 text-center pt-8" key={index}>
+            <a
+              href={item.src}
+              data-no-swup
+              class="glightbox"
+              data-gallery="gallery-group-1">
+              <ImageMod
+                src={item.src}
+                width="full"
+                height="full"
+                class="mx-auto rounded block dark:hidden"
+                alt={title}
+              />
+              <ImageMod
+                src={item.darkSrc}
+                width="full"
+                height="full"
+                class="mx-auto rounded hidden dark:block"
+                alt={title}
+              />
+            </a>
+            <p class="mt-2 text-sm italic text-center block dark:hidden">{item.caption}</p>
+            <p class="mt-2 text-sm italic text-center hidden dark:block">{item.darkCaption}</p>
+          </div>
+        );
+      })}
+
+    </div>
+    <div class="pt-4 text-sm  italic block dark:hidden">
+    <b>Erlebe unsere Logos im Darkmode</b><br>
+    Entdecke die Vielseitigkeit unserer Logos für Richis Fahrschule, indem du den Darkmode auf unserer Webseite aktivierst. Sieh selbst, wie die Designs nahtlos von einem strahlenden weißen Hintergrund zu einem eleganten schwarzen Hintergrund wechseln, um in jeder Umgebung optimal zur Geltung zu kommen.
+    </div>
+    <div class="pt-4 text-sm italic hidden dark:block">
+      <b>Erlebe unsere Logos im Hellmodus</b><br>
+      Wechsle zurück zum Hellmodus, um die Vielseitigkeit unserer Logos für Richis Fahrschule zu entdecken. Erlebe, wie die Designs perfekt auf einem strahlend weißen Hintergrund zur Geltung kommen und eine starke, einheitliche Markenidentität vermitteln.
+    </div>
+  </div>
+)}
+
+      <h3 class="pt-10">Typografische Werbekampagnen</h3>
+      <p>Unsere kreativen typografischen Werbekampagnen für Richis Fahrschule zeichnen sich durch ihre Vielseitigkeit und Präzision aus. Von auffälligen Anzeigen in Abiturzeitungen über elegante Plakate zur Neueröffnung bis hin zu praktischen A5-Flyern für die Briefkastenverteilung – jedes Element ist sorgfältig gestaltet, um maximale Wirkung zu erzielen. Entdecken Sie, wie wir durch gezielte Werbung die Sichtbarkeit und das Ansehen Ihrer Fahrschule steigern können.</p>
+      {intro1.werbung && (
+        <div class="col-12">
+          <div class="row justify-center lg:justify-normal content-around items-center">
+            {intro1.werbung.map((item, index) => {
+              return (
+                <div class="col-12 lg:col-4 text-center pt-8" key={index}>
+                  <a
+                    href={item.src}
+                    data-no-swup
+                    class="glightbox"
+                    data-gallery="gallery-group-1">
+                    <ImageMod
+                      src={item.src}
+                      width="full"
+                      height="full"
+                      class="mx-auto rounded"
+                      alt={title}
+                    />
+                  </a>
+                  <p class="mt-2 text-sm italic text-center">{item.caption}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      <h3 class="pt-10">Werbung auf Fußballtrikots</h3>
+      <p>Unsere maßgeschneiderte Werbung für die Trikots des FC Eichenau zeigt, wie vielseitig und effektiv Markenpräsenz im Sport sein kann. Mit auffälligen Designs und prägnanten Botschaften sorgen wir dafür, dass Richis Fahrschule auf und neben dem Spielfeld immer im Blickfeld bleibt. Die Trikots sind nicht nur ein Hingucker, sondern tragen auch zur Stärkung der Markenidentität bei und fördern eine positive Wahrnehmung in der Gemeinschaft.</p>
+      {intro1.aussenwahrnehmung && (
+        <div class="col-12">
+          <div class="row justify-center lg:justify-normal content-around items-center">
+            {intro1.aussenwahrnehmung.map((item, index) => {
+              return (
+                <div class="col-12 lg:col-4 text-center pt-8" key={index}>
+                  <a
+                    href={item.src}
+                    data-no-swup
+                    class="glightbox"
+                    data-gallery="gallery-group-1">
+                    <ImageMod
+                      src={item.src}
+                      width="full"
+                      height="full"
+                      class="mx-auto rounded"
+                      alt={title}
+                    />
+                  </a>
+                  <p class="mt-2 text-sm italic text-center">{item.caption}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      
+      <h3 class="pt-10">Anhänger-Werbung</h3>
+      <p>Unsere Werbekampagne umfasst auch professionelle Anhänger-Werbung, die auf Straßen und Veranstaltungen hohe Sichtbarkeit garantiert. Die finalen Designs zeigen zwei kreative Varianten, die mit präziser Reinzeichnung und detailgenauer Gestaltung überzeugen. Diese Anhänger-Werbung dient nicht nur als mobile Werbefläche, sondern auch als ein markantes Aushängeschild für unsere Marke, das Aufmerksamkeit erregt und in Erinnerung bleibt.</p>
+      {intro1.reinzeichung && (
+        <div class="col-12">
+          <div class="row justify-center lg:justify-normal content-around items-center">
+            {intro1.reinzeichung.map((item, index) => {
+              return (
+                <div class="col-12 lg:col-4 text-center pt-8" key={index}>
+                  <a
+                    href={item.src}
+                    data-no-swup
+                    class="glightbox"
+                    data-gallery="gallery-group-1">
+                    <ImageMod
+                      src={item.src}
+                      width="full"
+                      height="full"
+                      class="mx-auto rounded"
+                      alt={title}
+                    />
+                  </a>
+                  <p class="mt-2 text-sm italic text-center">{item.caption}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="pt-10">
+    <div class="container">
+      <div class="flex flex-wrap">
+        <div class="w-full md:w-1/2 md:pr-4">
+          <h3>Zusammenarbeit mit Werbefotograf Tom Trenkle</h3>
+          <p>Tom Trenkle, ein Werbefotograf, und ich arbeiten zusammen, um das Beste aus jedem Motiv herauszuholen. Mit einem Auge für Details und einem Gespür für die richtige Atmosphäre sorgen wir dafür, dass Deine Persönlichkeit im Mittelpunkt steht. In unserem Fotostudio in Gräfelfing nutzen wir modernste Technik und kreative Expertise, um Dir die besten Ergebnisse zu liefern. Ein Fotostudio bietet den Vorteil, dass wir unabhängig vom Wetter und mit optimaler Beleuchtung arbeiten können.</p>
+        </div>
+        <div class="w-full md:w-1/2 md:pl-4 md:pt-0 pt-10">
+          <h3>Professionelle Bildbearbeitung und KI-Integration</h3>
+          <p>Wir bieten professionelle Bildbearbeitung an und können auch KI-generierte Kombinationen erstellen. Dabei integriert die KI, um das Endergebnis zu verbessern, doch das klassische Handwerk bleibt im Mittelpunkt. So bleiben die Urheberrechte an Deinen eigenen Bildern gewahrt. 100% KI-generierte Bilder haben keinen Urheberschutz und können von jedem weiterverwendet werden. Die Kombination aus traditioneller Fotografie und moderner Technologie gewährleistet, dass Du einzigartige und authentische Bilder erhältst.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-8">
+    <div class="container">
+      <p data-aos="fade-up">Kontaktiere uns noch heute, um Dein Fotoshooting zu buchen und Dich professionell ins beste Licht zu setzen. Besuche uns in unserem Fotostudio in Gräfelfing und erlebe die Qualität unserer Arbeit aus erster Hand.</p>
+    </div>
+  </section>
+</Base>

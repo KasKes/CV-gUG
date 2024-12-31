@@ -1,0 +1,263 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { getEntry } from "astro:content";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+const gilching20 = await getEntry("igotshot-photo", "gilchinger-lange-nacht-der-kunst-kultur");
+import config from "@/config/config.json";
+import Social from "@/components/Social.astro";
+import social from "@/config/social.json";
+const {
+  render,
+  data: {   title,
+  section,
+  keywords,
+  meta_title,
+  contacts,
+  description,
+  image,
+  tag,
+  information,
+  logo,
+  logodark,},
+} = gilching20;
+
+const { Content } = await render();
+const servicesCollection = await getSinglePage("gilching");
+
+// Update the folder path `/public/images/igotshot/photos/festumzug-kulturlieferdienst` if necessary 
+const images = await import.meta.glob(
+    "/public/images/igotshot/photos/stop-bombing-civilians/bilder/*.{jpeg,jpg,png,gif}"
+);
+---
+
+<Base
+title={title}
+image={image}
+section={section}
+keywords={keywords}
+meta_title={meta_title}
+description={description}
+body_class="page-color-dark-igotshot page-color-light-igotshot">
+  <section class="pb-4">
+    <div class="container">
+      <h1 class="text-center pb-4">{title}</h1>
+      <div class="row gy-4 items-start">
+        <aside
+        class="lg:col-4 lg:sticky lg:top-0 ms-sticky-sidebar"
+        ms-sticky-top-offset="230"
+        ms-sticky-bottom-offset="10">
+        <div>
+          <div class="text-center h-full rounded overflow-hidden group">
+            {
+              logo && (
+                <img
+                  src={logo}
+                  width={300}
+                  height="full"
+                  alt={title ? title : "projekt image"}
+                  class="dark:hidden w-full inline-block object-cover pb-8 object-center"
+                />
+              )
+            }
+            {
+              logo && (
+                <img
+                  src={logodark}
+                  width={300}
+                  height="full"
+                  alt={title ? title : "projekt image"}
+                  class="hidden dark:inline-block w-full object-cover pb-8 object-center"
+                />
+              )
+            }
+            {
+              information && (
+                <div class="pt-2 px-4 text-base">
+                  {information.map((info) => {
+                    const { data, label, icon } = info;
+                    return (
+                      <div class="p-3 flex justify-between">
+                        <p class=" font-primary m-0 text-base">
+                          {icon && (
+                            <DynamicIcon
+                              className="inline-block me-2"
+                              icon={icon}
+                            />
+                          )}
+                          {label}
+                        </p>
+                        <span
+                          class="text-end text-textdark dark:text-igot"
+                          set:html={markdownify(data)}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )
+            }
+            {
+              tag && (
+                <div class="px-4 pb-3 text-base">
+                  {tag.map((info) => {
+                    const { data, label, icon, link } = info;
+                    return (
+                      <div class="p-3 flex justify-between ">
+                        <p class=" font-primary m-0 text-base">
+                          {icon && (
+                            <DynamicIcon
+                              className="inline-block me-2"
+                              icon={icon}
+                            />
+                          )}
+                          {label}
+                        </p>
+                        <a class="border border-igot rounded-xl hover:bg-igot hover:text-bgweiss dark:hover:text-bgdark py-1 px-4"
+                          href={link}>
+                        <span
+                          class="text-end hover:text-textweiss "
+                          set:html={markdownify(data)}
+                        /></a>
+                      </div>
+                    );
+                  })}
+                </div>
+              )
+            }
+            <div>
+              {
+                contacts && (
+                  <>
+                    <h2 class="h5 text-start ml-8" set:html="Information" />
+                    <ul class="pl-0 mb-5 md:mb-10">
+                      {contacts.map((contact) => {
+                        const { id, link, icon } = contact;
+                        if (!id) return null;
+                        return (
+                          <li class="text-color text-start ml-8 my-3">
+                            {icon && (
+                              <DynamicIcon
+                                className="me-3 inline-block"
+                                icon={icon}
+                              />
+                            )}
+                            <a href={link}>
+                              {id}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
+                )
+              }
+            </div>
+            <!-- Social Links -->
+            <hr class="h-px my-2" />
+              {config.params.blog_description && (
+                <p class="text-start px-4 ml-6" set:html={markdownify(config.params.blog_description)} />
+              )}
+              <div class="py-4">
+                <Social source={social.blog} className="social-icons" />
+                </div>
+          </div>
+        </div>
+      </aside>
+        <article class="lg:col-8">     
+            
+<!--NOTE - Block Trailer  -->    
+        <div class="pb-8">
+          <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe src="https://player.vimeo.com/video/428449179?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+            frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
+            title="4. GILCHINGER Lange Nacht der Kunst und Kultur">
+            </iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+            <figcaption class="text-right text-sm">
+              Trailer
+            </figcaption>
+         </div>   
+         <div class="pb-10">
+          <p>Während der Corona-Einschränkungen war die Aula in Gilching zu klein für alle, die an der Veranstaltung teilnehmen wollten. Daher haben wir geholfen, das Kunstforum Gilching zu unterstützen, indem wir die gesamte Veranstaltung gleichzeitig im Kino Gilching projiziert und als Livestream angeboten haben. Dank der Hilfe von Ulf und Mathias (Kino Gleis 8) konnten wir dies erfolgreich umsetzen. Die Veranstaltung bestand aus mehreren Teilen. Während der Umbaupausen wurden Videosequenzen gezeigt, um die Wartezeit zu überbrücken und ein Video-Statement zu präsentieren.</p>
+         </div>
+<!--NOTE - Block Victoria und Jakob Memo  -->   
+        <div>
+          <p class="italic">block:</p><h2 class="uppercase">JUGENDFORUM Musical</h2>
+          <hr>
+          <p>Musical Songs aus den Musicals La La Land und Wicked mit Jakob Smolinski, Franziska und Victoria Deutsch</p>       
+        </div>
+        <div class="pb-8"> 
+          <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe src="https://player.vimeo.com/video/426597506?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+            frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
+            title="4. GILCHINGER LANGE NACHT DER KUNST UND KULTUR Victoria und Jakob Memo">
+            </iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+          <figcaption class="text-right text-sm">
+            Victoria und Jakob Memo
+          </figcaption>
+          </div>
+       
+<!--NOTE - Block Marina  -->   
+          <div>
+             <p class="italic">block:</p><h2 class=" uppercase">Musikalische Zweisamkeit</h2>
+            <hr>
+            <p>Lieder, die Komponist*innen verbinden Lieder von Gustav Mahler, Alma Mahler, Alexander von Zemlinsky und Arnold Schönberg Marina Skowronek (Sopran), Caroline Bergius (Klavier)</p>
+          </div>
+        <div class="pb-8"> 
+          <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe src="https://player.vimeo.com/video/430278141?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+            frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
+            title="4. GILCHINGER LANGE NACHT DER KUNST UND KULTUR Intro Block Marina">
+            </iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+          <figcaption class="text-right text-sm">
+            Intro Block Marina
+          </figcaption>
+          </div>
+          
+        
+<!--NOTE - Block Balett  -->   
+          <div>
+            <p class="italic">block:</p><h2>BALLETT</h2>
+            <hr>
+            <p>Peterchens Mondfahrt Ausschnitte aus dem gleichnamigen Märchenballett von Wolfgang Zoubek JU[MB]LEX – Jugendensemble für Neue Musik Bayern unter der Leitung von Johannes X. Schachtner Es tanzt das Ballettensemble der Musikschule Gilching, Hannelore Husemann-Sieber (Choreographie)
+            </p>
+          </div>
+        <div class="pb-8"> 
+          <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe src="https://player.vimeo.com/video/430071731?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+            frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
+            title="4. GILCHINGER LANGE NACHT DER KUNST UND KULTUR - Intro Ballet">
+          </iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+          <figcaption class="text-right text-sm">
+            Intro  Intro Ballet
+          </figcaption>
+          </div>
+        
+<!--NOTE - Block Marina  -->   
+          <div>
+            <p class="italic">block:</p><h2>KAMMERMUSIK</h2>
+            <hr>
+            <p>Violine und Klavier Anton Webern: Vier Stücke für Violine und Klavier, op. 7 W. A. Mozart: Violinsonate in B-Dur, KV 378 Johannes Brahms: Scherzo (F.A.E.-Sonate für Klavier und Violine) Louis Vandory (Violine), Viktor Jugovic (Klavier)</p>
+          </div>
+        <div class="pb-8"> 
+          <div style="padding:56.25% 0 0 0;position:relative;">
+            <iframe src="https://player.vimeo.com/video/434010243?h=365131d498&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+            frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
+            title="4. GILCHINGER LANGE NACHT DER KUNST UND KULTUR - Louis Vandory und Viktor Jugovic">
+          </iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+          <figcaption class="text-right text-sm">
+            Intro  Louis Vandory und Viktor Jugovic
+          </figcaption>
+          </div>
+        </div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</Base>

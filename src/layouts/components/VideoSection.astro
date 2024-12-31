@@ -1,0 +1,115 @@
+---
+import ProjectCardVideo from "@/components/ProjectCardVideo.astro";
+import ProjectCardCinema from "@/components/ProjectCardCinema.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+const { body, Content } = Astro.props;
+const BLOG_FOLDERS = [ "video", "cinema"] as const;
+const [ blogCollectionVideo, blogCollectionCinema] = await Promise.all(BLOG_FOLDERS.map(folder => getSinglePage(folder)));
+
+const sortedProjects = [
+  sortByDate(blogCollectionVideo),
+  sortByDate(blogCollectionCinema)
+];
+---
+
+<section class="py-4 lg:py-10 mt-20 bg-video/10 parallax" id="video-section">
+    <div class="container mx-auto">
+      <!-- Desktop Ansicht -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 hidden lg:grid">
+        <div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {blogCollectionVideo.slice(0, 4).map((post, index) => (
+              <div class={`block ${index >= 1 ? 'hidden md:block' : ''} ${index >= 4 ? 'hidden xl:block' : 'block'}`}>
+                <ProjectCardVideo content={post} />
+              </div>
+            ))}
+          </div>
+          <hr class="border-t-2 border-video my-4 video-divider" />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {blogCollectionCinema.slice(0, 4).map((post, index) => (
+              <div class={`block ${index >= 1 ? 'hidden md:block' : ''} ${index >= 4 ? 'hidden xl:block' : 'block'}`}>
+                <ProjectCardCinema content={post} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="lg:sticky lg:top-60 self-start">
+          <div class="text-start">
+            <h2 id="video-title" class="!text-video uppercase">Nahaufnahme</h2>
+            <img 
+              src="/images/icons/cinematography-with-value.svg" 
+              alt="Cinematography with Value" 
+              class="mb-4 fade-in"
+            />
+            <p class="pb-4 dark:!text-video" id="video-text">"</p>
+            <a href="/video/" id="video-button" class="mt-4 border !text-video border-video rounded-xl hover:bg-video hover:no-underline hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4 inline-block">Mehr erfahren über Videoproduktionen</a>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile Ansicht -->
+      <div class="block lg:hidden">
+        <div class="text-center">
+          <img 
+          src="/images/icons/cinematography-with-value.svg" 
+          alt="Cinematography with Value" 
+          class="mb-4 fade-in"
+          loading="lazy"
+          decoding="async"
+        />
+          <h2 class="!text-video uppercase">Nahaufnahme</h2>
+          <p class="pb-4 dark:!text-video" id="video-text-mobile">Mit unseren Videos dokumentieren wir kulturelle und gesellschaftliche Veranstaltungen authentisch und nahbar. Ob Livestreams, Reportagen oder zeitgenössische Dokumentationen – wir schaffen Zugang zu Momenten, die Gemeinschaft stärken und Geschichten erzählen, die nicht vergessen werden dürfen. Gemeinsam machen wir Engagement sichtbar – live, ehrlich und verbindend."</p>
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            {blogCollectionVideo.slice(0, 4).map((post, index) => (
+              <div key={index} class="block">
+                <ProjectCardVideo content={post} />
+              </div>
+            ))}
+          </div>
+          <a href="/video/" id="video-button-mobile" class="mt-4 border !text-video border-video rounded-xl hover:bg-video hover:no-underline hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4 inline-block">Mehr erfahren über Videoproduktionen</a>
+        </div>
+        <div class="text-center my-14 ">
+          <h2 class="!text-video uppercase">Leinwandmomente</h2>
+          <p class="pb-4 dark:!text-video">Große Geschichten gehören auf die große Leinwand. Unsere Cinema-Produktionen verbinden cineastische Qualität mit gesellschaftlichem Mehrwert. Von künstlerischen Projekten bis zu preisgekrönten Filmfestivals – wir schaffen Filme, die inspirieren, berühren und einen bleibenden Eindruck hinterlassen. Für eine Kultur des Miteinanders, die noch lange nachwirkt.</p>
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            {blogCollectionCinema.slice(0, 4).map((post, index) => (
+              <div key={index} class="block">
+                <ProjectCardCinema content={post} />
+              </div>
+            ))}
+          </div>
+          <a href="/cinema/" id="cinema-button-mobile" class="mt-4 border !text-video border-video rounded-xl hover:bg-video hover:no-underline hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4 inline-block">Filmprojekte ansehen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <script>
+    document.addEventListener('scroll', function () {
+      const videoDivider = document.querySelector('.video-divider') as HTMLElement;
+      console.log('Video Divider:', videoDivider);
+
+      if (videoDivider) {
+        const videoTitle = document.getElementById('video-title') as HTMLElement;
+        const videoText = document.getElementById('video-text') as HTMLElement;
+        const videoButton = document.getElementById('video-button') as HTMLAnchorElement;
+        const videoRect = videoDivider.getBoundingClientRect();
+
+        console.log('Video Rect Top:', videoRect.top);
+
+        if (videoRect.top < 300) {
+          console.log('Cinema visible');
+          videoTitle.textContent = 'Leinwandmomente';
+          videoText.textContent = 'Große Geschichten gehören auf die große Leinwand. Unsere Cinema-Produktionen verbinden cineastische Qualität mit gesellschaftlichem Mehrwert. Von künstlerischen Projekten bis zu preisgekrönten Filmfestivals – wir schaffen Filme, die inspirieren, berühren und einen bleibenden Eindruck hinterlassen. Für eine Kultur des Miteinanders, die noch lange nachwirkt.';
+          videoButton.textContent = 'Filmprojekte ansehen';
+          videoButton.href = '/cinema/';
+        } else {
+          console.log('Video visible');
+          videoTitle.textContent = 'Nahaufnahme';
+          videoText.textContent = 'Mit unseren Videos dokumentieren wir kulturelle und gesellschaftliche Veranstaltungen authentisch und nahbar. Ob Livestreams, Reportagen oder zeitgenössische Dokumentationen – wir schaffen Zugang zu Momenten, die Gemeinschaft stärken und Geschichten erzählen, die nicht vergessen werden dürfen. Gemeinsam machen wir Engagement sichtbar – live, ehrlich und verbindend.';
+          videoButton.textContent = 'Mehr erfahren über Videoproduktionen';
+          videoButton.href = '/video/';
+        }
+      }
+    });
+  </script>

@@ -1,0 +1,98 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import dateFormat from "@/lib/utils/dateFormat";
+import { humanize, markdownify, slugify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+import PageHeader from "@/partials/PageHeader.astro";
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const {
+  post: { data, body, render, slug },
+} = Astro.props;
+
+const { Content } = await render();
+const { title, categories, image, date, text, btn_link, tags } = data;
+---
+<PageHeader title={data.title} />
+<div class="container">
+  {date && <p class="text-center text-base">{dateFormat(date)}</p>}
+  <div class="pt-4 row flex flex-col lg:flex-row">
+    <div class="order-2 lg:order-1 w-full lg:w-1/2">
+      {body && (
+        <p class="content pt-8">
+          <Content />
+        </p>
+      )}
+      <div class="py-8">
+        <a
+          data-te-nav-link-ref
+          class="text-center mx-2 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss dark:hover:text-bgdark py-2 px-4 dark:border-wedding uppercase"
+          href={btn_link}
+          rel="nofollow"
+        >
+          {text}
+        </a>
+      </div>
+      <div class="py-2">
+        <a href="/kundenbereich/hilfe/" class="text-base">
+          Hilfe
+        </a>
+      </div>
+      <div class="pt-10 flex flex-wrap gap-x-8 gap-y-8 items-start justify-between py-5">
+        {categories && categories[0] && (
+          <div class="flex items-center">
+            <h5 class="mr-3 mb-0 text-base font-primary font-medium whitespace-nowrap">
+              Kategorie:
+            </h5>
+            <ul class="flex flex-wrap gap-2">
+              {categories.map((tag) => (
+                <li key={tag}>
+                  <a
+                    class="mx-2 text-wedding border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss  dark:hover:text-bgdark  py-2 px-4 dark:border-wedding"
+                    href={`/categories/${slugify(tag)}/`}
+                  >
+                    {tag}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {tags && tags[0] && (
+          <div class="flex items-center">
+            <h5 class="mr-3 mb-0 text-base font-primary font-medium whitespace-nowrap">
+              Tag:
+            </h5>
+            <ul class="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <li key={tag}>
+                  <a
+                    class="mx-2 text-wedding border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss  dark:hover:text-bgdark  py-2 px-4 dark:border-wedding"
+                    href={`/tags/${slugify(tag)}/`}
+                  >
+                    {tag}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+    <div class="order-1 lg:order-2 w-full lg:w-1/2">
+      {image && (
+        <div class="w-full my-4">
+          <ImageMod
+            src={image}
+            height={500}
+            width={1200}
+            alt={title}
+            class="w-full rounded"
+          />
+        </div>
+      )}
+    </div>
+  </div>
+</div>

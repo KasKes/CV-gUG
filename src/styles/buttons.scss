@@ -1,0 +1,66 @@
+.btn {
+  @apply inline-block text-sm capitalize font-medium duration-200 ease-in px-8 sm:px-11 py-3 sm:py-3.5 rounded-[40px];
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    @apply shadow-none bg-primary text-white outline-0 no-underline;
+  }
+
+  &-sm {
+    @apply px-8 py-3 text-sm;
+  }
+
+  &-md {
+    @apply px-11 text-base;
+  }
+}
+
+.btn-primary {
+  @apply border-primary bg-primary text-white no-underline hover:bg-opacity-80;
+
+  &-white {
+    @apply border-white bg-white uppercase no-underline border-2 hover:bg-transparent text-dark;
+  }
+
+  &-dark {
+    @apply border-secondary bg-secondary text-white no-underline;
+  }
+  &-compact {
+    @apply rounded-sm px-4;
+  }
+}
+
+.btn-outline {
+  &-dark {
+    @apply text-dark bg-transparent border-2 border-solid border-secondary btn-md;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-visible {
+      @apply bg-secondary;
+    }
+  }
+  &-primary {
+    @apply text-dark bg-transparent border-2 border-solid border-transparent;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-visible {
+      @apply bg-secondary;
+    }
+  }
+}
+.btnIgot {
+  @apply inline-block capitalize duration-200 ease-in px-8 sm:px-11 py-3 sm:py-3.5 rounded-[40px];
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    @apply shadow-none bg-igot/20 text-white outline-0;
+  }
+}

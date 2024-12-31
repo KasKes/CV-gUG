@@ -1,0 +1,123 @@
+---
+
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+import MasonaryImages from "@/layouts/react-partials/MasonaryImages.tsx";
+const { body, Content } = Astro.props;
+const BLOG_FOLDERS = [ "kundenbereich"];
+const [ blogCollectionHochzeit] = await Promise.all(BLOG_FOLDERS.map(folder => getSinglePage(folder)));
+
+const sortedProjects = [
+sortByDate(blogCollectionHochzeit),
+];
+const imagesWedding = await import.meta.glob(
+  "/public/images/weddinghome/*.{jpeg,jpg,webp,png,gif}"
+);
+
+---
+
+<section class="lg:py-10 py-4 corporate-divider bg-gray-400/10" id="corporate-section">
+    <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <!-- Desktop Ansicht -->
+      <div class="hidden lg:block">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {Object.entries(imagesCorporate).map(([path, image]) => (
+            <div key={path} class="block">
+              <img src={path.replace('/public', '')} alt="Corporate Image" class="w-full rounded h-auto" />
+            </div>
+          ))}
+        </div>
+        <hr class="border-t-2 border-gray-400 my-4 bewerbung-divider" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {Object.entries(imagesBewerbung).map(([path, image]) => (
+            <div key={path} class="block">
+              <img src={path.replace('/public', '')} alt="Bewerbungsbild" class="w-full rounded h-auto" />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="hidden lg:block lg:sticky lg:top-60 self-start">
+        <div class="text-start">
+          <h2 id="corporate-title" class="!text-gray-400 uppercase">Corporate Fotografie</h2>
+          <img src="/images/icons/corporate-visibility.svg" alt="Corporate Visibility" class="mb-4" />
+          <p id="corporate-text" class="pb-4 dark:!text-gray-400">Professionelle Unternehmensfotografie für Ihre Marke. Unsere Corporate Fotografie umfasst alles von hochwertigen Porträts und Teamfotos bis hin zu Corporate IDs, Logos und Werbekampagnen. Wir setzen Ihr Unternehmen perfekt in Szene, um Ihre Marke visuell zu stärken und Ihre Botschaft klar zu vermitteln.</p>
+          <a href="/fotografie/" id="corporate-button" class="mt-4 border dark:!text-gray-400 border-gray-400 rounded-xl hover:no-underline hover:bg-gray-400 hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4">Mehr erfahren über Corporate Fotografie</a>
+        </div>
+      </div>
+  
+      <!-- Mobile Ansicht -->
+      <div class="block lg:hidden">
+        <div class="text-center">
+          <img src="/images/icons/corporate-visibility.svg" alt="Corporate Visibility" class="mb-4 mx-auto" />
+          <h2 class="!text-gray-400 uppercase">Corporate Fotografie</h2>
+          <p class="pb-4 dark:!text-gray-400">Professionelle Unternehmensfotografie für Ihre Marke. Unsere Corporate Fotografie umfasst alles von hochwertigen Porträts und Teamfotos bis hin zu Corporate IDs, Logos und Werbekampagnen. Wir setzen Ihr Unternehmen perfekt in Szene, um Ihre Marke visuell zu stärken und Ihre Botschaft klar zu vermitteln.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          {Object.entries(imagesCorporate).map(([path, image]) => (
+            <div key={path} class="block">
+              <img src={path.replace('/public', '')} alt="Corporate Image" class="w-full rounded h-auto" />
+            </div>
+          ))}
+        </div>
+        <div class="text-center mt-8">
+          <a href="/fotografie/" id="corporate-button-mobile" class="mt-4 border dark:!text-gray-400 border-gray-400 rounded-xl hover:no-underline hover:bg-gray-400 hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4 inline-block">Mehr erfahren über Corporate Fotografie</a>
+        </div>
+        <div class="text-center mt-14">
+          <h2 class="!text-gray-400 uppercase">Bewerbungsbilder</h2>
+          <p class="pb-4 dark:!text-gray-400">Perfekte Bewerbungsbilder für deinen Erfolg. Lass dich von unseren professionellen Bewerbungsbildern begeistern! Wir setzen deine Persönlichkeit und Stärken optimal in Szene, damit du einen bleibenden, positiven Eindruck hinterlässt. Ob klassische Bewerbungsbilder oder moderne Businessporträts – wir sorgen dafür, dass du dich von deiner besten Seite zeigst.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          {Object.entries(imagesBewerbung).map(([path, image]) => (
+            <div key={path} class="block">
+              <img src={path.replace('/public', '')} alt="Bewerbungsbild" class="w-full rounded h-auto" />
+            </div>
+          ))}
+        </div>
+        <div class="text-center mt-8 mb-14">
+          <a href="/bewerbungsbilder/" id="bewerbung-button-mobile" class="mt-4 border dark:!text-gray-400 border-gray-400 rounded-xl hover:no-underline hover:bg-gray-400 hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4 inline-block">Jetzt Termin vereinbaren für Bewerbungsbilder</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+
+  Unsere Mission
+
+  Bei CAMPOS VIOLA gUG richten wir den Fokus auf die stillen Helden unserer Gesellschaft – jene, die ihre Zeit und Energie in ehrenamtliche Arbeit investieren, die oft im Verborgenen bleibt. Unser Schwerpunkt liegt auf den Bereichen Kunst, Kultur und bürgerschaftliches Engagement. Damit möchten wir nicht nur diese Leistungen würdigen, sondern auch andere dazu ermutigen, selbst aktiv zu werden.
+  Unsere Werte
+  
+  Unsere Arbeit geht über das bloße Erzählen von Geschichten hinaus. Wir beschäftigen uns mit den gesellschaftlichen Herausforderungen, die unsere Gemeinschaften prägen, und decken lokale Themen auf, die das Potenzial haben, auch überregional Bedeutung zu erlangen. Indem wir diese Geschichten aufzeigen, wollen wir Diskussionen anstoßen und mehr Menschen dazu bewegen, sich für das Gemeinwohl einzusetzen.
+  
+  Während wir uns auf den offiziellen Start im Januar 2025 vorbereiten, bleiben wir unseren Werten treu: Transparenz, Respekt und journalistische Integrität. Egal, ob Sie sich für ehrenamtliche Arbeit begeistern, an gesellschaftlichen Themen interessiert sind oder einfach neugierig auf unsere Geschichten sind – wir laden Sie ein, die Geschichten zu entdecken, die die Zukunft des bürgerschaftlichen Engagements prägen werden.
+  
+  <script>
+    document.addEventListener('scroll', function () {
+      const corporateDivider = document.querySelector('.corporate-divider');
+      const bewerbungDivider = document.querySelector('.bewerbung-divider');
+
+      if (corporateDivider && bewerbungDivider) {
+        const corporateTitle = document.getElementById('corporate-title');
+        const corporateText = document.getElementById('corporate-text');
+        const corporateButton = document.getElementById('corporate-button');
+        const corporateRect = corporateDivider.getBoundingClientRect();
+        const bewerbungRect = bewerbungDivider.getBoundingClientRect();
+
+        if (bewerbungRect.top < 300) {
+          if (corporateTitle) corporateTitle.textContent = 'Bewerbungsbilder';
+          if (corporateText) corporateText.textContent = 'Perfekte Bewerbungsbilder für deinen Erfolg. Lass dich von unseren professionellen Bewerbungsbildern begeistern! Wir setzen deine Persönlichkeit und Stärken optimal in Szene, damit du einen bleibenden, positiven Eindruck hinterlässt. Ob klassische Bewerbungsbilder oder moderne Businessporträts – wir sorgen dafür, dass du dich von deiner besten Seite zeigst.';
+          if (corporateButton) {
+            corporateButton.textContent = 'Jetzt Termin vereinbaren für Bewerbungsbilder';
+            corporateButton.setAttribute('href', '/bewerbungsbilder/');
+          }
+        } else if (corporateRect.top < 300) {
+          if (corporateTitle) corporateTitle.textContent = 'Corporate Fotografie';
+          if (corporateText) corporateText.textContent = 'Professionelle Unternehmensfotografie für Ihre Marke. Unsere Corporate Fotografie umfasst alles von hochwertigen Porträts und Teamfotos bis hin zu Corporate IDs, Logos und Werbekampagnen. Wir setzen Ihr Unternehmen perfekt in Szene, um Ihre Marke visuell zu stärken und Ihre Botschaft klar zu vermitteln.';
+          if (corporateButton) {
+            corporateButton.textContent = 'Mehr erfahren über Corporate Fotografie';
+            corporateButton.setAttribute('href', '/fotografie/');
+          }
+        }
+      }
+    });
+  </script>

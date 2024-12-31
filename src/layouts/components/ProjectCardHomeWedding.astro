@@ -1,0 +1,74 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+import dateFormat from "@/lib/utils/dateFormatShort";
+
+interface Props {
+  content: CollectionEntry<"kundenbereich">;
+}
+
+const { content } = Astro.props as Props;
+const { data: { title, date, image, category }, slug } = content;
+---
+<a href={`/kundenbereich/${slug}/`} class="relative overflow-hidden block group hover:no-underline md:hover:underline">
+  <!-- Normalansicht -->
+  <div class="overlay after:opacity-0 after:bg-wedding/90 after:rounded group-hover:after:opacity-100 after:duration-300 hidden md:block">
+    {image && (
+      <ImageMod
+        src={image}
+        width={460}
+        height={460}
+        class="w-full rounded"
+        alt={title || "project image"}
+      />
+    )}
+    <div class="absolute bottom-0 w-full flex flex-col items-center md:items-start !text-bgweiss dark:!text-bgdark p-5 z-10">
+      {title && (
+        <h3 class="h5 text-center !text-bgweiss dark:!text-bgdark py-4">
+          <span
+            class="block translate-y-4 duration-300 opacity-0 group-hover:translate-y-0 group-hover:opacity-100"
+            set:html={markdownify(title)}
+          />
+        </h3>
+      )}
+      {date && (
+        <p class="text-center text-base !text-bgweiss dark:!text-bgdark mb-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 duration-300">
+          {dateFormat(date)}
+        </p>
+      )}
+      {category && (
+        <p class="absolute bottom-5 right-5 text-sm !text-bgweiss dark:!text-bgdark bg-wedding px-2 py-1 rounded group-hover:bg-transparent duration-300">
+          {category}
+        </p>
+      )}
+    </div>
+  </div>
+  <!-- Handy-Ansicht -->
+  <div class="md:hidden p-3 hover:no-underline relative">
+    {image && (
+      <ImageMod
+        src={image}
+        width={460}
+        height={460}
+        class="w-full rounded"
+        alt={title || "project image"}
+      />
+    )}
+    {category && (
+      <p class="absolute  top-5 right-5 text-sm !text-bgweiss dark:!text-bgdark bg-wedding px-2 py-1 rounded">
+        {category}
+      </p>
+    )}
+    {title && (
+      <h3 class="h5 !text-wedding py-2">
+        <span set:html={markdownify(title)} />
+      </h3>
+    )}
+    {date && (
+      <p class="text-sm !text-wedding mb-2">
+        {dateFormat(date)}
+      </p>
+    )}
+  </div>
+</a>

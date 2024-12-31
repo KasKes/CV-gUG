@@ -1,0 +1,38 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getEntry } from "astro:content";
+import InitialenCV from "@/components/InitialenCV.astro";
+import Video from "@/components/VideoSection.astro";
+import Igotshot from "@/components/IgotshotSection.astro";
+import Wedding from "@/components/WeddingSection.astro";
+import Impact from "@/components/ImpactSection.astro";
+
+
+const { body, render, data: { title, image, meta_title, keywords, description } } = await getEntry("homepage", "-index");
+const { Content } = await render();
+---
+
+<Base
+  title="CV gUG"
+  meta_title="CV gUG – Für soziale Verantwortung und nachhaltige Veränderung"
+  description="Unsere gemeinnützige Organisation setzt sich für soziale Verantwortung, nachhaltige Projekte und den Aufbau einer starken Gemeinschaft ein. Gemeinsam gestalten wir eine bessere Zukunft."
+  keywords="soziale Verantwortung, nachhaltige Projekte, NGO, Stiftung, gesellschaftliche Veränderung, Gemeinschaft fördern"
+  image="/images/LogoCV/cv-kreis-schwarz1000.png"
+  canonical="https://camposviola.ngo">
+
+<!-- Initialen CV -->
+  <InitialenCV body={body} Content={Content} />
+
+<!-- Video -->
+  <Video body={body} Content={Content} />
+
+<!-- igotshot -->
+<Igotshot body={body} Content={Content} />
+
+<!-- Mach Mit -->
+<Wedding body={body} Content={Content} />
+
+<!-- Corporate Fotografie und Bewerbungsbilder 
+<Impact body={body} Content={Content} />-->
+
+</Base>

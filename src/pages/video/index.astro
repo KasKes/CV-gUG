@@ -1,0 +1,119 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { getEntry } from "astro:content";
+import ProjectCard from "@/components/ProjectCardVideo.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+const {
+  body,
+  render,
+  data: { title, meta_title, description, keywords, image },
+} = await getEntry("video", "-index");
+
+const COLLECTION_FOLDER = "video";
+const projects = await getSinglePage(COLLECTION_FOLDER);
+const { Content } = await render();
+const sortedProjects = sortByDate(projects);
+const categories = projects.map((project) => project.data.category).filter(Boolean);
+const uniqCategories = [...new Set(categories)];
+---
+
+<Base
+  title={title}
+  image={image}
+  keywords={keywords}
+  meta_title={meta_title}
+  description={description}
+  body_class="page-color-dark-video page-color-light-video"
+>
+  <section class="section">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-12">
+          {uniqCategories && (
+            <ul class="flex flex-wrap justify-start items-center md:justify-center gap-2 md:gap-x-4 gap-y-4">
+              <li>
+                <button
+                  class="transition group block px-6 py-[.2rem] border border-video rounded-full text-base hover:bg-video hover:text-bgweiss dark:hover:text-bgdark [&.active]:bg-video [&.active]:text-bgweiss active"
+                  data-clear-filter-btn="all">
+                  <DynamicIcon
+                    className="inline-block group-[.active]:!text-bgweiss group-hover:!text-bgweiss dark:group-[.active]:!text-bgdark dark:group-hover:!text-bgdark"
+                    icon="TfiReload"
+                  />
+                </button>
+              </li>
+              {uniqCategories.map((category) => (
+                <li>
+                  <button
+                    class="filter-btn transition block px-6 py-1.5 border border-video rounded-full text-sm md:text-base hover:bg-video text-video hover:text-bgweiss dark:hover:text-bgdark [&.active]:bg-video [&.active]:text-bgweiss dark:[&.active]:text-bgdark"
+                    data-type-filter-btn={category}
+                    set:html={category}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div class="col-12">
+          <div id="projects-filter" class="row gy-4">
+            {projects.map((project) => (
+              <div
+                key={project.data.title}
+                class="md:col-12 lg:col-3"
+                data-filter-type={project.data.category}
+              >
+                <ProjectCard content={project} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const projectWrapper = document.querySelector("#projects-filter");
+    const clearFilterBtn = document.querySelector("[data-clear-filter-btn]");
+    const listItems = Array.from(document.querySelectorAll("[data-filter-type]"));
+
+    const filterTypeBtns = Array.from(document.querySelectorAll("[data-type-filter-btn]"));
+
+    let filterType = "";
+
+    filterTypeBtns.forEach((filterTypeBtn) => {
+      filterTypeBtn.addEventListener("click", () => {
+        clearFilterBtn?.classList.remove("active");
+
+        filterTypeBtns.forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        filterTypeBtn.classList.add("active");
+        filterType = filterTypeBtn.dataset.typeFilterBtn || "";
+
+        projectWrapper?.classList.add("animate-parent");
+
+        setTimeout(() => {
+          listItems.forEach((listItem) => {
+            listItem.classList.toggle("hidden", listItem.dataset.filterType !== filterType);
+          });
+          projectWrapper?.classList.remove("animate-parent");
+        }, 1);
+      });
+    });
+
+    clearFilterBtn?.addEventListener("click", () => {
+      clearFilterBtn.classList.add("active");
+      filterTypeBtns.forEach((btn) => {
+        btn.classList.remove("active");
+      });
+
+      listItems.forEach((listItem) => {
+        listItem.classList.remove("hidden");
+      });
+    });
+  </script>
+</Base>

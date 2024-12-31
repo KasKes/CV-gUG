@@ -1,0 +1,68 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import ServiceSidebar from "@/partials/Sidebar.astro";
+import { type CollectionEntry } from "astro:content";
+import { slugify } from "@/lib/utils/textConverter";
+
+
+interface Props {
+  service: CollectionEntry<"gilching">;
+}
+
+const COLLECTION_FOLDER = "gilching";
+export async function getStaticPaths() {
+  const COLLECTION_FOLDER = "gilching";
+  const servicesCollection = await getSinglePage(COLLECTION_FOLDER);
+  const paths = servicesCollection.map((service) => ({
+    params: {
+      single: service.slug,
+    },
+    props: { service },
+  }));
+  return paths;
+}
+
+const { service } = Astro.props;
+const {
+  body,
+  render,
+  data: { title, section, keywords, meta_title, tags, description, categories, image },
+} = service;
+const { Content } = await render();
+const servicesCollection = await getSinglePage(COLLECTION_FOLDER);
+---
+
+<Base
+  title={title}
+  image={image}
+  section={section}
+  keywords={keywords}
+  meta_title={meta_title}
+  description={description}
+  body_class="page-color-dark-igotshot page-color-light-igotshot">
+  <section class="">
+    <div class="container">
+      <h1 class="text-center pb-4">{description}</h1>
+      <div class="row items-start gy-4">
+        <ServiceSidebar
+          sticky={true}
+          content={service}
+          servicesCollection={servicesCollection}
+        />
+        <article class="lg:col-8 lg:order-2 order-1">
+          {
+            body && (
+              <div class="content">
+                <Content />
+              </div>
+              <p class="text-xs italic">Note:<br>Die Nutzung dieser Bilder und Videos für private Zwecke ist erlaubt, jedoch wird eine Nennung des Urhebers sehr geschätzt.
+                  </p>
+            )
+          } 
+        </article>
+      </div>
+    </div>
+  </section>
+</Base>

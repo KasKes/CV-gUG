@@ -1,0 +1,35 @@
+---
+import Base from "@/layouts/Base.astro";
+import PostSingle from "@/layouts/PostSingle.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+
+export async function getStaticPaths() {
+  const BLOG_FOLDER = "kundenbereich";
+  const posts = await getSinglePage(BLOG_FOLDER);
+  const paths = posts.map((post) => ({
+    params: {
+      single: post.slug,
+    },
+    props: { post },
+  }));
+  return paths;
+}
+const { post } = Astro.props;
+const { title, meta_title, image, description, keywords } = post.data;
+---
+
+<Base
+  title={title}
+  image={image}
+  keywords={keywords}
+  meta_title={meta_title}
+  description={description}
+  body_class="page-color-dark-hochzeits page-color-light-hochzeits">
+  <section>
+    <div class="container overflow-hidden">
+      <div class="section max-lg:pb-0">
+        <PostSingle post={post} />
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,284 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+import ImageMod from "@/components/ImageMod.astro";
+import CallToActionKennenlern from "@/partials/CallToActionKennenlern.astro";
+
+const {
+  render,
+  data: {
+    title,
+    description,
+    meta_title,
+    image,
+    keywords,
+    alt,
+    individuelleBilder,
+    individuelleErfahrung,
+    individuelleAnfang,
+    individuelleKennenlernshooting,
+  },
+} = await getEntry("landingpage", "hochzeitsfotograf-olching");
+const { Content } = await render();
+
+const callToActionContent = (
+  await getEntry("sections", "call-to-action-kennenlern")
+).data as CallToActionType;
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  image={image}
+  keywords={keywords}
+  description={description}
+  body_class="page-color-dark-hochzeits page-color-light-hochzeits">
+  <PageHeader title={title} />
+  <section class="overflow-hidden">
+    <div class="container">
+      <div class="pt-8">
+        <ImageMod
+          alt={alt}
+          class="rounded-xl md:h-[800px] h-[400px] w-full object-cover object-start"
+          src={image}
+        />
+      </div>
+      <!-- //ANCHOR -  für individuelle Bilder -->
+      <section class="py-8">
+        <div class="h2">
+          {individuelleBilder.title}
+        </div>
+        <div class="text-3xl">
+          {individuelleBilder.subtitle}
+        </div>
+        <p class="pt-8 leading-relaxed">
+          {individuelleBilder.content}
+        </p>
+      </section>
+
+      <!-- //ANCHOR -  Bilder -->
+      <section class="py-8">
+        {
+          individuelleBilder.bilder && (
+            <div class="col-12">
+              <div class="row justify-center lg:justify-normal content-around items-center">
+                {individuelleBilder.bilder.map((item, index) => {
+                  return (
+                    <div class="col-12 lg:col-6 text-center pt-8">
+                      <a
+                        href={item}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={item}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded"
+                          alt={title}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </section>
+      <!-- //ANCHOR -  Erfahrung und Kreativität für individuelle Bilder -->
+      <section class="py-8">
+        <div class="h2">
+          {individuelleErfahrung.title}
+        </div>
+        <div class="text-3xl">
+          {individuelleErfahrung.subtitle}
+        </div>
+        <p class="pt-8 leading-relaxed">
+          {individuelleErfahrung.content}
+        </p>
+      </section>
+
+      <!-- //ANCHOR -  Bilder 2 -->
+      <section class="py-8">
+        {
+          individuelleErfahrung.bilder && (
+            <div class="col-12">
+              <div class="row justify-center lg:justify-normal content-around items-center">
+                {individuelleErfahrung.bilder.map((item, count) => {
+                  return (
+                    <div class="col-12 lg:col-6 text-center pt-8">
+                      <a
+                        href={item}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={item}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded"
+                          alt={title}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </section>
+      <!-- //ANCHOR -  Erfahrung und Kreativität für individuelle Bilder -->
+      <section class="py-8">
+        <div class="h2">
+          {individuelleAnfang.title}
+        </div>
+        <div class="text-3xl">
+          {individuelleAnfang.subtitle}
+        </div>
+        <p class="pt-8 leading-relaxed">
+          {individuelleAnfang.content}
+        </p>
+      </section>
+
+      <!-- //ANCHOR -  Bilder 3 -->
+      <section class="py-8">
+        {
+          individuelleAnfang.bilder && (
+            <div class="col-12">
+              <div class="row justify-center lg:justify-normal content-around items-center">
+                {individuelleAnfang.bilder.map((item) => {
+                  return (
+                    <div class="col-12 lg:col-6 text-center pt-8">
+                      <a
+                        href={item}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={item}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded"
+                          alt={title}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </section>
+      <!-- //ANCHOR -  Kennelernshooting -->
+      <section class="py-8">
+        <span class="text-3xl">
+          {individuelleKennenlernshooting.subtitle}
+        </span>
+        <h2 class="h2 pb-4 underline underline-offset-4">
+          {individuelleKennenlernshooting.title}:
+        </h2>
+        <!-- 1 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4 text-end uppercase">
+            <span class="text-6xl">1</span>
+            <h3 class="text-3xl">{individuelleKennenlernshooting.title1}</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            {individuelleKennenlernshooting.content1}
+          </p>
+          <div class="cal-4">
+            <ImageMod
+              src={individuelleKennenlernshooting.bild1}
+              width={800}
+              height={800}
+              class="rounded-full object-cover"
+              alt="Kennenlernshooting"
+            />
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4">
+            <ImageMod
+              src={individuelleKennenlernshooting.bild2}
+              width={800}
+              height={800}
+              class="rounded-full object-cover"
+              alt="Kennenlernshooting"
+            />
+          </div>
+          <div class="cal-4 text-start uppercase">
+            <span class="text-6xl">2</span>
+            <h3 class="text-3xl">{individuelleKennenlernshooting.title2}</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            {individuelleKennenlernshooting.content2}
+          </p>
+        </div>
+        <!-- 3 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4 text-end uppercase">
+            <span class="text-6xl">3</span>
+            <h3 class="text-3xl">{individuelleKennenlernshooting.title3}</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            {individuelleKennenlernshooting.content3}
+          </p>
+          <div class="cal-4">
+            <ImageMod
+              src={individuelleKennenlernshooting.bild3}
+              width={800}
+              height={800}
+              class="rounded-full object-cover"
+              alt="Kennenlernshooting"
+            />
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="grid md:grid-cols-3 gap-4 py-8">
+          <div class="cal-4">
+            <ImageMod
+              src={individuelleKennenlernshooting.bild4}
+              width={800}
+              height={800}
+              class="rounded-full object-cover"
+              alt="Kennenlernshooting"
+            />
+          </div>
+          <div class="cal-4 text-start uppercase">
+            <span class="text-6xl">4</span>
+            <h3 class="text-3xl">{individuelleKennenlernshooting.title4}</h3>
+          </div>
+          <p class="cal-4 pt-8 leading-relaxed">
+            {individuelleKennenlernshooting.content4}
+          </p>
+        </div>
+        <!-- 5 -->
+        <div class="text-3xl pt-4 text-center">
+          {individuelleKennenlernshooting.subtitle5}
+        </div>
+        <div class="h2 text-center">
+          {individuelleKennenlernshooting.title5}
+        </div>
+        <div class="py-8" id="kennenlernshooting">
+          {(<CallToActionKennenlern content={callToActionContent} />)}
+        </div>
+
+        <div class="text-center justify-center">
+          <div class="py-8">
+            <span class="h2 pt-8 text-center">
+              {individuelleKennenlernshooting.subtitle}
+            </span>
+            <p class="cal-4 leading-relaxed">
+              {individuelleKennenlernshooting.content5}
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</Base>

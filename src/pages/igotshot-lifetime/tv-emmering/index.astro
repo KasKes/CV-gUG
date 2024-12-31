@@ -1,0 +1,423 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+import ProjectCard from "@/components/ProjectCardIgotshotLifetimeTV.astro";
+import ImageMod from "@/components/ImageMod.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+const {
+  body,
+  render,
+  data: { title, meta_title, description, image, keywords },
+} = await getEntry("tv-emmering", "-index");
+
+const COLLECTION_FOLDER = "tv-emmering";
+const projects = await getSinglePage(COLLECTION_FOLDER);
+const { Content } = await render();
+
+const categories: string[] = [];
+projects.map(
+  (project) => project.data.category && categories.push(project.data.category),
+);
+const uniqCategories = [...new Set([...categories])];
+---
+
+<Base
+  title={title}
+  image={image}
+  keywords={keywords}
+  meta_title={meta_title}
+  description={description}
+  body_class="page-color-dark-igotshot page-color-light-igotshot">
+  <PageHeader title={title} />
+  <section class="">
+    <div class="container">
+      <h2 class="text-center py-4">{description}</h2>
+      <ImageMod
+        alt="TV Emmering"
+        class="md:h-[450px] h-[250px] w-full rounded object-cover object-center"
+        src={image}
+      />
+      <p class="pt-4">
+        TV Emmering • Bilder und Erinnerungen aus dem Verein und die
+        Veranstaltungen des Turnverein Emmering 1898 e.V. aus der
+        Leichtathletik, Turnen und des Taekwondo vom Vereinsfotografen Michael
+        Campos Viola.
+      </p>
+      <h2 class="py-4">Geschützter Bereich - Mappenpräsentation</h2>
+      <p>
+        Dieser Bereich ist für den vereinsinternen Gebrauch vorgesehen. Hier
+        können sich die Sportler oder deren Eltern anmelden, um die gesamten
+        Bilder aus ihren Abteilungen kostenlos herunterzuladen.
+      </p>
+      <!-- Leistung icons -->
+      <div class="mx-6 py-10 justify-center">
+        <div
+          class="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 object-center">
+          <div class="py-4 text-center">
+            <p class="text-6xl">13</p>
+            <p>umgesetze Projekte</p>
+          </div>
+          <div class="py-4 text-center">
+            <p class="text-6xl">2</p>
+            <p>igot</p>
+          </div>
+          <div class="py-4 text-center">
+            <p class="text-6xl">1</p>
+            <p>Kino Projekt</p>
+          </div>
+          <div class="py-4 text-center">
+            <p class="text-6xl">337</p>
+            <p>Stunden</p>
+          </div>
+          <div class="py-4 text-center">
+            <p class="text-6xl">5632</p>
+            <p>Bilder</p>
+          </div>
+        </div>
+        <div class="text-right uppercase">
+          <p class="text-xl">
+            Aus unterstüzung für den TV Emmering seit April 2022
+          </p>
+        </div>
+      </div>
+      <!-- Blog -->
+      <div class="row gy-4">
+        <div class="col-12">
+          {
+            uniqCategories && (
+              <ul class="flex flex-wrap justify-start md:justify-center gap-2 md:gap-x-4 gap-y-4">
+                <li>
+                  <button
+                    class="transition group block px-6 py-[.18rem] border border-igot rounded-full text-base hover:bg-igot hover:text-white [&.active]:bg-igot [&.active]:text-white active"
+                    data-clear-filter-btn="all">
+                    <DynamicIcon
+                      className="inline-block group-[.active]:!text-white group-hover:!text-white"
+                      icon="TfiReload"
+                    />
+                  </button>
+                </li>
+                {uniqCategories.map((category) => (
+                  <li>
+                    <button
+                      class="filter-btn transition block px-6 py-1.5 border border-igot rounded-full text-sm md:text-base hover:bg-igot hover:text-white [&.active]:bg-igot [&.active]:text-white"
+                      data-type-filter-btn={category}
+                      set:html={category}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+        <div class="col-12">
+          <div id="projects-filter" class="row pt-8 gy-4">
+            {
+              projects.map((project) => {
+                return (
+                  <div
+                    class="md:col-12 lg:col-3"
+                    data-filter-type={project.data.category}>
+                    <ProjectCard content={project} />
+                  </div>
+                );
+              })
+            }
+          </div>
+        </div>
+      </div>
+      <!-- //ANCHOR - Beschreibung TV Emmering -->
+      <div class="text-center py-8">
+        <h2>
+          TV Emmering seit 125 Jahre der Turnverein<br />in Landkreis
+          Fürstenfeldbruck
+        </h2>
+      </div>
+      <div
+        class="flex flex-col md:flex-row justify-between items-start py-8 gap-4">
+        <div class="w-full md:w-1/2 flex flex-col justify-center">
+          <p>
+            Der TV Emmering im Landkreis Fürstenfeldbruck, der seit 125 Jahren
+            besteht, ist ein wichtiger Teil der Gemeinschaft und hat eine lange
+            Geschichte voller Erfolge, Herausforderungen und Engagement für
+            seine Mitglieder und in der Gemeinde.
+          </p>
+          <p>
+            Seine Ursprünge liegen in 1898, als eine Gruppe von begeisterten
+            Emmeringer beschloss, sich zusammenzuschließen und eine Organisation
+            zu gründen, die den Sport in ihrer Gemeinde fördern würde. Über die
+            Jahre hinweg hat der Verein viele Veränderungen durchgemacht,
+            darunter neue Sportarten, Erweiterungen der Anlagen und die
+            Einführung moderner Trainingsmethoden.
+          </p>
+          <p>
+            Heite ist der Verein ein wichtiger Teil des Sports in der Gemeinde
+            und bietet eine breite Palette von Aktivitäten für Menschen jeden
+            Alters und jeder Fitnessstufe an. Die Mitglieder können aus einer
+            Vielzahl von Sportarten wählen, darunter Aerobic, Badminton, Boogie
+            Woogie, Fitnesstraining, Gymnastik, Inline-Skaten, Kindersport,
+            Leichtathletik, Mountain Biking, Nordic Walking, Pilates, QI Gong,
+            Segeln, Taekwondo, Turnen und Volleyball.
+          </p>
+        </div>
+        <div class="w-full md:w-1/2 flex flex-col justify-between">
+          <p>
+            Der Verein verfügt über erstklassige Einrichtungen, darunter mehrere
+            Sportplätze und Hallen, die regelmäßig gepflegt und modernisiert
+            werden. Es gibt auch ein engagiertes Team von Trainern und
+            Betreuern, die den Mitgliedern helfen, ihre Fähigkeiten und
+            Leistungen zu verbessern.
+          </p>
+          <p>
+            Der Sportverein spielt auch eine wichtige Rolle in der Gemeinschaft
+            und organisiert regelmäßig Veranstaltungen und Turniere, die
+            Teilnehmer aus der ganzen Region anziehen. Diese Veranstaltungen
+            fördern den Wettbewerb und bieten eine Gelegenheit für Menschen,
+            sich zu treffen, zu feiern und Spaß zu haben.
+          </p>
+          <p>
+            den letzten 125 Jahren hat der Sportverein viele Meisterschaften und
+            Auszeichnungen gewonnen und ist zu einem wichtigen Teil des Sports
+            und der Gemeinschaft in der Region geworden. Mit einer starken
+            Tradition und einem engagierten Team von Mitgliedern und Trainern
+            wird er auch in Zukunft eine wichtige Rolle spielen und die Menschen
+            dazu inspirieren, gesund und aktiv zu bleiben.
+          </p>
+        </div>
+      </div>
+      <!-- //ANCHOR -  Gallerie -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-1.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Turnen"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-2.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Leichtathletik"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-3.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Leichtathletik"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-4.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Leichtathletik"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-5.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Leichtathletik"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-6.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Turnen"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-7.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Leichtathletik"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-8.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Leichtathletik"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-9.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Turnen"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-10.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Leichtathletik"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-11.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Leichtathletik"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-12.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Turnen"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-13.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Leichtathletik"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-14.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Turnen"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-15.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Turnen"
+        />
+        <img
+          class="rounded"
+          src="/images/igotshot/liftime/tve/tv-emmering-16.jpg"
+          width={500}
+          height={500}
+          alt="TV Emmering Turnen"
+        />
+      </div>
+      <!-- //ANCHOR -  unserer Beitrag-->
+      <div class="py-8">
+        <h2 class="text-center py-8">
+          Unser Beitrag für den Turnverein Emmering
+        </h2>
+        <p>
+          Unsere Leidenschaft ist, die Spannung und Energie der
+          Sportveranstaltungen des TV Emmering einzufangen. Die Dokumentation
+          und Aufzeichnung von Veranstaltungen im Sportverein sind Teil unserer
+          Aufgaben, die mit vielfältigen Herausforderungen verbunden sind. Von
+          der Vorbereitung auf die Veranstaltung über die Organisation von
+          Gruppenaufnahmen bis hin zur Anpassung an wechselnde Lichtverhältnisse
+          und Bewegungen der Athleten erfordert die Arbeit viel Können und
+          Erfahrung.
+        </p>
+        <p>
+          Unsere hochwertigen Bilder spiegeln den Enthusiasmus der Athleten
+          wider und haben auch den Mut, Bereiche hervorzuheben, in denen
+          Wachstum und Verbesserungen möglich sind. Damit unterstützen wir die
+          Trainer und Sportler sich weiterzuentwickeln.
+        </p>
+        <p>
+          Zur Zusammenarbeit mit dem TV Emmering bringe wir Kreativität und
+          Leidenschaft für den Sport, um die Bedürfnisse des Vereins und seiner
+          Fans zu erfüllen.
+        </p>
+      </div>
+      <div class="py-8">
+        <h2 class="text-center py-8">
+          Ob Leichtathletik, Turnen oder Taekwondo
+        </h2>
+        <p>
+          Leichtathletik, Turnen und Taekwondo haben alle ihre eigenen
+          einzigartigen Herausforderungen. Athleten in jeder dieser Sportarten
+          müssen hart arbeiten, um in Topform zu sein, ihre Technik perfekt zu
+          beherrschen und ihre mentale Stärke zu verbessern. Obwohl es schwierig
+          sein kann, diese Herausforderungen zu bewältigen, sind die
+          Belohnungen, die durch die Ausübung dieser Sportarten erzielt werden
+          können, unermesslich. Athleten können ihre körperliche Gesundheit
+          verbessern, ihre Fähigkeiten und Fertigkeiten verbessern und ein hohes
+          Maß an Selbstvertrauen und Selbstbeherrschung entwickeln.
+        </p>
+        <p>
+          Als einer der führenden Vereine der Region hat der TV Emmering seinen
+          Mitgliedern stets ein sicheres und ermutigendes Umfeld geboten, in dem
+          sie ihre Fähigkeiten verbessern und ihr volles Potenzial erreichen
+          können.
+        </p>
+        <p class="border-l-4 border-igot pl-8 py-8 bg-igot/10 rounded-r-xl">
+          Wir freuen uns auf die Zusammenarbeit mit dem TV-Emmering als
+          Vereinsfotograf und igot, lass uns gemeinsam tolle Erinnerungen
+          festhalten!<br /><br />Michael Campos Viola B.A.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const projectWrapper = document.querySelector("#projects-filter");
+    const clearFilterBtn = document.querySelector("[data-clear-filter-btn]");
+    const listItems = Array.from(
+      document.querySelectorAll("[data-filter-type]"),
+    );
+
+    const filterTypeBtns = Array.from(
+      document.querySelectorAll("[data-type-filter-btn]"),
+    );
+
+    let filterType = "";
+    filterTypeBtns.forEach((filterTypeBtn) => {
+      filterTypeBtn.addEventListener("click", () => {
+        clearFilterBtn?.classList.remove("active");
+        // Remove "active" class from all buttons
+        filterTypeBtns.forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        // Add "active" class to the clicked button
+        filterTypeBtn.classList.add("active");
+
+        filterType = (filterTypeBtn as HTMLElement).dataset.typeFilterBtn || "";
+
+        const hasClass =
+          projectWrapper &&
+          Array.from(projectWrapper.children).some((child) =>
+            child.classList.contains("hidden"),
+          );
+
+        if (!hasClass) {
+          projectWrapper?.classList.add("animate-parent");
+        }
+
+        setTimeout(() => {
+          listItems.forEach((listItem) => {
+            listItem.classList.remove("hidden");
+
+            if ((listItem as HTMLElement).dataset.filterType === filterType) {
+              listItem.classList.remove("hidden");
+            } else {
+              listItem.classList.add("hidden");
+            }
+          });
+          projectWrapper?.classList.remove("animate-parent");
+        }, 1);
+      });
+    });
+
+    clearFilterBtn?.addEventListener("click", () => {
+      clearFilterBtn?.classList.add("active");
+      filterTypeBtns.forEach((btn) => {
+        btn.classList.remove("active");
+      });
+
+      listItems.forEach((listItem) => {
+        listItem.classList.remove("hidden");
+      });
+    });
+  </script>
+</Base>

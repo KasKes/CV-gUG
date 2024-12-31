@@ -1,0 +1,63 @@
+---
+import MasonaryImages from "@/layouts/react-partials/MasonaryImages.tsx";
+import Base from "@/layouts/Base.astro";
+import config from "@/config/config.json";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import ServiceSidebar from "@/partials/Sidebar.astro";
+import { slugify } from "@/lib/utils/textConverter";
+import { getEntry } from "astro:content";
+
+const gilching21 = await getEntry("gilching", "kukuwo21");
+
+const {
+  body,
+  render,
+  section,
+  data: { title, meta_title, keywords, description, categories, image },
+} = gilching21;
+
+const { Content } = await render();
+const servicesCollection = await getSinglePage("gilching");
+
+// Update the folder path `/public/images/igotshot/photos/festumzug-kulturlieferdienst` if necessary
+const images = await import.meta.glob(
+  "/public/images/igotshot/photos/festumzug-kulturlieferdienst/*.{jpeg,jpg,png,gif}"
+);
+---
+
+<Base
+  title={title}
+  image={image}
+  section={section}
+  keywords={keywords}
+  meta_title={meta_title}
+  description={description}
+  body_class="page-color-dark-igotshot page-color-light-igotshot"
+  image={image}
+>
+  <section class="">
+    <div class="container">
+      <h1 class="text-center pb-4">{description}</h1>
+      <div class="row items-start gy-4">
+        <ServiceSidebar
+          sticky={true}
+          content={gilching21}
+          servicesCollection={servicesCollection}
+        />
+        <article class="order-1 lg:order-2 lg:col-8">
+          {body && (
+            <div class="content">
+              <Content />
+              <MasonaryImages client:load images={images} mobile={2} desktop={3} large={4} />
+            </div>
+          )}
+          {/* Urheberrecht */}
+          <div class="mt-4">
+            <h4 class="text-lg font-bold">{config.urheberrecht.title}</h4>
+            <p class="text-xs italic">{config.urheberrecht.description}</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</Base>

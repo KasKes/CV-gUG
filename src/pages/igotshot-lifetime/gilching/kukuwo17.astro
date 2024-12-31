@@ -1,0 +1,170 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import ServiceSidebar from "@/partials/Sidebar.astro";
+import { slugify } from "@/lib/utils/textConverter";
+import { getEntry } from "astro:content";
+import config from "@/config/config.json";
+const gilching21 = await getEntry("gilching", "kukuwo17");
+
+const {
+  body,
+  render,
+  data: { title, keywords, section, meta_title, description, intro1, intro, intro2, image },
+} = gilching21;
+
+const { Content } = await render();
+const servicesCollection = await getSinglePage("gilching");
+
+// Update the folder path `/public/images/igotshot/photos/festumzug-kulturlieferdienst` if necessary 
+const images = await import.meta.glob(
+  "/public/images/igotshot/photos/festumzug-kulturlieferdienst/*.{jpeg,jpg,png,gif}"
+);
+---
+
+<Base
+  title={title}
+  image={image}
+  section={section}
+  keywords={keywords}
+  meta_title={meta_title}
+  description={description}
+  body_class="page-color-dark-igotshot page-color-light-igotshot"
+  image={image}>
+  <section class="">
+    <div class="container">
+      <h1 class="text-center pb-4">{description}</h1>
+      <div class="row items-start gy-4">
+        <ServiceSidebar
+          sticky={true}
+          content={gilching21}
+          servicesCollection={servicesCollection}
+        />
+        <article class="lg:col-8 lg:order-2 order-1">
+          <section class="pb-8">
+            <div class="h2">
+              {intro.title}
+            </div>
+            <div class="h3">
+              {intro.subtitle}
+            </div> 
+            {intro.bild && (
+              <div class="col-12">
+                <div class="row justify-center lg:justify-normal content-around items-center">
+                  {intro.bild.map((item,) => {
+                    return (
+                      <div class="">
+                        <a
+                          href={item}
+                          data-no-swup
+                          class="glightbox"
+                          data-gallery="gallery-group-1">
+                          <ImageMod
+                            src={item}
+                            width="full"
+                            height="full"
+                            class="mx-auto rounded"
+                            alt={intro.title}
+                          />
+                        </a>
+                      </div> ); })} </div> </div> ) }
+                      <div> 
+                      {intro.bilder && (
+                        <div class="col-12">
+                          <div class="row justify-center lg:justify-normal content-around items-center">
+                            {intro.bilder.map((item,) => {
+                              return (
+                                <div class="col-6 py-4 text-center">
+                                  <a
+                                    href={item}
+                                    data-no-swup
+                                    class="glightbox"
+                                    data-gallery="gallery-group-1">
+                                    <ImageMod
+                                      src={item}
+                                      width="full"
+                                      height="full"
+                                      class="mx-auto rounded"
+                                      alt={intro.title}
+                                    />
+                                  </a>
+                                </div> ); })} </div> </div> ) }</div>
+          </section>
+          <section>
+            <p class="pt-4 leading-relaxed">
+              {intro.content}
+            </p>
+          </section>
+          <section>
+            <div class="pt-8 h2">
+              {intro1.title}
+            </div>
+            <div class="pb-4 h3">
+              {intro1.subtitle}
+            </div> 
+            <div class="pb-4 leading-relaxed">
+              {intro1.content}
+            </div> 
+            {intro1.bilder && (
+              <div class="col-12">
+                <div class="row justify-center lg:justify-normal content-around items-center">
+                  {intro1.bilder.map((item,) => {
+                    return (
+                      <div class="col-6 py-4 text-center">
+                        <a
+                          href={item}
+                          data-no-swup
+                          class="glightbox"
+                          data-gallery="gallery-group-1">
+                          <ImageMod
+                            src={item}
+                            width="full"
+                            height="full"
+                            class="mx-auto rounded"
+                            alt={intro.title}
+                          />
+                        </a>
+                      </div> ); })} </div> </div> ) }
+          </section>
+          <section class="py-8">
+            <div class="h2">
+              {intro2.title}
+            </div>
+            <div class="h3">
+              {intro2.subtitle}
+            </div> 
+            {intro.bild && (
+              <div class="col-12">
+                <div class="row justify-center lg:justify-normal content-around items-center">
+                  {intro2.bilder.map((item,) => {
+                    return (
+                      <div class="col-4 py-4 text-center">
+                        <a
+                          href={item}
+                          data-no-swup
+                          class="glightbox"
+                          data-gallery="gallery-group-1">
+                          <ImageMod
+                            src={item}
+                            width="full"
+                            height="full"
+                            class="mx-auto rounded"
+                            alt={intro2.title}
+                          />
+                        </a>
+                      </div> ); })} </div> </div> ) }
+          </section>
+
+ <!--NOTE - kategorien -->         
+          <section>   
+            <div class="mt-4">
+              <h4 class="text-lg font-bold">{config.urheberrecht.title}</h4>
+              <p class="text-xs italic">{config.urheberrecht.description}</p>
+            </div>
+        </section> 
+        </article>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,47 @@
+{
+  "main": [
+    {
+      "name": "Whatsapp",
+      "icon": "BsWhatsapp",
+      "link": "https://wa.me/4915174309863"
+    },
+    {
+      "name": "Whatsapp",
+      "icon": "BsSignal",
+      "link": "https://signal.me/#p/+4915174309863"
+    },
+    {
+      "name": "Intagram",
+      "icon": "TfiInstagram",
+      "link": "https://www.instagram.com/camposviola_official/"
+    },
+    {
+      "name": "linkedin",
+      "icon": "TfiLinkedin",
+      "link": "https://de.linkedin.com/company/camposviola"
+    },
+    {
+      "name": "Vimeo",
+      "icon": "TfiVimeoAlt",
+      "link": "https://vimeo.com/camposviola"
+    }
+  ],
+  
+  "blog": [
+    {
+      "name": "Intagram",
+      "icon": "TfiInstagram",
+      "link": "https://www.instagram.com/camposviola_official/"
+    },
+    {
+      "name": "linkedin",
+      "icon": "TfiLinkedin",
+      "link": "https://de.linkedin.com/company/camposviola"
+    },
+    {
+      "name": "Vimeo",
+      "icon": "TfiVimeoAlt",
+      "link": "https://vimeo.com/camposviola"
+    }
+  ]
+}

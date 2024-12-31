@@ -1,0 +1,73 @@
+---
+import Base from "@/layouts/Base.astro";
+
+---
+<Base
+  title="Anleitung"
+  meta_title="Anleitung Galerie"
+  keywords="Anleitung"
+  description="Anleitung für die privaten Kundengalerien"
+  body_class="page-color-dark-hochzeits page-color-light-hochzeits">
+  <section>
+    <div class="container">
+      <div class="pb-8">
+        <h1>Private Bilder aus den Hochzeiten</h1>
+        <p>
+          Hallo liebe Hochzeitsgäste, <br>
+          hier ist der Bereich für die privaten Hochzeitsbilder aus der Hochzeit. Ich habe dir eine Visitenkarte gegeben, mit der du ein Konto erstellen kannst, um an alle Bilder von der Hochzeit kostenlos zu gelangen.<br>
+          Auf der Visitenkarte steht ein Invitation-Code, diesen brauchst du um ein Konto zu eröffen.
+        </p>
+      </div>
+      <div class="inline-flex items-center justify-center w-full">
+        <span class="font-medium">
+          <h2 class="">Info zur Anmeldung</h2>
+        </span>
+      </div>
+      <ol class="list-decimal">
+        <li class="pt-4 pb-2">
+            <p>Im Hochzeitsblog des Brautpaares befindet sich ein Button zur Galerie.</p>
+            <img class="rounded mt-2"
+            src= "/images/hochzeitsblog/erklerung-gallerie1.jpg"
+            width={282}
+            height={113}>
+        </li>
+      <li class="pt-8 pb-2">
+        <p>Nach dem Klicken auf den Button gelangst du zu der Gäste Galerie und dort wirst du aufgefordert einen "Zugangscode" einzugeben. Dies ist der Invitation-Code auf der Visitenkarte, die ich dir auf der Veranstaltung gegeben habe. </p>
+        <img class="rounded mt-2"
+        src= "/images/hochzeitsblog/erklerung-gallerie2.jpg"
+        width={385}
+        height={298}>
+      </li>
+      <li class="pt-8 pb-2">
+        <p>Nach Eingabe des Codes kannst du deinen Namen und deine E-Mail hinterlegen und somit deinen persönlichen Zugang zur Galerie freischalten.</p>
+        <img class="rounded mt-2"
+        src="/images/hochzeitsblog/erklerung-gallerie3.jpg"
+        width={404}
+        height={244}> 
+      </img>
+        <p class="italic">Leider kann ich dem unteren Bereich nicht beeinflussen, weil das Häkchen für "Neuigkeiten und Rabatte zu dieser Galerie erhalten" immer vorab gesetzt ist. Trotzdem könnt ihr darauf vertrauen, sollte das Häkchen gesetzt bleiben, dass ich keine Rabattaktionen oder Werbe-E-Mails an euch schicke.</p>
+      </li>
+  </ol>
+  <div class="pt-8">
+    <p>Falls du Fragen hast oder Hilfe bei Problemen benötigst, bin ich gerne für dich da. Du kannst entweder eine E-Mail schreiben oder mich telefonisch erreichen.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="text-center sm:text-end ">
+        <btn
+        url="mailto:info@camposviola.de"
+        title="info@camposviola.de"
+        external={true}
+        />
+      </div>
+      <div class="text-center sm:text-start">
+        <btn
+        url="tel:+4981052080020"
+        title="08105 20 800 20"
+        external={true}
+        />
+      </div>
+    </div>
+    <p>Viele liebe Grüße!<br>Michael</p>
+  </div>
+</div>
+</section>
+</Layout>

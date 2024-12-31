@@ -1,0 +1,215 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import ServiceSidebar from "@/partials/Sidebar.astro";
+import config from "@/config/config.json";
+import { slugify } from "@/lib/utils/textConverter";
+import { getEntry } from "astro:content";
+import ImageMod from "@/components/ImageMod.astro";
+
+const gilching20 = await getEntry("gilching", "kukuwo20");
+
+const {
+  body,
+  render,
+  section,
+  data: { title, meta_title, keywords, description, categories, intro, intro1, intro2, image },
+} = gilching20;
+
+const { Content } = await render();
+const servicesCollection = await getSinglePage("gilching");
+
+// Update the folder path `/public/images/igotshot/photos/festumzug-kulturlieferdienst` if necessary 
+const images = await import.meta.glob(
+  "/public/images/igotshot/photos/festumzug-kulturlieferdienst/*.{jpeg,jpg,png,gif}"
+);
+---
+
+<Base
+  title={title}
+  image={image}
+  section={section}
+  keywords={keywords}
+  meta_title={meta_title}
+  description={description}
+  body_class="page-color-dark-igotshot page-color-light-igotshot"
+  image={image}>
+  <section class="">
+    <div class="container">
+      <h1 class="text-center pb-4">{description}</h1>
+      <div class="row items-start gy-4">
+        <ServiceSidebar
+          sticky={true}
+          content={gilching20}
+          servicesCollection={servicesCollection}
+        />
+        <article class="lg:col-8 justify-end items-end">
+          <section>
+            <h2>Die Videotrailer für KuKuWo20</h2>
+          </section>
+          <section class="pb-4">
+            <div style="padding:56.25% 0 0 0;position:relative;">
+              <iframe src="https://player.vimeo.com/video/420624316?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+              frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+              style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
+              title="6. Gilchinger Kunst- und Kulturwoche  - Serafina Gmach"></iframe>
+            </div>
+            <script src="https://player.vimeo.com/api/player.js"></script>
+            <figcaption class="text-right italic text-sm">
+              Trailer für den Beitrag von Serafina Gmach
+            </figcaption>
+          </section>
+          <section class="py-4">
+            <div style="padding:56.25% 0 0 0;position:relative;">
+              <iframe src="https://player.vimeo.com/video/462617636?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+              frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+              style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
+              title="6. Gilchinger Kunst- und Kulturwoche - DEVADO"></iframe></div>
+              <script src="https://player.vimeo.com/api/player.js"></script>
+            <figcaption class="text-right italic text-sm">
+              Trailer für den Beitrag von DEVADO
+            </figcaption>
+          </section>
+          <section class="py-4">
+            <div style="padding:56.25% 0 0 0;position:relative;">
+              <iframe src="https://player.vimeo.com/video/423157216?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+              frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+              style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
+              title="6. Gilchinger Kunst- und Kulturwoche - Hannelore Husemann-Sieber"></iframe></div>
+              <script src="https://player.vimeo.com/api/player.js"></script>
+            <figcaption class="text-right italic text-sm">
+              Trailer für den Beitrag von Hannelore Husemann-Sieber
+            </figcaption>
+          </section>
+          <section class="py-4">
+            <div style="padding:56.25% 0 0 0;position:relative;">
+              <iframe src="https://player.vimeo.com/video/417210981?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+              frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+              style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
+              title="6. Gilchinger Kunst- und Kulturwoche - Ruth Neureiter"></iframe></div>
+              <script src="https://player.vimeo.com/api/player.js"></script>
+            <figcaption class="text-right italic text-sm">
+              Trailer für den Beitrag von Ruth Neureiter
+            </figcaption>
+          </section>
+          <section class="py-4">
+            <div style="padding:56.25% 0 0 0;position:relative;">
+              <iframe src="https://player.vimeo.com/video/467412996?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+              frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+              style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
+              title="AUSSTELLUNGSERÖFFNUNG – RUTH NEUREITER"></iframe></div>
+              <script src="https://player.vimeo.com/api/player.js"></script>
+            <figcaption class="text-right italic text-sm">
+              Trailer für den Beitrag von Ruth Neureiter
+            </figcaption>
+          </section>
+
+          <section class="pb-8">
+            <hr class="pt-8">
+            <div class="h2 py-4">
+              {intro.title}
+            </div>
+          <div class="row pb-10">
+            <!-- //ANCHOR -  50 jahresfeier Denkmalschutz Bayern  Bild -->
+            { intro.bilder && (
+                <div class="col-12">
+                  <div class="row justify-center lg:justify-normal content-around items-center">
+                    {intro.bilder.map((item, index) => {
+                      return (
+                        <div class="col-12 text-center">
+                          <a
+                            href={item}
+                            data-no-swup
+                            class="glightbox"
+                            data-gallery="gallery-group-1">
+                            <ImageMod
+                              src={item}
+                              width="full"
+                              height="full"
+                              class="mx-auto rounded"
+                              alt={intro.title}
+                            />
+                          </a>
+                        </div> ); })} </div> </div> ) }
+            <div class="text-3xl pt-8">
+              {intro.subtitle}
+            </div>
+            <p class="pt-8 leading-relaxed">
+              {intro.content}
+            </p>
+          </section>
+          <section> 
+          <div style="padding:41.89% 0 0 0;position:relative;">
+            <iframe src="https://player.vimeo.com/video/495504016?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+            frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px" 
+            title="PETERCHENS MONDFAHRT jetzt auf DVD">
+          </iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+          <figcaption class="text-right italic text-sm">
+            Trailer für Peterchens Mondfahrt
+          </figcaption>
+          </section>
+          
+          <section class="py-8">
+            <div class="h2">
+              {intro1.title}
+            </div>
+            <div class="">
+              {intro1.subtitle}
+            </div> 
+            
+            { intro1.bilder && (
+              <div class="col-12">
+                <div class="row justify-center lg:justify-normal content-around items-center">
+                  {intro1.bilder.map((item, index) => {
+                    return (
+                      <div class="col-4 py-4 text-center">
+                        <a
+                          href={item}
+                          data-no-swup
+                          class="glightbox"
+                          data-gallery="gallery-group-1">
+                          <ImageMod
+                            src={item}
+                            width="full"
+                            height="full"
+                            class="mx-auto rounded"
+                            alt={intro1.title}
+                          />
+                        </a>
+                      </div> ); })} </div> </div> ) }
+
+        <article class="lg:col-8 lg:order-2 order-1">
+          {
+            body && (
+              <>
+                <div class="content">
+                  <Content />
+                </div>
+                
+              </>
+            )
+          }
+        </article>
+        <article>
+         <div class="mt-4">
+          <h4 class="text-lg font-bold">{config.urheberrecht.title}</h4>
+          <p class="text-xs italic">{config.urheberrecht.description}</p>
+        </div>
+                <div class="py-8">
+                  <div class="flex items-center">
+                    <h5 class="mr-3 mb-0 text-base font-primary font-medium whitespace-nowrap">
+                      Zusätzliche Informationen:
+                    <a
+                      class="mx-2 border-2 border-igot rounded-xl hover:text-white  hover:bg-igot py-2 px-4 dark:border-igot"
+                      href="/video/peterchens-mondfahrt/"
+                      >
+                      Peterchens Mondfahrt
+                    </a></h5>
+                  </div>
+                </div> 
+        </article>
+      </div>
+    </div>
+  </section>
+</Base>

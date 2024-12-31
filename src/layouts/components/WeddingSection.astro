@@ -1,0 +1,100 @@
+---
+import ProjectCardWedding from "@/components/ProjectCardHomeWedding.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+import MasonaryImages from "@/layouts/react-partials/MasonaryImages.tsx";
+import type { CollectionEntry } from 'astro:content';
+const { body, Content } = Astro.props;
+const BLOG_FOLDERS = ["kundenbereich"] as const;
+const [blogCollectionHochzeit] = await Promise.all(BLOG_FOLDERS.map(folder => getSinglePage(folder)));
+
+const sortedProjects = [
+sortByDate(blogCollectionHochzeit),
+];
+const imagesWedding = await import.meta.glob(
+  "/public/images/weddinghome/*.{jpeg,jpg,webp,png,gif}"
+);
+---
+
+<section class="py-4 wedding-divider bg-wedding/10" id="hochzeit-sect‚ion">
+    <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <!-- Desktop Ansicht -->
+      <div class="hidden lg:block">
+        <MasonaryImages client:load images={imagesWedding} mobile={2} desktop={2} large={2} />
+        <hr class="border-t-2 border-wedding my-4 hochzeit-divider" style="width: 66%;" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {blogCollectionHochzeit.slice(0, 4).map((post: CollectionEntry<'kundenbereich'>, index: number) => (
+            <div class="block">
+              <ProjectCardWedding content={post} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="lg:sticky lg:top-60 self-start hidden lg:block">
+        <div class="text-start">
+          <h2 id="hochzeit-title" class="!text-wedding uppercase">Mach Mit und werde Teil einer besonderen Mission!</h2>
+          <img src="/images/icons/celebrating-your-vows.svg" alt="Celebrating Your Vows" class="mb-4" />
+          <p id="hochzeit-text" class="pb-4 dark:!text-wedding">Mit jeder Hochzeit, die wir begleiten, finanzieren wir neue gemeinnützige Projekte. Eure schönsten Momente tragen dazu bei, Kunst, Kultur und Engagement zu fördern. Gemeinsam schaffen wir unvergessliche Erinnerungen – für euch und für die Gesellschaft.</p>
+          <a href="/hochzeitsfotos/" id="hochzeit-button" class="mt-4 border !text-wedding border-wedding rounded-xl hover:no-underline hover:bg-wedding hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4">Eure Momente, unsere Mission</a>
+        </div>
+      </div>
+  
+      <!-- Mobile Ansicht -->
+      <div class="block lg:hidden">
+        <div class="text-center">
+          <MasonaryImages client:load images={imagesWedding} mobile={2} desktop={2} large={2} />
+        </div>
+        <div class="text-center mt-8">
+          <h2 class="!text-wedding uppercase">Mach Mit und werde Teil einer besonderen Mission!</h2>
+          <img src="/images/icons/celebrating-your-vows.svg" alt="Celebrating Your Vows" class="mb-4 mx-auto" />
+          <p class="pb-4 dark:!text-wedding">Mit jeder Hochzeit, die wir begleiten, finanzieren wir neue gemeinnützige Projekte. Eure schönsten Momente tragen dazu bei, Kunst, Kultur und Engagement zu fördern. Gemeinsam schaffen wir unvergessliche Erinnerungen – für euch und für die Gesellschaft.</p>
+          <a href="/hochzeitsfotos/" id="hochzeit-button-mobile" class="mt-4 border !text-wedding border-wedding rounded-xl hover:no-underline hover:bg-wedding hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4 inline-block">Eure Momente, unsere Mission</a>
+        </div>
+        <div class="text-center mt-14">
+          <h2 class="!text-wedding uppercase">Community</h2>
+          <p class="pb-4 dark:!text-wedding">Exklusiver Zugang zu euren Hochzeitsfotos. Im privaten Community-Bereich könnt ihr und eure Gäste die schönsten Momente eurer Hochzeit erneut erleben. Ladet eure Bilder kostenlos herunter und teilt die Erinnerungen an euren besonderen Tag.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          {blogCollectionHochzeit.slice(0, 4).map((post, index) => (
+            <div key={index} class="block">
+              <ProjectCardWedding content={post} />
+            </div>
+          ))}
+        </div>
+        <div class="text-center mt-8 mb-14">
+          <a href="/kundenbereich/" id="kundenbereich-button-mobile" class="mt-4 border !text-wedding border-wedding rounded-xl hover:no-underline hover:bg-wedding hover:!text-bgweiss dark:hover:!text-bgdark py-1 px-4 inline-block">Zur Community</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <script>
+      document.addEventListener('scroll', function () {
+        const hochzeitDivider = document.querySelector('.hochzeit-divider') as HTMLElement;
+        console.log('hochzeit Divider:', hochzeitDivider);
+  
+        if (hochzeitDivider) {
+          const hochzeitTitle = document.getElementById('hochzeit-title') as HTMLElement;
+          const hochzeitText = document.getElementById('hochzeit-text') as HTMLElement;
+          const hochzeitButton = document.getElementById('hochzeit-button') as HTMLAnchorElement;
+          const hochzeitRect = hochzeitDivider.getBoundingClientRect();
+  
+          console.log('hochzeit Rect Top:', hochzeitRect.top);
+  
+          if (hochzeitRect.top < 300) {
+            console.log('hochzeit visible');
+            hochzeitTitle.textContent = 'Community';
+            hochzeitText.textContent = 'Exklusiver Zugang zu euren Hochzeitsfotos. Im privaten Community-Bereich könnt ihr und eure Gäste die schönsten Momente eurer Hochzeit erneut erleben. Ladet eure Bilder kostenlos herunter und teilt die Erinnerungen an euren besonderen Tag.';
+            hochzeitButton.textContent = 'Zur Community';
+            hochzeitButton.href = '/kundenbereich/';
+            
+          } else {
+            console.log('Cinema visible');
+            hochzeitTitle.textContent = 'Mach Mit und werde Teil einer besonderen Mission!';
+            hochzeitText.textContent = 'Mit jeder Hochzeit, die wir begleiten, finanzieren wir neue gemeinnützige Projekte. Eure schönsten Momente tragen dazu bei, Kunst, Kultur und Engagement zu fördern. Gemeinsam schaffen wir unvergessliche Erinnerungen – für euch und für die Gesellschaft.';
+            hochzeitButton.textContent = 'Eure Momente, unsere Mission';
+            hochzeitButton.href = '/hochzeitsfotos/';
+          }
+        }
+      });
+    </script>

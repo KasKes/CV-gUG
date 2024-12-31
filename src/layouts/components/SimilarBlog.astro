@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import config from "@/config/config.json";
+import dateFormat from "@/lib/utils/dateFormat";
+import { plainify } from "@/lib/utils/textConverter";
+
+const { blog } = Astro.props;
+const { summary_length } = config.settings;
+
+const {
+  data: { title, image, date },
+  slug,
+  body,
+} = blog;
+---
+
+<article class="mt-7 rounded">
+  <a href={`/blog/${slug}`}>
+    <Image
+      src={image}
+      alt={title}
+      class="h-auto max-w-full rounded"
+      width={570}
+      height={570}
+    /></a
+  >
+  <div class="px-[1.875rem] pb-[0.625rem] pt-[2.1rem]">
+    <h3 class="card-title h4 mb-2 font-semibold hover:underline">
+      <a href={`/blog/${slug}`}>{title}</a>
+    </h3>
+    <p class="mb-4">
+      {plainify(body?.slice(0, Number(summary_length)))}...
+    </p>
+  </div>
+  <div class="card-footer px-[1.875rem] pb-[2.1rem]">
+      <div class="flex items-center">  
+        <span>{dateFormat(date)}</span>
+      </div>
+  </div>
+</article>

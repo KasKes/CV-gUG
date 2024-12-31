@@ -1,0 +1,328 @@
+---
+import Logo from "@/components/Logo.astro";
+import menu from "@/config/menu.json";
+import { slugify } from "@/lib/utils/textConverter";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import ThemeSwitcher from "@/components/ThemeSwitcher.astro";
+import ImageMod from "@/components/ImageMod.astro";
+
+export interface NavigationLink {
+  name: string;
+  url: string;
+  icon?: string;
+}
+const { main, mobileIcons, mobileMain }: any = menu;
+const { pathname } = Astro.url;
+
+let submenu = "";
+let submenuParent = "";
+let submenuChildUrl = "";
+let activeMenu = "";
+let activeSubmenu = "";
+let claim = "";
+
+/**
+ * Determines the active menu and child menu based on the current path.
+ * If the current path matches the menu's child URL, the menu is considered active.
+ * If the current path is a nested child of the menu, the corresponding child menu is also considered active.
+ * Example: If the current path is /hochzeitsfotos, the menu with URL /hochzeitsfotos is active.
+ * If the current path is /hochzeitsfotos/hochzeitsblog/, the child menu with URL /hochzeitsblog is active.
+ * If the current path is /hochzeitsfotos/hochzeitsblog/example, the child menu with URL /hochzeitsblog is active
+ * because it's a nested child of /hochzeitsfotos/hochzeitsblog.
+ *
+ * @param {string} menuName - The name of the menu
+ * @returns {string} - The URL of the active child menu
+ */
+main.forEach((menu) => {
+  menu.children?.forEach((item) => {
+    // Extract the current path segment and construct current and next paths
+    const currentPathSegment = Astro.url.pathname.split("/")[1];
+    const currentPath = `/${currentPathSegment}`;
+    const nextPath = `/${currentPathSegment}/${Astro.url.pathname.split("/")[2]}`;
+
+    // Check if the current path matches or is a nested child of the menu's child URL
+    if (
+      pathname !== "/" &&
+      (item.url.startsWith(nextPath) || item.url.startsWith(currentPath))
+    ) {
+      // Set submenu items to display below the main menu
+      submenu = menu.children;
+      // Set the active menu object
+      activeMenu = menu;
+
+      // Set the active submenu
+      if (currentPathSegment === slugify(item.url)) {
+        // Get the child URL of the active menu to set it as active in the child menu list
+        let childUrl = submenu
+          .filter(
+            (child) =>
+              child.url.startsWith(nextPath) ||
+              child.url.startsWith(currentPath)
+          )
+          .filter((child) => child.url === item.url)[0]?.url;
+
+        // If the path is "/hochzeitsfotos/hochzeitsblog/example," the child menu "hochzeitsblog" is active
+        if (childUrl?.startsWith(nextPath)) {
+          submenuChildUrl = childUrl;
+        } else if (childUrl?.startsWith(currentPath)) {
+          // If the path is "/hochzeitsfotos/hochzeitsblog," the child menu "hochzeitsblog" is active
+          submenuChildUrl = childUrl;
+        }
+
+        // Useful for the parent menu to be active when the child menu is active
+        submenuParent = submenuParent || currentPathSegment;
+      } else {
+        // Get the child URL for the current menu
+        let childUrl = submenu.filter(
+          (child) =>
+            child.url.startsWith(nextPath) || child.url.startsWith(currentPath)
+        )[0]?.url;
+
+        // If the path is "/hochzeitsfotos/hochzeitsblog/example," the child menu "hochzeitsblog" is active
+        if (childUrl?.startsWith(nextPath)) {
+          submenuChildUrl = childUrl;
+        } else if (childUrl?.startsWith(currentPath)) {
+          // If the path is "/hochzeitsfotos/hochzeitsblog," the child menu "hochzeitsblog" is active
+          submenuChildUrl = childUrl;
+        }
+      }
+    }
+  });
+});
+
+if (!activeMenu.claim) {
+  claim = activeMenu.children?.filter((item) => item.url === submenuChildUrl)[0]
+    ?.claim;
+}
+---
+
+<!-- Reading Indicator -->
+<div class={`header header-mobile group sticky-navbar lg:hidden`}>
+  <!-- Mobile menü unten -->
+  <div class="lg:hidden space-x-3">
+    <div class={`h-full w-full bg-bgweiss dark:bg-bgdark relative`}>
+      {
+        (activeMenu.claim || claim) && (
+          <div
+            class={`claim-mobile py-4 dark:border-[var(--pageColorDark)] border-[var(--pageColor)] flex justify-center ${submenu && activeMenu.hasChildren ? "" : "border-b"}`}
+          >
+            <ImageMod
+              class="w-[280px] h-[50px]"
+              src={activeMenu.claim || claim}
+              alt="claim"
+            />
+          </div>
+        )
+      }
+      <div class="navbar-nav-wrapper lg:block">
+        <div class="nav-wrapper px-0">
+          <ul
+            class="navbar-nav navbar-child-nav mt-0 !border-t-transparent items-center justify-end px-4 flex flex-wrap gap-y-6 gap-4 lg:w-auto lg:mx-8 pb-3 mb-3"
+          >
+            <li class="max-lg:text-end lg:after:hidden">
+              <ThemeSwitcher className="mt-2 text-sm lg:text-base themeSwitcherMobile" />
+            </li>
+            {
+              mobileIcons &&
+                mobileIcons.map((menu) => {
+                  return (
+                    menu.icon && (
+                      <li
+                        class={`nav-item lg:border-none border border-bgdark dark:border-[var(--pageColorDark)] border-[var(--pageColor)] rounded ${menu.classname ? menu.classname : ""}`}
+                      >
+                        <a
+                          href={menu.url}
+                          aria-label={menu.name ? menu.name : "navigation menu"}
+                          class={`nav-link ${
+                            (pathname === `${menu.url}/` ||
+                              pathname === menu.url ||
+                              submenuChildUrl === menu.url ||
+                              activeSubmenu === menu.url ||
+                              slugify(menu.name) === submenuParent) &&
+                            "active"
+                          }}`}
+                        >
+                          {menu.icon && (
+                            <DynamicIcon
+                              className="inline-block min-w-4 min-h-4 -mt-1 mr-0"
+                              icon={menu.icon}
+                            />
+                          )}
+                          <span>{menu.name}</span>
+                        </a>
+                      </li>
+                    )
+                  );
+                })
+            }
+          </ul>
+          <ul
+            class="navbar-nav flex justify-end flex-wrap px-4 gap-4 lg:w-auto lg:mx-8"
+          >
+            {
+              mobileMain.map((menu) => {
+                if (!(menu.url === "/" && pathname === "/")) {
+                  return (
+                    <li
+                      class={`nav-item lg:border-none text-xl/none border border-bgdark dark:border-[var(--pageColorDark)] border-[var(--pageColor)] rounded ${menu.classname ? menu.classname : ""}`}
+                    >
+                      <a
+                        href={menu.url}
+                        aria-label={menu.name ? menu.name : "navigation menu"}
+                        class={`nav-link ${
+                          pathname === `${menu.url}/` ||
+                          pathname === menu.url ||
+                          menu.name === activeMenu.name
+                            ? "active"
+                            : ""
+                        }`}
+                      >
+                        {menu.icon && (
+                          <DynamicIcon
+                            className="inline-block min-w-3 min-h-3 -mt-1 mr-0"
+                            icon={menu.icon}
+                          />
+                        )}
+                        <span>{menu.name}</span>
+                      </a>
+                    </li>
+                  );
+                } else {
+                  <li
+                    class={`nav-item md:border-none text-xl/none ${menu.classname ? menu.classname : ""}`}
+                  >
+                    <a
+                      href={menu.url}
+                      class={`nav-link ${
+                        pathname === `${menu.url}/` ||
+                        pathname === menu.url ||
+                        menu.name === activeMenu.name
+                          ? "active"
+                          : ""
+                      }`}
+                    >
+                      <span>{menu.name}</span>
+                    </a>
+                  </li>;
+                }
+              })
+            }
+          </ul>
+        </div>
+      </div>
+      <!-- menü unten linje 2 -->
+      {
+        submenu && activeMenu.hasChildren && (
+          <ul class="navbar-nav navbar-child-nav mt-0 justify-end px-4 flex gap-y-6 gap-4 lg:w-auto lg:mx-8 flex-wrap py-4">
+            {submenu &&
+              submenu.map((menu) => {
+                return (
+                  menu.name && (
+                    <li class="nav-item  lg:py-0 lg:my-0 last:mb-0">
+                      <a
+                        href={menu.url}
+                        class={`nav-link last:pr-0 block ${
+                          (pathname === `${menu.url}/` ||
+                            pathname === menu.url ||
+                            submenuChildUrl === menu.url ||
+                            activeSubmenu === menu.url ||
+                            slugify(menu.name) === submenuParent) &&
+                          "active"
+                        }`}
+                      >
+                        <span>{menu.name}</span>
+                      </a>
+                    </li>
+                  )
+                );
+              })}
+          </ul>
+        )
+      }
+      <!-- menü unten linje 1 -->
+      <div class="px-4 g-0 row items-center w-full">
+        <div class="col-4 !pt-2">
+          <Logo class="max-h-full" />
+        </div>
+        <div class="col-8">
+          <div class="flex items-center justify-between gap-2">
+            <a
+              href="tel:+4915174309863"
+              class="inline-flex flex-col items-center justify-center w-fit hover:bg-gray-50 dark:hover:bg-gray-800 group"
+              role="button"
+            >
+              <DynamicIcon
+                className="inline-block w-6 h-6 mb-2"
+                icon="TfiMobile"
+              />
+              <span
+                class="text-xs md:text-sm text-textdark dark:text-[var(--pageColor)]"
+              >
+                Telefon
+              </span>
+            </a>
+
+            <a
+              href="mailto:info@camposviola.de"
+              class="inline-flex flex-col items-center justify-center w-fit hover:bg-gray-50 dark:hover:bg-gray-800 group"
+              role="button"
+            >
+              <DynamicIcon
+                className="inline-block w-6 h-6 mb-2"
+                icon="TfiEmail"
+              />
+              <span
+                class="text-xs md:text-sm text-textdark dark:text-[var(--pageColor)]"
+              >
+                E-Mail
+              </span>
+            </a>
+            <button
+              class="relative group navbar-toggler p-0 w-fit cursor-pointer flex flex-col items-center justify-center"
+              aria-label="Toggle navigation"
+              data-preload-all
+            >
+              <div
+                class="relative flex overflow-hidden items-center justify-center w-[18px] h-[24px] transform transition-transform duration-200"
+              >
+                <div
+                  class="flex flex-col justify-between w-full h-[14px] transform transition-transform duration-300 origin-center overflow-hidden"
+                >
+                  <div
+                    class={`h-[2px] w-full transform transition-transform duration-300 origin-left group-[.active]:translate-y-6 delay-100 ${pathname === "/" ? "bg-textdark dark:bg-white" : "bg-[var(--pageColorDark)]"}`}
+                  >
+                  </div>
+                  <div
+                    class={`h-[2px] w-full rounded transform transition-transform duration-300 group-[.active]:translate-y-6 delay-75 ${pathname === "/" ? "bg-textdark dark:bg-white" : "bg-[var(--pageColorDark)]"}`}
+                  >
+                  </div>
+                  <div
+                    class={`h-[2px] w-full transform transition-transform duration-300 origin-left group-[.active]:translate-y-6 ${pathname === "/" ? "bg-textdark dark:bg-white" : "bg-[var(--pageColorDark)]"}`}
+                  >
+                  </div>
+                  <div
+                    class="absolute items-center justify-between transform transition-transform duration-500 top-1/2 -translate-x-10 group-[.active]:translate-x-0 flex w-0 group-[.active]:w-12"
+                  >
+                    <div
+                      class={`absolute h-[2px] w-5 transform transition-transform duration-500 rotate-0 delay-300 group-[.active]:rotate-45 ${pathname === "/" ? "bg-textdark dark:bg-white" : "bg-[var(--pageColorDark)]"}`}
+                    >
+                    </div>
+                    <div
+                      class={`absolute h-[2px] w-5 transform transition-transform duration-500 -rotate-0 delay-300 group-[.active]:-rotate-45 ${pathname === "/" ? "bg-textdark dark:bg-white" : "bg-[var(--pageColorDark)]"}`}
+                    >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span
+                class="mt-2 text-sm text-textdark dark:text-[var(--pageColor)]"
+              >
+                Menü
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

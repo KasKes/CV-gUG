@@ -1,0 +1,64 @@
+
+body {
+  @apply  text-textdark dark:text-weristcv;
+}
+p,
+.paragraph {
+  @apply  text-textdark dark:text-weristcv;
+}
+li {
+  @apply  text-textdark dark:text-weristcv;
+}
+a {
+  @apply hover:text-weristcv duration-200 hover:underline;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply  text-textdark dark:text-weristcv;
+}
+h2 {
+  @apply  text-textdark dark:text-weristcv;
+}
+b,
+strong {
+  @apply  text-textdark dark:text-weristcv;
+}
+
+code {
+  @apply text-textdark dark:text-weristcv;
+}
+text {
+  @apply text-textdark dark:text-weristcv;
+}
+table {
+  @apply text-textdark dark:text-weristcv;
+}
+svg {
+  @apply text-weristcv dark:text-weristcv;
+}
+/* Links */  
+p > a {
+  @apply text-weristcv dark:text-weristcv;
+} 
+.navbar-brand {
+  @apply text-weristcv border-weristcv; 
+}
+.social-icons li a {
+  @apply text-weristcv border-weristcv; 
+}
+.bg-primary{
+  @apply bg-weristcv text-white; 
+}
+hr {
+  @apply  border-weristcv; 
+}
+.border-2{
+  @apply border-weristcv; 
+}
+.back-to-top{
+  @apply border-weristcv bg-bgweiss dark:bg-bgdark; 
+}

@@ -1,0 +1,60 @@
+body {
+  @apply  text-textdark dark:text-igot;
+}
+p,
+.paragraph {
+  @apply  text-textdark dark:text-igot;
+}
+li {
+  @apply  text-textdark dark:text-igot;
+}
+a {
+  @apply hover:text-igot duration-200 hover:underline;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply  text-textdark dark:text-igot;
+}
+b,
+strong {
+  @apply  text-textdark dark:text-igot;
+}
+
+code {
+  @apply text-textdark dark:text-igot;
+}
+text {
+  @apply text-textdark dark:text-igot;
+}
+table {
+  @apply text-textdark dark:text-igot;
+}
+svg {
+  @apply text-textdark dark:text-igot;
+}
+/* Links */  
+p > a {
+  @apply text-igot dark:text-igot hover:text-igot;
+} 
+.navbar-brand {
+  @apply text-igot border-igot; 
+}
+.social-icons li a {
+  @apply text-igot border-igot; 
+}
+.bg-primary{
+  @apply bg-igot text-white; 
+}
+hr {
+  @apply  border-igot; 
+}
+.border-2{
+  @apply border-igot; 
+}
+.back-to-top{
+  @apply border-igot bg-bgweiss dark:bg-bgdark; 
+}

@@ -1,0 +1,82 @@
+---
+title: Guichinger Brauchtum Beach Party 2024
+date: 2024-07-20
+description: Entdecke und lade kostenlos alle Fotos der "Guichinger Brauchtum Beach Party 2024" herunter.
+image: "/images/igotshot/photos/guichinger-brauchtum-beach-party/flyer-beach-party.jpg"
+logo: "/images/igotshot/photos/guichinger-brauchtum-beach-party/logo.jpg"
+logodark: "/images/igotshot/photos/guichinger-brauchtum-beach-party/logo-dark.jpg"
+categories: ["Igotshot Photo"]
+category: Kultur
+tags: ["Starnberg"]
+section: "Kultur"
+keywords: "Guichinger Brauchtum Beach Party 2024, kostenlose Fotos, Beachparty Bilder herunterladen, zeitgenössische Fotografie, Eventfotos"
+path: /
+draft: false
+BildLoesung: true
+
+# information
+information:
+  - label: Datum
+    icon: TfiCalendar
+    data: 20.07.2024
+
+  - label: Project
+    icon: TfiNotepad
+    data: Eventfotografie
+
+  - label: Crew
+    icon: TfiVideoClapper
+    data: 1 Personen
+
+  - label: Technik
+    icon: TfiTarget
+    data: Nikon Z9<br>Z 35mm f/1.8<br>Z 85mm f/1.2<br>Z 135mm f/1.8<br>Profoto A10 mit Clic Color Effects
+
+  - label: Projekttyp
+    icon: TfiDashboard
+    data: "S<br>Ehrenamtlich"
+
+tag:
+  - label: Alle Bilder
+    icon: TfiCloudDown
+    data: intern Download
+    link: "#"
+
+  - label: Ort
+    icon: TfiLocationPin
+    data: Gilching
+    link: "/tags/starnberg/"
+
+  - label: Kategorie
+    icon: TfiTag
+    data: igotshot.photo
+    link: "/categories/igotshot-photo/"
+
+# contacts
+contacts:
+  - icon: TfiWorld
+    id: Guichinger Brauchtum E.V.
+    link: https://www.guichinger-brauchtum.de/
+    
+### code: GBV-24-AwXf
+---
+
+import MasonaryImages from "@/layouts/react-partials/MasonaryImages.tsx";
+
+export const images = await import.meta.glob(
+    '/public/images/igotshot/photos/guichinger-brauchtum-beach-party/bilder/*.{jpeg,jpg,png,gif}'
+);
+
+
+
+Willkommen auf der Fotoseite zur Guichinger Brauchtum Beach Party 2024! 
+
+Im Auftrag des Brauchtums haben wir die unvergesslichen Momente der Beachparty festgehalten. Alle Bilder sind hier veröffentlicht und können dann kostenlos heruntergeladen und privat genutzt werden.
+
+<div class="py-4 px-4 bg-igot/10 rounded border border-igot">
+ Info: Hier werden ganz viele Bilder geladen! Sie sind zwar optimiert, aber es kann trotzdem ein bisschen länger dauern. Danke für deine Geduld und viel Spaß beim Anschauen! 🌟 📸 😄
+ </div>
+
+<div class="py-8">
+  <MasonaryImages client:load images={images} mobile={2} desktop={3} large={4} />
+</div>

@@ -1,0 +1,322 @@
+// ----------------------------------------------------------------------
+// If page has color varialbe then style will be
+// ----------------------------------------------------------------------
+.page-color-dark-weristcv {
+  --pageColorDark: #61ce70;
+}
+.page-color-dark-kontakt {
+  --pageColorDark: #61ce70;
+}
+.page-color-light-igotshot {
+  --pageColor: #34a19f;
+}
+.page-color-dark-igotshot {
+  --pageColorDark: #34a19f;
+}
+.page-color-light-video,
+.page-color-dark-video {
+  --pageColor: #f67a18;
+  --pageColorDark: #f67a18;
+}
+.page-color-light-fotografie,
+.page-color-dark-fotografie {
+  --pageColor: #7b848c;
+  --pageColorDark: #7b848c;
+}
+.page-color-dark-home {
+  --pageColorDark: #f5f5f4;
+}
+.page-color-light-home {
+  --pageColor: #09090b;
+}
+.page-color-light-hochzeits {
+  --pageColor: #d4af37;
+}
+.page-color-dark-hochzeits {
+  --pageColorDark: #d4af37;
+}
+body[class*="page-color-light"] {
+  @apply text-[var(--pageColor)];
+  // p,
+  // .paragraph {
+  //   @apply text-[var(--pageColor)];
+  // }
+  // li {
+  //   @apply text-[var(--pageColor)];
+  // }
+  // a {
+  //   @apply hover:text-[var(--pageColor)];
+  // }
+  h1:not(.excluded-from-color-scheme),
+  h2:not(.excluded-from-color-scheme),
+  h3:not(.excluded-from-color-scheme),
+  h4:not(.excluded-from-color-scheme),
+  h5:not(.excluded-from-color-scheme),
+  h6:not(.excluded-from-color-scheme) {
+    @apply text-[var(--pageColor)];
+  }
+  // b,
+  // strong {
+  //   @apply text-[var(--pageColor)];
+  // }
+
+  // code {
+  //   @apply text-[var(--pageColor)];
+  // }
+  // text {
+  //   @apply text-[var(--pageColor)];
+  // }
+  // table {
+  //   @apply text-[var(--pageColor)];
+  // }
+  svg:not(.nav-link svg),
+  .navbar-brand svg,
+  .yarl__counter,
+  .yarl__slide_description {
+    @apply text-[var(--pageColor)];
+  }
+
+  .glightbox-clean .gclose path,
+  .glightbox-clean .gnext path,
+  .glightbox-clean .gprev path {
+    @apply fill-[var(--pageColor)];
+  }
+
+  /* Links */
+  // p > a {
+  //   @apply text-[var(--pageColor)];
+  // }
+  .navbar-brand {
+    @apply text-[var(--pageColor)] border-[var(--pageColor)];
+  }
+  .navbar-child-nav {
+    @apply border-t-[rgb(from_var(--pageColor)_r_g_b_/_20%)];
+  }
+  .social-icons li a {
+    @apply text-[var(--pageColor)] border-[var(--pageColor)];
+  }
+  // .bg-primary {
+  //   @apply bg-[var(--pageColor)];
+  // }
+  hr {
+    @apply border-[var(--pageColor)];
+  }
+  .back-to-top {
+    @apply border-[var(--pageColor)];
+  }
+}
+body[class*="page-color-dark-"] {
+  @apply dark:text-[var(--pageColorDark)];
+
+  .list-separator li:not(:last-child)::after {
+    @apply border-[var(--pageColorDark)];
+  }
+
+  .glightbox-clean .gclose path,
+  .glightbox-clean .gnext path,
+  .glightbox-clean .gprev path {
+    @apply fill-[var(--pageColorDark)];
+  }
+
+  p,
+  .paragraph,
+  figcaption {
+    @apply text-bgdark dark:text-[var(--pageColorDark)];
+  }
+  
+  .yarl__counter,
+  .yarl__slide_description {
+    @apply text-[var(--pageColor)] dark:text-[var(--pageColorDark)];
+
+  }
+  li {
+    @apply dark:text-[var(--pageColorDark)];
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply dark:text-[var(--pageColorDark)];
+  }
+  b,
+  strong {
+    @apply dark:text-[var(--pageColorDark)];
+  }
+
+  code {
+    @apply dark:text-[var(--pageColorDark)];
+  }
+  text {
+    @apply dark:text-[var(--pageColorDark)];
+  }
+  table {
+    @apply dark:text-[var(--pageColorDark)];
+  }
+  svg {
+    @apply dark:text-[var(--pageColorDark)];
+  }
+
+  .navigation {
+    @apply dark:text-[var(--pageColorDark)];
+  }
+
+  /* Links */
+  p > a {
+    @apply dark:text-[var(--pageColorDark)];
+  }
+  .navbar-brand {
+    @apply border-[var(--pageColor)];
+  }
+  .navbar-child-nav {
+    @apply border-t-[var(--pageColor)];
+  }
+  .social-icons li a {
+    @apply border-[var(--pageColor)];
+  }
+  .bg-primary {
+    @apply bg-[var(--pageColor)];
+  }
+  hr {
+    @apply border-[var(--pageColor)];
+  }
+  .back-to-top {
+    @apply border-[var(--pageColor)];
+  }
+}
+
+// Styles for Specific Page Elements:
+// If you intend to modify the appearance of a specific page, please ensure that you haven't applied custom styles directly to that page. If such styles exist, be sure to update the pathname accordingly.
+// ----------------------------------------------------------------------
+body.page-color-light-kontakt,
+body.page-color-light-weristcv {
+  .navbar-brand {
+    @apply border-[#61ce70] text-[#61ce70] #{!important};
+  }
+
+  // To keep an element's color unchanged by the overall color scheme, use the class "excluded-from-color-scheme".
+  // For example, in the "weristcv" page, we wanted to keep "Michael Campos Viola B.A." unaffected, so we added this class to that element.
+  .navbar-brand,
+  h1:not(.excluded-from-color-scheme),
+  h2:not(.excluded-from-color-scheme),
+  h3:not(.excluded-from-color-scheme),
+  h4:not(.excluded-from-color-scheme),
+  h5:not(.excluded-from-color-scheme),
+  h6:not(.excluded-from-color-scheme) {
+    @apply text-[#61ce70] #{!important};
+  }
+
+  .reading-indicator {
+    @apply bg-[var(--pageColorDark)] dark:bg-[var(--pageColorDark)];
+  }
+}
+
+// ----------------------------------------------------------------------
+// Regular Style
+// ----------------------------------------------------------------------
+html {
+  scroll-behavior: smooth;
+}
+body {
+  @apply font-normal font-primary leading-relaxed text-lg text-bgdark dark:text-bgweiss;
+}
+p,
+.paragraph {
+  @apply font-normal text-xl leading-relaxed text-bgdark dark:text-bgweiss;
+}
+
+li {
+  @apply font-normal  leading-relaxed text-base text-bgdark dark:text-bgweiss;
+}
+a {
+  @apply duration-200 hover:underline;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-medium leading-tight mb-2 text-bgdark dark:text-bgweiss;
+}
+
+h1,
+.h1 {
+  @apply uppercase text-h1-sm md:text-h1;
+}
+
+h2,
+.h2 {
+  @apply text-h2-sm md:text-h2;
+}
+
+h3,
+.h3 {
+  @apply text-h3-sm md:text-h3;
+}
+
+h4,
+.h4 {
+  @apply text-h4-sm md:text-h4 font-medium;
+}
+
+h5,
+.h5 {
+  @apply text-h5 font-medium;
+}
+
+h6,
+.h6 {
+  @apply text-h6 font-medium;
+}
+b,
+strong {
+  @apply text-bgdark dark:text-bgweiss;
+}
+
+code {
+  @apply text-bgdark dark:text-bgweiss;
+}
+text {
+  @apply text-bgdark dark:text-bgweiss;
+}
+table {
+  @apply text-bgdark dark:text-bgweiss;
+}
+svg {
+  @apply text-bgdark dark:text-bgweiss;
+}
+/* Links */
+p > a {
+  @apply text-bgweiss dark:text-bgweiss;
+}
+.navbar-brand {
+  @apply border-bgdark dark:border-bgweiss;
+}
+.navbar-brand svg {
+  @apply text-inherit;
+}
+.social-icons li a {
+  @apply text-bgweiss border-bgweiss;
+}
+.bg-primary {
+  @apply bg-bgweiss text-white;
+}
+
+main[tabindex="-1"] {
+  outline: none;
+}
+.swup-progress-bar {
+  height: 4px;
+  background-color: blue;
+}
+.swuptransition-fade {
+  transition: 0.3s;
+  opacity: 1;
+  transform: none;
+}
+html.is-animating .swuptransition-fade {
+  opacity: 0;
+  transform: translateY(20px);
+}

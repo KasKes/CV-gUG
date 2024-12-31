@@ -1,0 +1,63 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import config from "@/config/config.json";
+import dateFormat from "@/lib/utils/dateFormat";
+import { humanize, markdownify, slugify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  content: CollectionEntry<"hochzeitsblog">;
+}
+const {
+  content: {
+    collection,
+    data: { title, image, date, path, tags, categories, parent },
+    slug,
+  },
+} = Astro.props;
+const modified_slug = parent ? `${parent ? parent : ""}/${collection}${path}${slug}/` : `/${collection}${path}${slug}/`;
+---
+
+<div class="group relative overflow-hidden pb-8">
+  <div class="rounded">
+    {
+      image && (
+        <a
+          href={modified_slug}
+          class="overlay after:opacity-0  group-hover:after:opacity-100 after:duration-300">
+          <ImageMod
+            src={image}
+            width={400}
+            height={240}
+            class="w-full rounded"
+            alt={title}
+          />
+        </a>
+      )
+    }
+  </div>
+  <div class="flex">
+    <div class="p-6 w-full">
+      <h3 class="text-textdark dark:text-white text-center">
+        <a href={modified_slug} set:html={markdownify(title)} />
+      </h3>
+      {
+        date && (
+          <div class="text-center text-textdark dark:text-white">
+            <span
+              class="font-medium uppercase"
+              set:html={dateFormat(date, "MMM")}
+            />
+            <span set:html={dateFormat(date, "yyyy")} />
+            {categories?.map((categories: string, index: number) => (
+              <>
+                •{" "}
+                <a href={`/categories/${slugify(categories)}/`}>{categories}</a>{" "}
+              </>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</div>

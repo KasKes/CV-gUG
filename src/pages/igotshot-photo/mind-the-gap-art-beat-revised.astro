@@ -1,0 +1,262 @@
+---
+import MasonaryImages from "@/layouts/react-partials/MasonaryImages.tsx";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { getEntry } from "astro:content";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+const gilching20 = await getEntry("igotshot-photo", "mind-the-gap-art-beat-revised");
+import Social from "@/components/Social.astro";
+import social from "@/config/social.json";
+const {
+  render,
+  data: {   title,  
+  section,
+  keywords,
+  meta_title,
+  contacts,
+  description,
+  image,
+  information,
+  logo,
+  tag,
+  logodark,},
+} = gilching20;
+
+
+
+// Update the folder path `/public/images/igotshot/photos/festumzug-kulturlieferdienst` if necessary 
+const images0 = await import.meta.glob(
+    "/public/images/igotshot/photos/mind-the-gap/bilder/art/*.{jpeg,jpg,png,gif}"
+);
+const images1 = await import.meta.glob(
+    "/public/images/igotshot/photos/mind-the-gap/bilder/matrize/*.{jpeg,jpg,png,gif}"
+);
+const lentikular = await import.meta.glob(
+    "/public/images/igotshot/photos/mind-the-gap/bilder/lentikular/*.{jpeg,jpg,png,gif}"
+);
+const portrais = await import.meta.glob(
+    "/public/images/igotshot/photos/mind-the-gap/bilder/portrais/*.{jpeg,jpg,png,gif}"
+);
+const covid = await import.meta.glob(
+    "/public/images/igotshot/photos/mind-the-gap/bilder/covid/*.{jpeg,jpg,png,gif}"
+);
+
+const team = await import.meta.glob(
+    "/public/images/igotshot/photos/mind-the-gap/bilder/team/*.{jpeg,jpg,png,gif}"
+);
+
+---
+<Base
+title={title}
+image={image}
+section={section}
+keywords={keywords}
+meta_title={meta_title}
+description={description}
+body_class="page-color-dark-igotshot page-color-light-igotshot">
+  <section class="py-4">
+    <div class="container">
+      <h1 class="text-center pb-4">{title}</h1>
+      <div class="row gy-4 items-start">
+        <aside
+        class="lg:col-4 lg:sticky lg:top-0 ms-sticky-sidebar"
+        ms-sticky-top-offset="230"
+        ms-sticky-bottom-offset="10">
+        <div>
+          <div class="text-center h-full rounded overflow-hidden group">
+            {
+              logo && (
+                <img
+                  src={logo}
+                  width={300}
+                  height="full"
+                  alt={title ? title : "projekt image"}
+                  class="dark:hidden w-full inline-block object-cover pb-8 object-center"
+                />
+              )
+            }
+            {
+              logo && (
+                <img
+                  src={logodark}
+                  width={300}
+                  height="full"
+                  alt={title ? title : "projekt image"}
+                  class="hidden dark:inline-block w-full object-cover pb-8 object-center"
+                />
+              )
+            }
+            {
+              information && (
+                <div class="pt-2 px-4 text-base">
+                  {information.map((info) => {
+                    const { data, label, icon } = info;
+                    return (
+                      <div class="p-3 flex justify-between">
+                        <p class=" font-primary m-0 text-base">
+                          {icon && (
+                            <DynamicIcon
+                              className="inline-block me-2"
+                              icon={icon}
+                            />
+                          )}
+                          {label}
+                        </p>
+                        <span
+                          class="text-end text-textdark dark:text-igot"
+                          set:html={markdownify(data)}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )
+            }
+            {
+              tag && (
+                <div class="px-4 pb-3 text-base">
+                  {tag.map((info) => {
+                    const { data, label, icon, link } = info;
+                    return (
+                      <div class="p-3 flex justify-between ">
+                        <p class=" font-primary m-0 text-base">
+                          {icon && (
+                            <DynamicIcon
+                              className="inline-block me-2"
+                              icon={icon}
+                            />
+                          )}
+                          {label}
+                        </p>
+                        <a class="border border-igot rounded-xl hover:bg-igot hover:text-bgweiss  dark:hover:text-bgdark py-1 px-4"
+                          href={link}>
+                        <span
+                          class="text-end hover:text-textweiss "
+                          set:html={markdownify(data)}
+                        /></a>
+                      </div>
+                    );
+                  })}
+                </div>
+              )
+            }
+            <div>
+              {
+                contacts && (
+                  <>
+                    <h2 class="h5 text-start ml-8" set:html="Information" />
+                    <ul class="pl-0 mb-5 md:mb-10">
+                      {contacts.map((contact) => {
+                        const { id, link, icon } = contact;
+                        if (!id) return null;
+                        return (
+                          <li class="text-color text-start ml-8 my-3">
+                            {icon && (
+                              <DynamicIcon
+                                className="me-3 inline-block"
+                                icon={icon}
+                              />
+                            )}
+                            <a href={link}>
+                              {id}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </>
+                )
+              }
+            </div>
+            <!-- Social Links -->
+            <hr class="h-px my-2">
+              <h2 class="h5 pt-2 text-start ml-8" set:html="Folge uns auf" />
+                <p class="my-2 text-base text-start ml-8" set:html="Whatsapp, Instagram, LinkedIn, Vimeo" />
+                <div class="py-4"> 
+                  <Social source={social.main} className="social-icons" />
+                </div>
+          </div>
+        </div>
+      </aside>
+        <article class="lg:col-8">
+            <h2>Lentikular als Auftrag</h2>
+              <p class="pb-8">Das Museum für konkrete Kunst hat uns den Auftrag erteilt, ein exklusives Präsent für die Besucher bei der Vernissage zu gestalten. Aufgrund unserer vorherigen Veranstaltung mit einer Lichtinstallation war es offensichtlich, um dies zu toppen, muss das dieses Mal etwas noch Außergewöhnliches her. Daher entschieden wir uns rasch für die Umsetzung von Lentikularbildern.</p>
+            <h2>Die Herausforderung</h2>
+              <p class="pb-8">Wir haben beschlossen, bei der Ausstellungseröffnung Gästeporträts zu machen und direkt auszudrucken. Die Bilder sollen durch Bewegung mit einem interessanten Hintergrund lebendig werden. Dieser Prozess ist äußerst komplex und erfordert normalerweise eine Lieferzeit von bis zu einer Woche bei spezialisierten Unternehmen. Unsere Zielsetzung war es jedoch, den Gästen ihre Bilder noch am Tag der Vernissage aushändigen zu können. Somit bestand die Herausforderung darin, nicht nur Porträts anzufertigen; vielmehr mussten diese auch freigestellt werden sowie in einem Programm mit fünf Schichten geladen werden - anschließend erfolgte der Druck und abschließend das Kaltaufkleben innerhalb eines Zeitfensters von lediglich vier Minuten.</p>
+            <h2>Repro</h2>
+              <p>Repro von den Werken der Künstler, die im Museum für Konkrete Kunst aufgestellt wurden.</p>
+                  <div class="pb-8">
+                  <MasonaryImages client:load images={images0} mobile={2} desktop={3} large={5} />
+                  <p class="py-4 text-xs italic">In der Abfolge von links aus; (1) Jacob Dahlgren, (2) Esther Stocker, (3) Jan van Ploege, (4) Katharina Hinsberg und (5) Marco Casentini</p>
+                </div>
+                <h2>Photoshop Ebenen</h2>
+                <p>Die Kunstwerke von Jacob Dahlgren, Esther Stocker, Jan van Ploege, Katharina Hinsberg und Marco Casentini wurden in 5 Ebenen zerlegt, um die unterschiedlichen Druckebenen vorzubereiten.</p>
+                  <div class="pb-8">
+                  <MasonaryImages client:load images={images1} mobile={2} desktop={3} large={5} />
+                </div><h2>Druckvorstufe</h2>
+                  <div class="py-2">
+                  <MasonaryImages client:load images={lentikular} mobile={2} desktop={3} large={3} />
+                </div>
+                <div class=" bg-gray-800 rounded py-4 px-4 text-xs">
+                    <code><span class="line">
+                      <span class=" text-blue-400">Screen =</span>
+                      <span class=" text-green-700">49,935</span>
+                      <span class=" text-amber-800"> LPI</span><br>
+                      <span class=" text-blue-400">X Dimension =</span>
+                      <span class=" text-green-700">100 + 2x0 + 2x5</span>
+                      <span class=" text-amber-800"> mm</span><br>
+                      <span class=" text-blue-400">Y Dimension =</span>
+                      <span class=" text-green-700">100 + 2x0 + 2x5</span>
+                      <span class=" text-amber-800"> mm</span><br>
+                      <span class=" text-blue-400">Data Resolution =</span>
+                      <span class=" text-green-700">196,5944882</span>
+                      <span class=" text-amber-800">Pixel per cm</span><br>
+                      <span class=" text-blue-400">Data Resolution =</span>
+                      <span class=" text-green-700">499,3500000</span>
+                      <span class=" text-amber-800">Pixel per inch</span><br>
+                      <span class=" text-blue-400">[Frames] =</span>
+                      <span class=" text-green-700">10</span><br>
+                      <span class=" text-blue-400">[Result width, pixel]</span>
+                      <span class=" text-green-700">2163 </span><br>
+                      <span class=" text-blue-400">[Result height, pixel]</span>
+                      <span class=" text-green-700">5995</span>
+                      </span>
+                    </code>
+                </div>
+                  <h2 class="pt-8">Wie jetzt genau?</h2>                       
+                    <p>Um das Ganze besser zu erklären, habe ich zwei Videos erstellt, in denen man sehen kann, wie alles funktioniert.</p>
+                <div style="padding:56.25% 0 0 0;position:relative;">
+                  <iframe src="https://player.vimeo.com/video/451749472?h=bb3a403697&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                  frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+                  style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                  title="mkk-video"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+                  <div class="py-4 "></div>
+                <div style="padding:56.25% 0 0 0;position:relative;">
+                  <iframe src="https://player.vimeo.com/video/454174532?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
+                  frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+                  style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                  title="Museum für Konkrete Kunst - Mind the Gap!"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+                <h2 class="pt-8">2mm</h2>
+                <p>Ganz genau 2 mm war der Spielraum, der uns beim Kleben zur Verfügung stand, damit das Plastikglas, was wir auf dem gedruckten Bild gepresst haben, den gewünschten Effekt hatte, um das Bild zum Animieren zu bringen. In gleicher Weise erforderte der Fotodrucker äußerste Präzision. Wir haben die Bilder mit einer Auflösung von 1200 dpi auf 400 g/m² Fotopapier gedruckt, um jegliche Störungen oder Abweichungen während des Herstellungsprozesses zu vermeiden.</p>
+                <h2 class="pt-8">DATENERHEBUNG NACH CORONA-VERORDNUNG</h2>
+                <p>Selbstverständlich war es erforderlich, im Rahmen der Veranstaltung ein Hygienekonzept zu erarbeiten, um die Einhaltung der Abstände zwischen den Besuchern zu gewährleisten. Zusätzlich wurde die Aktion in zwei offenen Zelten im Freien durchgeführt.</p>
+                <MasonaryImages client:load images={covid} mobile={2} desktop={2} large={2} />
+                <h2 class="pt-8">116 Gästeporträts bei der Ausstellungseröffnung</h2>
+                <p>Die gesamte Vernissage erstreckte sich über einen Zeitraum von 4 Stunden, in dem es uns gelang, tatsächlich 79 Bilder vor Ort zu erstellen. Somit betrug unsere durchschnittliche Bearbeitungszeit ungefähr 3 Minuten vom Anmeldevorgang bis zum Ausdrucken und abschließenden Kaltschweißen des Bildes auf Plexiglas. Die verbleibenden 37 Bilder wurden am folgenden Tag nachgereicht und konnten durch Vorlage eines Abholscheins im Museum für konkrete Kunst abgeholt werden.</p>
+                <div class="py-2">
+                <MasonaryImages client:load images={portrais} mobile={2} desktop={3} large={5} />
+              </div>
+              <h3 class="pt-8"></h3>Team</h3>
+                <MasonaryImages client:load images={team} mobile={1} desktop={1} large={1} />
+                <p class="py-4 text-xs italic">In der Abfolge von links aus; Michael, Filipa, Christian, Magtalena und Melander</p>
+                    
+              
+                </div>
+
+
+        </article>
+      </div>
+    </div>
+  </section>
+</Base>

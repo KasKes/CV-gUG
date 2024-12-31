@@ -1,0 +1,302 @@
+{
+  "mobileIcons": [
+    {
+      "name": "",
+      "url": "/",
+      "icon": "TfiHome"
+    },
+    {
+      "name": "",
+      "url": "/weristcv/"
+    },
+    {
+      "name": "",
+      "url": "/kontakt/",
+      "icon": "TfiEmail"
+    },
+    {
+      "name": "",
+      "url": "/bewertungen/",
+      "icon": "TfiStar"
+    }
+  ],
+  "mobileMain": [
+    {
+      "name": "Cinema",
+      "url": "/video/",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Cinema",
+          "url": "/video/"
+        },
+        {
+          "name": "Cinema",
+          "url": "/cinema/"
+        }
+      ]
+    },
+    {
+      "name": "igotshot",
+      "url": "/igotshot/",
+      "hasChildren": false,
+      "children": [
+        {
+          "name": "igotshot-photo",
+          "url": "/igotshot-photo/"
+        },
+        {
+          "name": "igotshot-lifetime",
+          "url": "/igotshot-lifetime/"
+        }
+      ]
+    },
+    {
+      "name": "Mach mit",
+      "url": "/hochzeitsfotos/",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "",
+          "url": "/hochzeitsfotograf-gilching/"
+        },
+        {
+          "name": "",
+          "url": "/hochzeitsfotograf-fuerstenfeldbruck/"
+        },
+        {
+          "name": "",
+          "url": "/hochzeitsfotograf-germering/"
+        },
+        {
+          "name": "",
+          "url": "/hochzeitsfotograf-olching/"
+        },
+        {
+          "name": "",
+          "url": "/hochzeitsfotograf-starnberg/"
+        },
+
+        {
+          "name": "Hochzeitsfotos",
+          "url": "/hochzeitsfotos/"
+        },
+        {
+          "name": "Beitrag",
+          "url": "/hochzeitsfotograf-preise/"
+        },
+        {
+          "name": "Community",
+          "url": "/kundenbereich/"
+        }
+      ]
+    },
+    {
+      "name": "IMPACT",
+      "url": "/fotografie/",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "IMPACT",
+          "url": "/fotografie/"
+        },
+        {
+          "name": "Bewerbungsbilder",
+          "url": "/bewerbungsbilder/"
+        },
+        {
+          "name": "Artist Statement",
+          "url": "/artist-statement/"
+        }
+      ]
+    }
+  ],
+  "main": [
+    {
+      "name": "",
+      "url": "/",
+      "icon": "TfiHome"
+    },
+    {
+      "name": "Cinema",
+      "url": "/video/",
+      "claim": "/images/icons/cinematography-with-value.svg",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Cinema",
+          "url": "/video/"
+        },
+        {
+          "name": "Cinema",
+          "url": "/cinema/"
+        }
+      ]
+    },
+    {
+      "name": "igotshot",
+      "url": "/igotshot/",
+      "claim": "/images/icons/community-vibes.svg",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "",
+          "url": "/igotshot-photo/"
+        },
+        {
+          "name": "",
+          "url": "/igotshot-lifetime/gilching/kukuwo23/"
+        },
+        {
+          "name": "",
+          "url": "/igotshot-lifetime/gilching/kukuwo22/"
+        },
+        {
+          "name": "",
+          "url": "/igotshot-lifetime/gilching/kukuwo21/"
+        },
+        {
+          "name": "",
+          "url": "/igotshot-lifetime/gilching/kukuwo20/"
+        },
+        {
+          "name": "",
+          "url": "/igotshot-lifetime/gilching/kukuwo19/"
+        },
+        {
+          "name": "",
+          "url": "/igotshot-lifetime/gilching/kukuwo18/"
+        },{
+          "name": "",
+          "url": "/igotshot-lifetime/gilching/kukuwo17/"
+        }
+      ]
+    },
+    {
+      "name": "Mach mit",
+      "url": "/hochzeitsfotos/",
+      "claim": "/images/icons/celebrating-your-vows.svg",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "",
+          "url": "/hochzeitsfotograf-gilching/"
+        },
+        {
+          "name": "",
+          "url": "/hochzeitsfotograf-fuerstenfeldbruck/"
+        },
+        {
+          "name": "",
+          "url": "/hochzeitsfotograf-germering/"
+        },
+        {
+          "name": "",
+          "url": "/hochzeitsfotograf-olching/"
+        },
+        {
+          "name": "",
+          "url": "/hochzeitsfotograf-starnberg/"
+        },
+
+        {
+          "name": "Hochzeitsfotos",
+          "url": "/hochzeitsfotos/"
+        },
+        {
+          "name": "Beitrag",
+          "url": "/hochzeitsfotograf-preise/"
+        },
+        {
+          "name": "Community",
+          "url": "/kundenbereich/"
+        }
+      ]
+    },
+    {
+      "name": "IMPACT",
+      "url": "/fotografie/",
+      "claim": "/images/icons/corporate-visibility.svg",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "IMPACT",
+          "url": "/fotografie/"
+        },
+        {
+          "name": "Bewerbungsbilder",
+          "url": "/bewerbungsbilder/"
+        },
+        {
+          "name": "Artist Statement",
+          "url": "/artist-statement/"
+        }
+      ]
+    },
+    {
+      "name": "#",
+      "url": "/weristcv/",
+      "classname": "lg:ml-auto"
+    },
+    {
+      "name": "",
+      "url": "/kontakt/",
+      "icon": "TfiEmail",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Bewertungen",
+          "url": "/bewertungen/"
+        },
+        {
+          "name": "#weristcv",
+          "url": "/weristcv/"
+        },
+        {
+          "name": "Kontakt",
+          "url": "/kontakt/"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "url": "/bewertungen/",
+      "icon": "TfiStar",
+      "claim": "/images/icons/creative-ventures.svg", 
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Bewertungen",
+          "url": "/bewertungen/",
+          "icon": "TfiStar"
+        },
+        {
+          "name": "#weristcv",
+          "url": "/weristcv/"
+        },
+        {
+          "name": "Kontakt",
+          "url": "/kontakt/"
+        }
+      ]
+    }
+  ],
+  "footer": [
+    {
+      "name": "Bewertungen",
+      "url": "/bewertungen/"
+    },
+    {
+      "name": "Datenschutzerklärung",
+      "url": "/datenschutz/"
+    },
+    {
+      "name": "Sitemap",
+      "url": "/sitemap/"
+    },
+    {
+      "name": "Impressum",
+      "url": "/impressum/"
+    }
+  ]
+}

@@ -1,0 +1,595 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getEntry } from "astro:content";
+import TestimonialSlider from "@/layouts/react-partials/TestmonialSlider.jsx";
+import type { PricingType } from "@/types";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import PageHeader from "@/partials/PageHeader.astro";
+import ImageMod from "@/components/ImageMod.astro";
+const { data, render } = await getEntry("preise", "wedding-all");
+const {
+  title,
+  meta_title,
+  description,
+  image,
+  pricingTable,
+  inklusiv,
+  inklusivtitel,
+  bilder,
+} = data as PricingType;
+
+const testimonials = (await getEntry("testimonial", "-index")).data
+  .testimonial_items;
+const weddingTestimonials = testimonials.filter(
+  (item: any) => item.section === "wedding"
+);
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  keywords="Hochzeitsfotograf, Preise"
+  image={image}
+  body_class="page-color-dark-hochzeits page-color-light-hochzeits">
+  <PageHeader title={title} />
+  <section class="section overflow-hidden">
+    <div class="container">
+      <div class="row gy-5 gx-4 pb-6">
+        <div class="md:col-4 relative">
+          <h2 class="">Hochzeitsfotograf Preise</h2>
+          Hochzeitsfotograf Preise • Qualität muss nicht überteuert sein.<br
+          />Wir bieten Hochzeitsfotografie für jedes Budget an. Unsere drei
+          Standardpakete können individuell ergänzt werden.
+          <a
+            data-te-nav-link-ref
+            class="text-center mx-2 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss my-8 py-4 px-8 dark:border-wedding flex uppercase"
+            href="#kennenlernshooting">
+            Sichere dir jetzt dein kostenlosses Kennenlernshooting!
+          </a>
+          <!-- f/1 -->
+          <svg
+            class="pt-4 absolute top-0 right-0 -z-10"
+            width="153"
+            height="137"
+            viewBox="0 0 153 137"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M44.1908 33.8009L42.7487 42.3985H0.925656L2.31236 33.8009H44.1908ZM1.203 119L17.4552 21.3206C18.1947 16.7352 19.8773 12.8709 22.5028 9.72772C25.1652 6.58452 28.3454 4.19938 32.0433 2.57232C35.7412 0.945252 39.5315 0.131719 43.4143 0.131719C46.0028 0.131719 48.1106 0.353592 49.7376 0.797339C51.3647 1.20411 52.6405 1.61087 53.5649 2.01764L49.3494 10.6707C48.6098 10.4488 47.7223 10.1899 46.6869 9.89412C45.6885 9.59829 44.3757 9.45038 42.7487 9.45038C38.4591 9.45038 34.9461 10.6522 32.2097 13.0558C29.4733 15.4594 27.7168 18.8984 26.9402 23.3729L11.0763 119H1.203ZM101.905 0.0762494L42.8319 136.084H33.5687L92.5868 0.0762494H101.905ZM152.797 5.4012L133.938 119H123.566L140.594 16.273H139.929L110.364 33.9673L112.195 23.2065L141.981 5.4012H152.797Z"
+              fill="currentColor"
+              fill-opacity="0.35">
+            </path>
+          </svg>
+        </div>
+        <div class="md:col-8">
+          <a
+            href={image}
+            data-no-swup
+            class="glightbox"
+            data-gallery="gallery-group-1">
+            <ImageMod
+              src={image}
+              width="full"
+              height="full"
+              class="mx-auto rounded"
+              alt={title}
+            />
+          </a>
+        </div>
+        <div class="col-12 relative">
+          <!-- F/1.4 -->
+          <svg
+            class="absolute right-0"
+            viewBox="0 0 240 540"
+            width="480px"
+            height="120px"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="currentColor"
+              fill-opacity="0.35"
+              d=" M781.146362,270.165619 C827.131348,201.295181 872.913208,132.722214 918.693909,64.148491 C922.392761,58.608013 926.215515,53.144051 929.726379,47.486713 C931.595886,44.474239 933.919312,42.988605 937.463013,43.125965 C942.952393,43.338737 948.447815,43.479458 953.940796,43.484627 C956.573303,43.487106 957.465027,44.678940 957.412720,47.141964 C957.331482,50.972198 957.388428,54.805389 957.388428,58.637325 C957.388184,134.443878 957.388184,210.250443 957.387939,286.057007 C957.387878,292.893555 957.387085,292.895294 964.302734,292.898132 C978.297791,292.903870 992.294067,293.011993 1006.287170,292.850403 C1010.649841,292.800018 1012.796936,293.990570 1012.402466,298.800507 C1012.036011,303.269226 1012.127380,307.801117 1012.368347,312.286346 C1012.580139,316.229156 1011.028564,317.508209 1007.150879,317.463043 C993.157715,317.299988 979.161499,317.409851 965.166443,317.401001 C957.400330,317.396118 957.394104,317.382111 957.392822,324.922821 C957.387085,358.744080 957.303894,392.565735 957.481506,426.386047 C957.504517,430.775665 956.304504,432.371277 951.890442,432.122772 C946.575989,431.823608 941.217346,431.814087 935.904419,432.128998 C931.100525,432.413696 929.594727,430.626495 929.619690,425.822876 C929.794678,392.168976 929.718079,358.513763 929.722900,324.858978 C929.723999,317.431671 929.725647,317.426666 922.462708,317.425598 C871.480713,317.418243 820.498718,317.416351 769.516724,317.403229 C762.679504,317.401459 763.122681,317.339111 762.546509,310.555450 C761.801697,301.784454 763.988892,294.341797 769.492676,287.439819 C773.734741,282.120026 777.156433,276.145996 781.146362,270.165619 M811.673462,269.122772 C806.573120,276.617310 801.472839,284.111816 796.421997,291.533569 C798.538208,293.374786 800.275879,292.886597 801.874573,292.887665 C842.203125,292.914154 882.531677,292.911133 922.860229,292.901825 C929.692688,292.900269 929.633179,292.875275 929.715820,285.974945 C930.507690,219.845016 927.886230,153.683014 931.541382,87.577820 C931.602417,86.475159 932.231079,84.943077 930.364075,83.982735 C929.428772,85.624619 928.490967,87.168701 927.649475,88.763588 C917.700195,107.620598 908.343262,126.849609 896.426514,144.558578 C868.522888,186.025040 840.233704,227.232025 811.673462,269.122772 
+                M111.617149,338.682343 C114.929436,314.195435 117.227394,290.033752 119.794075,265.900909 C122.237770,242.924393 124.890221,219.969803 127.521606,197.013672 C128.207962,191.025879 127.727539,190.316849 121.740128,190.315384 C106.075165,190.311539 90.408958,190.224792 74.746040,190.408356 C70.448326,190.458710 68.382088,189.511658 68.585541,184.617661 C69.236229,168.965271 65.845062,172.494324 81.932014,170.900558 C96.351204,169.472031 110.868797,169.326141 125.362320,169.726410 C129.136566,169.830658 130.413086,168.641525 130.844681,164.701340 C133.521622,140.262726 135.191422,115.631454 142.802231,92.005867 C147.537231,77.307388 153.729752,63.365055 164.396423,51.844101 C180.698135,34.236790 201.391342,29.187746 224.403656,31.064743 C235.773254,31.992102 246.670914,34.847923 257.069153,39.679394 C260.721741,41.376541 261.836578,43.243160 259.697723,46.934387 C258.119934,49.657368 256.836639,52.603317 255.816910,55.584934 C254.329376,59.934448 252.546097,61.119648 247.860001,58.765259 C235.468689,52.539631 221.987961,51.037949 208.417755,52.737358 C190.887939,54.932629 179.369461,65.748360 171.402649,80.867973 C162.624100,97.528107 159.313934,115.646965 157.344299,134.106064 C156.111664,145.658203 154.967926,157.219833 153.805893,168.566330 C155.709152,170.248947 157.628647,169.634995 159.377396,169.638870 C182.874756,169.690948 206.373520,169.814545 229.868668,169.585449 C234.873413,169.536667 236.499298,170.934601 236.419113,176.047775 C236.195511,190.307800 236.413010,190.307053 222.281921,190.304886 C200.784256,190.301590 179.284256,190.473282 157.790680,190.176956 C152.918610,190.109772 150.948929,191.550613 150.489487,196.316208 C148.877930,213.032028 147.073624,229.729736 145.265350,246.425980 C143.421204,263.453400 141.401245,280.462067 139.614639,297.495392 C137.828384,314.525513 136.560593,331.624664 133.292252,348.459442 C130.174484,364.518646 125.714874,380.143799 118.000206,394.734436 C99.495232,429.732513 62.531769,438.694702 30.436714,429.799927 C25.639469,428.470398 21.049446,426.401489 16.343767,424.730347 C13.300860,423.649689 12.075261,421.979279 13.529104,418.673737 C15.135653,415.020996 16.477848,411.240265 17.733896,407.448639 C18.764868,404.336517 20.406853,403.903717 23.401680,405.027557 C31.037186,407.892700 38.786041,410.254486 47.019039,411.087616 C68.453651,413.256561 86.497787,403.829315 96.932510,385.023376 C104.150093,372.015442 108.031708,357.992188 110.693336,343.519623 C110.964088,342.047424 111.281250,340.583771 111.617149,338.682343 
+                M519.282593,431.212830 C516.945129,430.618042 516.856812,429.084045 516.817993,427.557648 C516.775635,425.892670 516.787842,424.226166 516.787659,422.560333 C516.774109,308.776520 516.761719,194.992676 516.749207,81.208847 C516.748962,79.237236 516.749146,77.265617 516.749146,73.510498 C494.878479,86.473236 474.135040,98.767868 452.810333,111.406998 C449.505310,104.248650 447.749756,97.221992 445.953278,90.249641 C445.328583,87.825073 447.925629,87.044235 449.570801,86.047264 C468.373779,74.652855 487.197083,63.291958 506.015320,51.922726 C506.157837,51.836628 506.328613,51.783539 506.446899,51.673008 C516.282288,42.483162 528.517456,43.072586 540.664734,43.226982 C543.839478,43.267334 545.132874,44.759277 545.053528,47.870537 C544.947388,52.032799 545.012024,56.199543 545.012085,60.364365 C545.013794,181.478256 545.016174,302.592133 545.020386,423.706024 C545.020630,431.353973 545.028015,431.368164 537.242493,431.362610 C531.412354,431.358429 525.582153,431.311676 519.282593,431.212830 
+                M242.661743,465.316650 C235.913239,465.321564 229.624023,465.321564 222.749847,465.321564 C223.519211,458.833344 226.253693,453.821411 228.189850,448.637085 C252.009781,384.856323 275.954407,321.122131 299.877106,257.379761 C329.998444,177.121155 360.158875,96.877174 390.175659,16.579504 C391.812592,12.200499 393.894897,10.162942 398.801636,10.561270 C404.519012,11.025407 410.302948,10.669605 415.759064,10.669605 C416.730316,13.498502 415.539795,15.101440 414.918518,16.756477 C363.437714,153.897354 311.924286,291.025970 260.421082,428.158447 C256.324249,439.066620 252.271469,449.991425 248.223907,460.917999 C247.322128,463.352386 246.414047,465.693939 242.661743,465.316650 
+                M703.535522,385.279419 C725.807007,383.503113 733.866943,406.104248 728.371033,422.115601 C723.499939,436.306976 707.867615,442.488983 694.714539,435.276306 C685.316345,430.122711 680.634949,418.477753 682.857971,405.783142 C684.846130,394.430054 692.069519,387.152374 703.535522,385.279419 z">
+            </path>
+          </svg>
+        </div>
+        <!--  Leistung icons -->
+        <div class="justify-center">
+          <h2 class="text-center underline-offset-8 underline">
+            {inklusivtitel}
+          </h2>
+        </div>
+        {
+          inklusiv &&
+            inklusiv.map((table) => (
+              <div class="lg:col-4 md:col-6">
+                {table.feature && table.feature[0] && (
+                  <ul class="pl-0 first:pt-0">
+                    {table.feature.map((feature) => (
+                      <li class="h-32 py-4 px-4 bg-wedding/10 rounded text-lg text-center align-middle ">
+                        <DynamicIcon
+                          icon="TfiCheck"
+                          className="me-3 text-wedding inline-block"
+                        />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))
+        }
+        
+        <!--NOTE - Galerie 1 -->
+        <section class="py-4">
+          {
+            bilder.galerie1 && (
+              <div class="col-12">
+                <div class="row justify-center lg:justify-normal content-around items-center">
+                  {bilder.galerie1.map((item, index) => {
+                    return (
+                      <div class="col-12 lg:col-4 text-center pt-8">
+                        <a
+                          href={item}
+                          data-no-swup
+                          class="glightbox"
+                          data-gallery="gallery-group-1">
+                          <ImageMod
+                            src={item}
+                            width="full"
+                            height="full"
+                            class="mx-auto rounded"
+                            alt={title}
+                          />
+                        </a>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )
+          }
+        </section>
+        <div class="row gy-5 gx-4">
+          <p class="text-center">
+            Die vorliegenden Pakete dienen als Orientierung und stellen
+            Beispiele dar, dar jede Hochzeit eine einzigartige Feier ist.
+          </p>
+          {
+            pricingTable &&
+              pricingTable.map((table) => (
+                <div class="lg:col-4 md:col-6">
+                  <div class={table.background}>
+                    <div class="border-b border-wedding rounded-0">
+                      <a
+                        href={table.image}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={table.image}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded-t"
+                          alt={title}
+                        />
+                      </a>
+                      <h3
+                        class="text-color pt-2 px-7 mb-0 dark:text-wedding"
+                        set:html={table.title}
+                      />
+                      <h4
+                        class="text-color pt-2 px-7 text-base mb-0 dark:text-wedding"
+                        set:html={table.subtitle}
+                      />
+                      <span class="ml-auto bg-wedding mr-5 w-[50px] sm:w-[70px] h-[50px] sm:h-[70px] !leading-[50px] sm:!leading-[70px] border border-wedding text-center text-lg/none sm:text-2xl/none xl:text-4xl/none block rounded translate-y-4">
+                        <DynamicIcon
+                          className="inline-block fill-white/60"
+                          icon={table.icon}
+                        />
+                      </span>
+                    </div>
+                    <div class="pt-10 px-7">
+                      {table.value && (
+                        <span class="h5 font-medium block">
+                          {table.unit}
+                          <span class="font-bold mb-3  h2  dark:text-wedding ">
+                            {table.value}
+                          </span>
+                        </span>
+                      )}
+                      {table.features && table.features[0] && (
+                        <ul class="pl-0 mb-8 first:pt-0">
+                          {table.features.map((feature) => (
+                            <li class="text-color py-1.5">
+                              <DynamicIcon
+                                icon="TfiCheck"
+                                className="me-3 text-wedding inline-block"
+                              />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+          }
+          <p class="text-xs uppercase text-end">
+            Letzte Preisanpassung April 2024
+          </p>
+          <p class="mb-4">
+            Hochzeitsfotograf Preise • Diese Pakete dienen zu Orientierung. Es
+            ist möglich, z.B. ein Familienshooting für 250€ oder eine weiteren
+            Stunde für 150€ dazu zu buchen. Ich bestehe vor jeder Buchung auf
+            ein kostenloses Kennenlernshooting. In der Session werden wir
+            besprechen, wie Ihr Eure Hochzeit fotografiert haben möchtet und ein
+            passendes Angebot erstellen.
+          </p>
+        </div>
+      </div>
+      <!--NOTE - Galerie 2 -->
+      <section class="py-4 pb-16">
+        {
+          bilder.galerie2 && (
+            <div class="col-12">
+              <div class="row justify-center lg:justify-normal content-around items-center">
+                {bilder.galerie2.map((item, index) => {
+                  return (
+                    <div class="col-12 lg:col-4 text-center pt-8">
+                      <a
+                        href={item}
+                        data-no-swup
+                        class="glightbox"
+                        data-gallery="gallery-group-1">
+                        <ImageMod
+                          src={item}
+                          width="full"
+                          height="full"
+                          class="mx-auto rounded"
+                          alt={title}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </section>
+      <TestimonialSlider
+        className="[&_.swiper-slide]:h-auto [&_.swiper-wrapper]:pb-20 mb-5"
+        client:load
+        testimonials={weddingTestimonials}
+      />
+      <div class="text-xs uppercase text-end">
+        Referenzen quelle:
+        <a
+          href="https://www.google.com/search?client=firefox-b-d&sa=X&sca_esv=1fd21f177eb912ee&sca_upv=1&tbm=lcl&q=CV+-+Campos+Viola+Photography+Rezensionen&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxI2NDAxNzE3NDMA0pYGJsamluYbGBlfMWo6hynoKjgn5hbkFyuEZebnJCoEZOSX5KcXJRZkVCoEpVal5hVn5uel5i1iJV4tAGYe69hyAAAA&rldimm=1047471600479043597&hl=de-DE&ved=2ahUKEwio5rmnm7WFAxUOQfEDHa1mC_QQ9fQKegQIGhAF&biw=1482&bih=902&dpr=2#lkt=LocalPoiReviews">
+          Google
+        </a> -
+        <a href="https://www.provenexpert.com/michael-campos-viola/">
+          provenexpert
+        </a>
+      </div>
+      <a
+        href="/bewertungen/"
+        class="btn border border-wedding dark:border-wedding rounded-xl uppercase bg-wedding/10 dark:bg-wedding/10 hover:bg-wedding/80 hover:underline-offset-8 underline-textweiss dark:hover:bg-wedding/80 text-wedding dark:hover:text-textweiss text-base mb-10 w-fit block mx-auto">
+        Referenzen
+      </a>
+      <div class="grid">
+        <div>
+          <a
+            href="/images/hochzeitsblog/like-a-popstar.jpg"
+            data-no-swup
+            class="glightbox h-auto max-w-full rounded"
+            data-gallery="gallery-group-1">
+            <ImageMod
+              src="/images/hochzeitsblog/like-a-popstar.jpg"
+              width="full"
+              height="full"
+              class="mx-auto rounded"
+              alt={title}
+            />
+          </a>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-center pt-16 pb-4">
+          Hochzeitsfotograf Preise​ <br />Top-Qualität zu einem fairen
+          Preis-Leistungs-Verhältnis
+        </h2>
+
+        <p>
+          Als Hochzeitsfotograf in Bayern ist es mir wichtig, Top-Qualität zu
+          einem fairen Preis-Leistungs-Verhältnis anzubieten. Ganz gleich,
+          welches Budget Euch zur Verfügung steht, meine Pakete sind auf meiner
+          Webseite transparent ersichtlich und können auf Wunsch an Eure
+          individuellen Vorstellungen angepasst werden. Alle Angebote umfassen
+          eine eigene Visitenkarte, damit Eure Gäste mit einem Passwort Zugang
+          zu Euren Bildern mit kostenlosem Download erhalten – und sich
+          ihrerseits lang an die schönsten Momente Eurer Trauung zurück erinnern
+          zu können.
+        </p>
+        <div class="container relative">
+          <!-- f/2.8 -->
+          <svg
+            class="-left-20 top-0 absolute -mt-32 -z-10 opacity-80"
+            viewBox="0 0 440 540"
+            width="380px"
+            height="130px"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="currentColor"
+              fill-opacity="0.35"
+              d="
+            M876.380798,47.171082 C896.360962,41.447315 916.184509,40.478226 935.916992,45.677204 C971.923340,55.163895 993.531311,78.951279 1000.100159,115.160065 C1007.413330,155.471298 992.256714,187.493103 960.272400,212.130142 C953.827515,217.094452 946.697998,221.037323 939.714905,225.167953 C940.740417,227.993866 943.149536,228.284653 944.955933,229.225266 C964.854370,239.586960 982.761047,252.440170 995.831848,271.006439 C1031.361938,321.474670 1014.215027,392.590363 959.580078,421.947205 C918.569824,443.983093 866.075317,439.583252 830.301453,410.516357 C810.145874,394.139557 798.046143,372.598633 795.865845,346.717224 C792.279053,304.137939 809.021729,270.247925 842.631836,244.346542 C849.912903,238.735504 857.734131,233.992950 865.745728,229.527115 C867.269836,228.677521 869.281616,228.385239 870.195801,225.916046 C866.132080,223.508392 861.956299,221.187134 857.933350,218.625809 C833.221741,202.892334 815.691162,181.688751 810.929321,152.200607 C803.276794,104.811462 830.190308,62.080822 876.380798,47.171082 
+            M831.374023,367.130341 C835.944824,377.522888 842.478882,386.447876 851.238770,393.709869 C863.979797,404.272247 878.790466,409.481689 895.125793,411.083923 C913.828796,412.918365 931.800415,410.413330 948.331726,401.367065 C973.056641,387.837097 984.373291,365.958252 985.930237,338.390991 C987.599915,308.827423 978.298706,284.001190 954.539185,265.408020 C938.735779,253.040970 920.650635,245.002258 902.080261,237.882980 C899.967529,237.073044 898.206787,237.651764 896.314087,238.364532 C883.752625,243.095123 872.161804,249.523911 861.517395,257.732330 C827.571289,283.909698 815.375305,327.404968 831.374023,367.130341 
+            M839.570679,119.059067 C839.462036,119.883896 839.358093,120.709358 839.244141,121.533455 C835.106506,151.464706 843.456055,176.456879 868.335388,194.859756 C878.447815,202.339752 889.838013,207.354507 901.302795,212.384232 C909.052124,215.783936 915.420227,215.235245 922.785034,211.115570 C954.921204,193.139587 975.815979,168.352127 973.591675,129.320312 C972.527588,110.647804 966.723694,93.733124 952.125366,80.935677 C937.501160,68.115547 919.924316,65.133995 901.273743,66.044746 C869.416504,67.600426 846.536560,87.062599 839.570679,119.059067 
+            M490.004669,404.677795 C539.331604,404.678894 588.159546,404.678040 636.987549,404.683502 C643.848083,404.684296 643.869507,404.698486 643.913635,411.619781 C643.942383,416.118683 643.899719,420.618103 643.884705,425.117279 C643.875122,427.991394 642.521729,429.427246 639.557678,429.233521 C638.396606,429.157684 637.225586,429.240967 636.059082,429.240875 C571.399536,429.237396 506.739990,429.233398 442.080444,429.227325 C434.758026,429.226654 435.232330,429.181519 434.608948,421.683746 C434.004822,414.417114 436.731567,409.254120 441.330933,403.859894 C470.204865,369.995636 502.033691,338.798340 530.621765,304.693146 C553.028931,277.961700 574.210571,250.392960 589.196167,218.567322 C599.934143,195.762405 606.040710,171.944626 605.574585,146.690536 C605.337402,133.841537 603.478027,121.133835 598.791443,109.034851 C589.479004,84.993477 571.479187,72.020126 546.374695,68.312111 C514.869690,63.658722 487.603394,73.569122 463.070435,92.753120 C461.531586,93.956451 460.247650,95.605621 457.289490,95.981506 C454.180145,90.479828 450.763214,84.824623 447.768036,78.954247 C446.453094,76.377098 449.210693,75.140236 450.749878,73.831894 C469.328003,58.039658 490.620575,47.697903 514.704468,44.047840 C535.488098,40.897942 556.260986,41.437538 576.141113,49.517612 C606.123779,61.703732 622.867920,85.024704 630.208008,115.605751 C639.262878,153.330765 631.367615,188.909531 615.123352,223.163849 C600.660645,253.661453 580.581970,280.440857 559.360291,306.423096 C533.213379,338.435364 503.951416,367.707764 477.440247,399.401855 C476.286072,400.781738 474.730194,401.893188 474.239807,404.201447 C479.345398,405.251465 484.457367,404.400513 490.004669,404.677795 
+            M65.412415,427.673096 C45.800762,432.683380 27.394623,429.900940 9.481988,422.044647 C6.754190,420.848267 5.400402,419.596649 6.829981,416.429962 C8.471614,412.793579 9.856754,409.023468 11.088890,405.225677 C12.108032,402.084320 13.724787,401.615967 16.720572,402.744507 C25.457787,406.035950 34.310291,408.683960 43.838596,408.886475 C64.887489,409.333954 79.721741,399.788086 89.599564,381.609650 C97.521149,367.031342 101.478157,351.186310 103.514618,334.983093 C107.598076,302.492798 110.977310,269.913483 114.577110,237.363129 C116.039223,224.142258 117.245308,210.892975 118.723915,197.674088 C119.186836,193.535507 117.800537,192.083435 113.567947,192.134369 C98.071167,192.320877 82.568489,192.056915 67.073036,192.291992 C62.251595,192.365143 60.699207,190.719788 60.762035,185.947678 C60.920921,173.878769 60.729183,173.783554 72.910049,172.929535 C87.035065,171.939224 101.181564,171.214355 115.344513,171.737808 C119.463348,171.890060 121.678345,171.097900 122.123672,166.305008 C123.352921,153.075089 124.650520,139.819092 126.775574,126.711945 C130.578568,103.255524 136.028992,80.239342 150.973648,60.863411 C163.675583,44.395191 180.581863,36.251366 201.394821,35.594662 C216.666214,35.112804 231.184418,37.722546 245.171860,43.839657 C249.219696,45.609901 250.524368,47.652718 248.176208,51.742004 C245.798538,55.882694 244.675156,60.684135 241.966736,64.527176 C239.662872,64.746147 238.251251,63.373318 236.623108,62.646450 C222.958618,56.546131 208.621643,55.002903 194.119141,57.816120 C179.768280,60.599922 170.088394,70.072868 163.049408,82.496857 C153.993759,98.480316 150.442093,116.040848 148.363861,133.996353 C147.120895,144.735550 146.542801,155.566940 144.890869,166.236908 C144.103836,171.320328 145.909714,171.754364 150.003540,171.733429 C172.834869,171.616623 195.667130,171.677475 218.499069,171.689911 C225.305878,171.693619 225.305862,171.711792 225.329575,178.677246 C225.375671,192.216904 225.375687,192.207825 211.999832,192.195831 C190.667816,192.176712 169.334045,192.314880 148.005142,192.051422 C143.108673,191.990921 141.760864,193.996964 141.304611,198.355835 C138.465897,225.476044 135.401443,252.572510 132.508560,279.687195 C130.268570,300.682190 128.824112,321.784027 125.250198,342.604645 C121.395027,365.063843 115.600594,386.937256 100.979515,405.254333 C91.853661,416.687134 80.205551,424.331116 65.412415,427.673096 
+            M299.774231,225.887177 C315.564606,183.748810 331.237610,141.981308 346.919098,100.216972 C356.983276,73.413094 367.096497,46.627506 377.078491,19.793068 C378.164246,16.874224 379.635254,15.520712 382.867493,15.625845 C389.130951,15.829572 395.405762,15.685405 401.485687,15.685405 C402.281097,18.609955 401.131805,20.366316 400.446991,22.192852 C357.262756,137.377747 314.067322,252.558441 270.867218,367.737396 C259.759949,397.351318 248.534454,426.921631 237.624832,456.608124 C235.996613,461.038696 233.698486,462.622589 229.195450,462.238068 C223.654984,461.764954 218.013474,462.699249 211.538757,461.500305 C241.086716,382.621979 270.373566,304.440674 299.774231,225.887177 
+            M749.865845,409.919739 C749.200317,418.580933 747.078064,426.257660 739.794739,431.116333 C731.239319,436.823639 722.179260,437.148163 713.581787,431.339111 C705.048340,425.573303 702.111938,416.762817 703.097534,406.944458 C704.373657,394.231354 711.252014,385.857147 721.047852,383.777954 C735.149719,380.784821 747.416687,389.580780 749.291809,404.043121 C749.526855,405.855591 749.687988,407.677673 749.865845,409.919739 z">
+            </path>
+          </svg>
+        </div>
+      </div>
+      <!--NOTE -  Kennelernshooting  -->
+
+      <h2 class="pb-4 pt-8 underline underline-offset-4">
+        Ablauf in 4 Schritte:
+      </h2>
+      <!-- 1 -->
+      <div class="grid md:grid-cols-3 gap-4 py-8">
+        <div class="cal-4 text-end uppercase">
+          <span class="text-6xl">1</span>
+          <h3 class="text-3xl">kostenlose Kennenlernshooting</h3>
+        </div>
+        <p class="cal-4 pt-8 leading-relaxed">
+          Das kostenlose Kennenlernshooting ist unverzichtbar. Hier lernen wir
+          uns kennen und ich zeige Euch welche Mittel es bei der
+          Hochzeitsfotografie gibt. Fachbegriffe, wie kurze Brennweiten, Buket
+          oder Lifestyle , werden durch Beispielbilder sichtbar, weil ich nach
+          dem kleinen Shooting Euch direkt die Bilder auf meinen PC (live aus
+          der Kamera, keine Bearbeitung) zeige. Gemeinsam finden wir Euren Stil.
+          Da entsteht auch die Auswahl für die Visitenkarten, die später Eure
+          Gäste bekommen werden.
+        </p>
+        <div class="cal-4">
+          <div class="col-12 text-center pt-8">
+            <a
+              href="/images/hochzeitsblog/kennenlernshooting/julia-martin01.jpg"
+              data-no-swup
+              class="glightbox"
+              data-gallery="gallery-group-1">
+              <ImageMod
+                src="/images/hochzeitsblog/kennenlernshooting/julia-martin01.jpg"
+                width="full"
+                height="full"
+                class="rounded-full object-cover block w-[400px] h-[400px]"
+                alt="kostenlose Kennenlernshooting"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="grid md:grid-cols-3 gap-4 py-8">
+        <div class="cal-4">
+          <div class="col-12 text-center pt-8">
+            <a
+              href="/images/hochzeitsblog/cards/julia-martin-cards.jpg"
+              data-no-swup
+              class="glightbox"
+              data-gallery="gallery-group-1">
+              <ImageMod
+                src="/images/hochzeitsblog/cards/julia-martin-cards.jpg"
+                width="full"
+                height="full"
+                class="rounded-full object-cover block w-[400px] h-[400px]"
+                alt="kostenlose Kennenlernshooting"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="cal-4 text-start uppercase">
+          <span class="text-6xl">2</span>
+          <h3 class="text-3xl">Unverbindliches Angebot</h3>
+        </div>
+        <p class="cal-4 pt-8 leading-relaxed">
+          Nach dem Kennenlernshooting oder dem Verlobungsshooting erstelle ich
+          Euch ein individuelles Angebot. So könnt ihr genau das buchen, was ihr
+          für Euch und Eure Gäste eigentlich braucht. Ich stehe Euch bei der
+          Umsetzung gerne beraten zur Seite. Unverbindlich reserviere ich Euren
+          Hochzeitstag in meinem Kalender. Mein Angebot ist idr. 90 Tage gültig.
+          Ihr habt genügend Zeit, die Bilder aus dem Kennenlernshooting zu
+          teilen, um Euch zu beraten lassen oder ggf. ein Gegenangebot zu holen.
+        </p>
+      </div>
+      <!-- 3 -->
+      <div class="grid md:grid-cols-3 gap-4 py-8">
+        <div class="cal-4 text-end uppercase">
+          <span class="text-6xl">3</span>
+          <h3 class="text-3xl">Hochzeit sorgenfrei genießen</h3>
+        </div>
+        <p class="cal-4 pt-8 leading-relaxed">
+          Nach dem Buchen bekommt ihr eine Auftragsbestätigung. Es werden auch
+          die Visitenkarten mit euren eigenen Bildern aus dem Kennenlernshooting
+          für eure Gäste gedruckt. Dort ist der Code für eure geschütze
+          Online-Galerie, wo die Bilder kostenloses heruntergeladen werden
+          können.Zusätzlich kümmere ich mich um alle Details. die wichtige für
+          die Fotodokumentation sind, z.B. das Standesamt oder Location zu
+          besichtigen, alle Überraschungen Eurer Gäste im Vorfeld zu wissen,
+          usw... Ich bin immer gut vorbereitet und tue alles in meiner Macht,
+          damit Ihr am dem Tag Eure Hochzeit einfach genießt.
+        </p>
+        <div class="cal-4">
+          <div class="col-12 text-center pt-8">
+            <a
+              href="/images/hochzeitsblog/shooting/julia-martin29.jpg"
+              data-no-swup
+              class="glightbox"
+              data-gallery="gallery-group-1">
+              <ImageMod
+                src="/images/hochzeitsblog/shooting/julia-martin29.jpg"
+                width="full"
+                height="full"
+                class="rounded-full object-cover block w-[400px] h-[400px]"
+                alt="kostenlose Kennenlernshooting"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="grid md:grid-cols-3 gap-4 py-8">
+        <div class="cal-4">
+          <div class="col-12 text-center pt-8">
+            <a
+              href="/images/hochzeitsblog/shooting/julia-martin34.jpg"
+              data-no-swup
+              class="glightbox"
+              data-gallery="gallery-group-1">
+              <ImageMod
+                src="/images/hochzeitsblog/shooting/julia-martin34.jpg"
+                width="full"
+                height="full"
+                class="rounded-full object-cover block w-[400px] h-[400px]"
+                alt="kostenlose Kennenlernshooting"
+              />
+            </a>
+          </div>
+        </div>
+        <div class="cal-4 text-start uppercase">
+          <span class="text-6xl">4</span>
+          <h3 class="text-3xl">Abgabe aller Bilder</h3>
+        </div>
+        <p class="cal-4 pt-8 leading-relaxed">
+          Die Abgaben erfolgen in 3 Schritten. Alle Bilder aus der Trauung, d.h.
+          alles aus der Hochzeitsreportage, werden sehr zügig in Eurer
+          Online-Galerie zur Verfügung gestellt. Mit dem Code aus der
+          Visitenkarte können Eure Gäste die Bilder direkt kostenlos
+          herunterladen. Die Bearbeitung der Bilder aus dem Brautshooting
+          brauchen idr. 7 Werktage. Danach erfolgt auch die Schlussrechnung.
+          Wenn ihr ein Hochzeitsbuch gebucht hat, gibt es hier noch eine
+          Besonderheit, den diese werden ca. 6-8 Monate nach Eure Hochzeit
+          erstellt. Damit ermögliche ich Euch ein Flashback an Euren schönsten
+          Tag!
+        </p>
+      </div>
+      <div class="grid">
+        <div>
+          <a
+            href="/images/hochzeitsblog/shooting/julia-martin30.jpg"
+            data-no-swup
+            class="glightbox h-auto max-w-full rounded"
+            data-gallery="gallery-group-1">
+            <ImageMod
+              src="/images/hochzeitsblog/shooting/julia-martin30.jpg"
+              width="full"
+              height="full"
+              class="mx-auto rounded"
+              alt={title}
+            />
+          </a>
+        </div>
+        <!--NOTE - Kostenloses Angebot -->
+        <div class="text-3xl pt-16 text-center" id="kennenlernshooting">
+          Hole dir ein Angebot ein
+        </div>
+        <h4 class="text-5xl text-center pb-4">Unverbindlich</h4>
+        <section
+          class="overlay rounded-md overflow-hidden after:bg-wedding/10 dark:after:bg-wedding/20 border-l-4 border-wedding">
+          <div class="container overlay-content">
+            <div class="row items-center text-start">
+              <div class="lg:col-6 py-4">
+                <h2>Kostenloses Kennenlernshooting</h2>
+                <p class="pb-2">
+                  Die beste Möglichkeit, um den wahren Wert eines Fotografen
+                  einzuschätzen, besteht darin, selbst vor die Linse zu treten
+                  und ihn persönlich kennenzulernen.
+                </p>
+                <p class="pb-2">
+                  Wir freuen uns darauf, von dir eine E-Mail zu bekommen, um
+                  deinen Termin für ein kostenloses Kennenlernshooting zu
+                  vereinbaren.
+                </p>
+                <p class="pb-2">
+                  Hierzu können wir auch gerne einfach telefonieren.
+                </p>
+                <div class="py-4">
+                  <div class="py-4">
+                    <a
+                      data-te-nav-link-ref
+                      class="text-center mx-2 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss py-4 px-8 dark:border-wedding flex uppercase"
+                      href="tel: +4981052080020">
+                      +49 08105 20 800 20
+                    </a>
+                  </div>
+                  <div class="py-4">
+                    <a
+                      data-te-nav-link-ref
+                      class="text-center mx-2 border-2 border-wedding rounded-xl hover:bg-wedding hover:text-bgweiss py-4 px-8 dark:border-wedding flex uppercase"
+                      href="mailto:info@camposviola.de">
+                      E-Mail - Termin Vereinbaren
+                    </a>
+                  </div>
+                </div>
+                <p class="pb-2">
+                  Statt ein Kontaktformular mit festen Felder, gebe ich Dir die
+                  Freiheit, eine persönliche E-Mail mit Details über Eure
+                  Hochzeit mit mir mitzuteilen.
+                </p>
+                <p class="pb-2">Ich freue mich!</p>
+                <p class="pb-2">Michael</p>
+              </div>
+              <div class="lg:col-6 items-end justify-end">
+                <a
+                  href="/images/hochzeitsblog/kennenlernshooting/julia-martin02.jpg"
+                  data-no-swup
+                  class="glightbox"
+                  data-gallery="gallery-group-1">
+                  <ImageMod
+                    src="/images/hochzeitsblog/kennenlernshooting/julia-martin02.jpg"
+                    width="full"
+                    height="full"
+                    class="object-cover"
+                    alt="kostenlose Kennenlernshooting"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="container relative">
+          <!-- f/4 -->
+          <svg
+            class="absolute -mt-10 z-10 right-0"
+            viewBox="0 0 440 680"
+            width="300px"
+            height="120px"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="currentColor"
+              fill-opacity="0.35"
+              d="
+            M675.512329,384.538696 C706.511658,338.084259 737.299438,291.923370 768.107788,245.776306 C807.054077,187.439713 846.029419,129.122528 884.933899,70.758110 C886.763062,68.013985 888.747192,66.588379 892.226929,66.661484 C902.055725,66.868011 911.894775,66.862427 921.723633,66.653976 C925.777100,66.568008 927.460022,67.875420 927.310364,72.081581 C927.067505,78.906326 927.233765,85.745758 927.233337,92.578987 C927.225647,213.410706 927.218994,334.242432 927.212097,455.074158 C927.211609,462.824890 927.211975,462.829712 935.217590,462.831543 C959.383911,462.837097 983.551025,462.937653 1007.716003,462.756439 C1012.447876,462.720947 1014.306458,464.205505 1014.173828,469.021790 C1013.926147,478.014862 1013.962280,487.022247 1014.151978,496.017944 C1014.239746,500.179779 1012.612183,501.457306 1008.544189,501.434631 C983.711914,501.296173 958.878540,501.364868 934.045532,501.368835 C927.242981,501.369934 927.232849,501.376770 927.232239,508.373688 C927.227600,564.039612 927.229614,619.705566 927.222168,675.371460 C927.221130,682.843689 927.152771,682.904053 919.698608,682.908325 C909.698730,682.914062 899.698730,682.926697 889.699036,682.884888 C883.363159,682.858398 883.048401,682.497742 883.048706,675.982483 C883.051147,620.316589 883.055359,564.650696 883.063354,508.984802 C883.064453,501.356049 883.075562,501.361572 875.325500,501.361694 C791.993286,501.363007 708.661011,501.363495 625.328796,501.360535 C617.794922,501.360291 618.401672,501.284821 617.638672,494.019897 C616.012634,478.537903 620.267944,465.592163 629.577759,452.860535 C645.692322,430.823090 660.154541,407.577332 675.512329,384.538696 
+            M884.720642,130.768845 C882.532837,130.837814 882.259949,132.804703 881.538452,134.171738 C877.730286,141.387085 874.079956,148.685745 870.275818,155.903305 C858.392944,178.448486 847.052795,201.411041 832.833435,222.518845 C779.974792,300.984863 726.410095,378.975189 673.139709,457.164032 C672.158813,458.603699 670.607910,459.878448 670.929993,461.996521 C672.532471,463.408081 674.446045,462.805664 676.195129,462.806488 C742.508057,462.838043 808.820923,462.835266 875.133850,462.833588 C883.084473,462.833405 883.089355,462.824341 883.087463,454.844574 C883.070496,382.366974 882.894165,309.888916 883.107544,237.412003 C883.198730,206.445236 883.540833,175.467590 885.562378,144.538589 C885.851868,140.110336 886.424438,135.585159 884.720642,130.768845 
+            M357.883698,47.777863 C374.254028,50.061554 389.623901,54.223763 404.181671,61.162285 C411.176270,64.496048 411.163086,64.511925 408.039795,71.415855 C404.629700,78.953773 401.229340,86.496094 397.658234,94.405373 C389.582153,90.555298 382.204132,86.603516 374.050446,84.781685 C351.518707,79.747284 329.000488,77.285042 306.911499,86.743759 C289.732605,94.099915 278.113770,107.367317 269.228210,123.275314 C255.588898,147.694122 249.657059,174.436111 246.398239,201.861115 C243.965118,222.337402 242.082214,242.879105 239.961929,263.392456 C239.878571,264.198944 239.874237,265.013611 239.838242,265.722626 C241.708588,267.459229 243.804321,266.789215 245.714188,266.791138 C285.041687,266.830261 324.369232,266.819305 363.696747,266.830139 C370.341766,266.831970 370.352539,266.857208 370.364288,273.452942 C370.376160,280.118591 370.119537,286.796326 370.446075,293.445892 C370.671295,298.032349 369.097900,299.476776 364.500671,299.448761 C335.839264,299.274078 307.176300,299.356415 278.513855,299.354126 C266.015686,299.353149 253.515182,299.490601 241.020706,299.276184 C236.836441,299.204407 235.654251,300.944275 235.244659,304.802734 C232.436676,331.255371 229.368439,357.680206 226.504196,384.127014 C224.015320,407.108093 221.950500,430.137878 219.225510,453.089996 C214.328476,494.336823 212.481583,536.031250 201.343765,576.383179 C195.099014,599.007629 186.809601,620.680481 172.773270,639.775391 C153.479782,666.022278 127.366547,679.815918 95.161552,683.518738 C68.630608,686.569153 43.880531,681.153564 19.840712,670.559387 C16.705843,669.177856 15.475441,667.802979 16.982685,664.195007 C19.932934,657.132874 22.478315,649.894043 24.980209,642.655396 C26.177402,639.191589 27.764034,638.561401 31.285910,639.916138 C47.496296,646.151917 63.943127,651.198303 81.686783,650.761230 C112.287788,650.007324 134.412476,635.650085 149.623245,609.628601 C163.411911,586.039978 169.619446,559.990479 173.572205,533.408081 C178.951935,497.228943 181.945847,460.753082 185.837921,424.389740 C188.561523,398.943298 191.704956,373.542114 194.519714,348.105103 C196.147293,333.396576 197.370316,318.642822 199.057037,303.941711 C199.472290,300.322540 197.948669,299.461090 195.003494,299.415009 C191.671478,299.362854 188.338440,299.362366 185.005844,299.361725 C160.509445,299.357178 136.013062,299.362000 111.516670,299.354767 C105.229340,299.352905 105.089111,299.213898 105.073387,292.914642 C105.058838,287.082275 105.208794,281.246338 105.044571,275.418793 C104.943474,271.831360 106.447701,270.291473 109.958672,270.096375 C123.419724,269.348450 136.889053,268.677734 150.328766,267.636047 C166.136398,266.410858 181.955338,266.809753 197.770004,266.903687 C202.192978,266.929962 203.315155,265.072540 203.764999,261.018280 C207.429459,227.992371 209.663437,194.757629 217.783340,162.360413 C224.845566,134.183258 234.563553,107.239342 253.406204,84.450233 C273.547272,60.090763 299.906525,48.521282 331.000153,46.847176 C339.817322,46.372456 348.654297,46.596230 357.883698,47.777863 
+            M599.338989,170.206696 C566.945435,256.453705 534.623840,342.312073 502.393738,428.204803 C464.723389,528.595764 427.098419,629.003906 389.609558,729.462708 C387.742340,734.466309 385.350708,736.541260 379.876984,736.232910 C371.405243,735.755554 362.886261,736.157959 354.387939,736.096863 C349.168030,736.059387 348.696808,735.390808 350.506012,730.578613 C362.342255,699.095642 374.246246,667.638123 386.065186,636.148743 C401.103424,596.082092 416.054749,555.982849 431.093323,515.916382 C449.289795,467.436462 467.556641,418.982941 485.759247,370.505341 C504.547577,320.467834 523.286743,270.411896 542.063354,220.369980 C562.069214,167.051819 582.092468,113.740158 602.110962,60.426735 C607.319885,46.554447 612.544922,32.688225 617.747803,18.813683 C618.528564,16.731730 619.258545,14.721201 622.066895,14.739085 C633.061951,14.809104 644.057373,14.825144 655.052429,14.895226 C655.510498,14.898146 655.966431,15.241417 657.336487,15.795247 C638.035950,67.155891 618.743652,118.494568 599.338989,170.206696z">
+            </path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

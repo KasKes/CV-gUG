@@ -1,0 +1,140 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import config from "@/config/config.json";
+import dateFormat from "@/lib/utils/dateFormat";
+import { markdownify } from "@/lib/utils/textConverter";
+import type { CategoryType, TagType } from "@/types";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  tags: any[];
+  allCategories: any[];
+  categories: any[];
+  class?: string;
+  sortedPosts: CollectionEntry<"hochzeitsblog">[];
+}
+
+const {
+  tags,
+  categories,
+  allCategories,
+  class: className,
+  sortedPosts,
+  path,
+} = Astro.props;
+---
+
+<aside class={`lg:col-12 ${className ? ` ` + className : ""}`}>
+  <div class="flex flex-col gap-10 lg:gap-14">
+    {
+      categories && categories[0] && (
+        <div>
+          <h2 class="h5 mb-6">Kategorie</h2>
+          <ul class="flex flex-wrap gap-2">
+            {categories.map(
+              ({
+                name,
+                slug,
+                count,
+              }: {
+                name: string;
+                slug: string;
+                count: string;
+              }) => {
+                return (
+                  <li>
+                    <a class="block px-4 py-1.5 border rounded-full text-base" href={`/categories/${slug}/`}>
+                      {name}{" "}
+                      <span class="bg-primary/10 text-[10px] h-6 w-6 leading-6 text-center align-middle rounded-full inline-block ms-2">
+                        {count}
+                      </span>
+                    </a>
+                  </li>
+                );
+              },
+            )}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      tags && tags[0] && (
+        <div>
+          <h2 class="h5 mb-6">Tags</h2>
+          <ul class="flex flex-wrap gap-2">
+            {tags.map(
+              ({
+                name,
+                slug,
+                count,
+              }: {
+                name: string;
+                slug: string;
+                count: string;
+              }) => {
+                return (
+                  <li class="inline-block">
+                    <a
+                      class="block px-4 py-1.5 border rounded-full"
+                      href={`/tags/${slug}/`}>
+                      {name}
+                      <span class="bg-primary/10 rounded-full text-[10px] h-6 w-6 leading-6 text-center align-middle inline-block ms-2">
+                        {count}
+                      </span>
+                    </a>
+                  </li>
+                );
+              },
+            )}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      sortedPosts && sortedPosts[0] && (
+        <div>
+          <h2 class="h5 mb-6">Aktuelles</h2>
+          <ul class="flex flex-col gap-5 gap-y-5 [&>li:not(:last-child)]:pb-5 [&>li:not(:last-child)]:border-b pb-10">
+            {sortedPosts
+              .slice(0, 6)
+              .map(
+                ({ slug, collection, data: { image, parent, path, title, date } }, index) => {
+                  const modified_slug = parent ? `${parent ? parent : ""}/${collection}${path}${slug}/` : `/${collection}${path}${slug}/`;
+                  return (
+                    <li class="flex gap-4">
+                      <a
+                        href={modified_slug}
+                        class="block w-[100px] h-[80px]">
+                        {image && (
+                          <ImageMod
+                            src={image}
+                            class="rounded-lg h-full object-cover"
+                            width={200}
+                            height={180}
+                            alt={title ? title : "blog image"}
+                          />
+                        )}
+                      </a>
+                      <div>
+                        {title && (
+                          <h6>
+                            <a
+                              href={modified_slug}
+                              set:html={markdownify(title)}
+                            />
+                          </h6>
+                        )}
+                        {date && <p set:html={dateFormat(date)} />}
+                      </div>
+                    </li>
+                  );
+                },
+              )}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</aside>

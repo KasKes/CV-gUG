@@ -1,0 +1,60 @@
+body {
+  @apply  text-textdark dark:text-video;
+}
+p,
+.paragraph {
+  @apply  text-textdark dark:text-video;
+}
+li {
+  @apply  text-textdark dark:text-video;
+}
+a, {
+  @apply dark:text-video hover:text-video duration-200 hover:underline;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply  text-textdark dark:text-video;
+}
+b,
+strong {
+  @apply  text-textdark dark:text-video;
+}
+
+code {
+  @apply text-textdark dark:text-video;
+}
+text {
+  @apply text-textdark dark:text-video;
+}
+table {
+  @apply text-textdark dark:text-video;
+}
+svg {
+  @apply text-video dark:text-video;
+}
+/* Links */  
+p > a {
+  @apply text-video dark:text-video;
+} 
+.navbar-brand {
+  @apply text-video border-video; 
+}
+.social-icons li a {
+  @apply text-video border-video; 
+}
+.bg-primary{
+  @apply bg-video text-white; 
+}
+hr {
+  @apply  border-video; 
+}
+.border-2{
+  @apply border-video; 
+}
+.back-to-top{
+  @apply border-video bg-bgweiss dark:bg-bgdark; 
+}

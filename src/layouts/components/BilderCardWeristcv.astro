@@ -1,0 +1,35 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  content: CollectionEntry<"video">;
+}
+
+const {
+  content: {
+    data: { title, image, width, height },
+  },
+} = Astro.props;
+---
+
+<div class="relative overflow-hidden">
+  <div class="group">
+    <div class="">
+      {
+        image && (
+          <ImageMod
+            src={image}
+            width={width}
+            height={height}
+            class="w-full rounded"
+            alt={title}
+          />
+          <figcaption class="text-right text-sm">
+            {title}
+					</figcaption>
+        )
+      }
+    </div>
+  </div>
+</div>

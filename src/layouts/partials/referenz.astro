@@ -1,0 +1,32 @@
+---
+import { getEntry } from "astro:content";
+import ImageMod from "@/components/ImageMod.astro";
+const {
+  render,
+  data: {referenz, },
+} = await getEntry("referenz", "-index");
+const { Content } = await render();
+
+---
+<section class="py-8"> 
+ <h1>hallo hier bin ich</h1>
+ <!-- {referenz.weiß && (
+    <div class="col-12">
+      <div class="row justify-center lg:justify-normal content-around items-center">
+        {referenz.weiß.map((item) => {
+          return (
+            <div class="col-12 lg:col-6 text-center pt-8">
+              <ImageMod
+                src={item}
+                width="full"
+                height="full"
+                class="mx-auto rounded"
+                alt="satisfied client logo"
+              />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  )}-->
+</section>

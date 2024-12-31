@@ -1,0 +1,126 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+---
+
+<div
+  class="container bg-igot/10 rounded border border-red-800 p-4 mb-5 max-w-4xl mx-auto"
+>
+  <div class="text-container mb-4">
+    <h3 class="heading text-left">Bild löschen</h3>
+    <p class="explanation text-left mb-4 text-sm">
+      Natürlich entfernen wir auch gerne ein Bild, auf dem du veröffentlicht
+      wurdest, aus unserer Online-Galerie. Bitte gib die Bildnummer ein, die du
+      zur Löschung einreichen möchtest. Das Format muss dabei wie folgt sein:
+      event-nummer.jpg da wir sonst das bild nicht finden können. Mit
+      rechtsklick Bild öffenen im neuen Tab oder Speichern unter bekommst du die
+      richtige bildnummer heraus.
+    </p>
+  </div>
+  <form id="contact-form" class="form flex flex-col">
+    <div class="relative flex items-center mb-2">
+      <span class="absolute left-3">
+        <DynamicIcon icon="TfiImage" className="text-igot" />
+      </span>
+      <input
+        type="text"
+        id="number"
+        name="number"
+        required
+        class="input pl-10 p-2 bg-igot/10 border rounded border-red-800 text-igot w-full"
+        placeholder="z.B. Event-123.jpg"
+      />
+    </div>
+    <button
+      type="submit"
+      class="button p-2 bg-red-800/10 text-red-800 dark:text-igot border border-red-800 rounded transition duration-300 hover:bg-red-800 hover:text-white"
+    >
+      Löschen
+    </button>
+    <div id="rm-submit" class="hidden gap-x-10 items-center mt-2">
+      Übermittelt...
+      <div class="dot-gathering"></div>
+    </div>
+    <p id="rm" class="hidden mt-4 text-sm"></p>
+  </form>
+</div>
+
+<script>
+  import type { FormEvent } from "react";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      const form = e.currentTarget as HTMLFormElement;
+      const numberInput = form.querySelector<HTMLInputElement>("#number");
+      const message = document.getElementById("rm") as HTMLParagraphElement;
+      const messageSubmit = document.getElementById(
+        "rm-submit"
+      ) as HTMLButtonElement;
+
+      if (!numberInput) {
+        throw new Error("Number input not found");
+      }
+
+      const number = numberInput.value;
+      const regex = /^[A-Za-z]+-\d{3}\.jpg$/;
+
+      if (regex.test(number)) {
+        messageSubmit.classList.remove("hidden");
+        messageSubmit.classList.add("flex");
+
+        const response = await fetch(
+          "https://formsubmit.co/ajax/info@camposviola.de",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ number }),
+          }
+        );
+
+        if (response.ok && response.status === 200) {
+          messageSubmit.classList.add("hidden");
+          messageSubmit.classList.remove("flex");
+
+          message.textContent =
+            "Vielen Dank für deine Nachricht, wir werden das Bild zeitnah entfernen.";
+          message.classList.remove("hidden");
+          message.classList.remove("text-red-800");
+          message.classList.add("text-green-800");
+        } else {
+          messageSubmit.classList.add("hidden");
+          messageSubmit.classList.remove("flex");
+
+          message.textContent =
+            "Es gab ein Problem beim Senden der Nachricht. Bitte versuche es später erneut.";
+          message.classList.remove("hidden");
+          message.classList.add("text-red-800");
+        }
+      } else {
+        messageSubmit.classList.add("hidden");
+        messageSubmit.classList.remove("flex");
+
+        message.textContent =
+          "Die Eingabe muss im Format z.B. Event-123.jpg sein.";
+        message.classList.remove("hidden");
+      }
+    };
+
+    const form = document.getElementById("contact-form") as HTMLFormElement;
+
+    form?.addEventListener("submit", handleSubmit);
+  });
+</script>
+
+<style>
+  .input::placeholder {
+    color: #34a19f;
+    opacity: 1;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
