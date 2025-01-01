@@ -20,10 +20,10 @@ const configEntry = await getEntryBySlug("hochzeitsfotos", "-config");
 const mainCategories = configEntry.data.categories || [];
 const mainCoupleCategories = configEntry.data.couple_categories || [];
 
-const sortCategoryByWeight = (array) => {
-  const withWeight = array.filter((item) => item.weight);
-  const withoutWeight = array.filter((item) => !item.weight);
-  const sortedWeightedArray = withWeight.sort((a, b) => a.weight - b.weight);
+const sortCategoryByWeight = (array: any[]) => {
+  const withWeight = array.filter((item: any) => item.weight);
+  const withoutWeight = array.filter((item: any) => !item.weight);
+  const sortedWeightedArray = withWeight.sort((a: any, b: any) => a.weight - b.weight);
   return [...sortedWeightedArray, ...withoutWeight];
 };
 ---
