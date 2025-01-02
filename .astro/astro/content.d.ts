@@ -1088,7 +1088,7 @@ declare module 'astro:content' {
   slug: "-index";
   body: string;
   collection: "homepage";
-  data: InferEntrySchema<"homepage">
+  data: any
 } & { render(): Render[".mdx"] };
 };
 "igotshot": {
@@ -1248,22 +1248,6 @@ declare module 'astro:content' {
   slug: "unruly-ghosts";
   body: string;
   collection: "igotshot-photo";
-  data: any
-} & { render(): Render[".mdx"] };
-};
-"impact": {
-"-index.md": {
-	id: "-index.md";
-  slug: "-index";
-  body: string;
-  collection: "impact";
-  data: any
-} & { render(): Render[".md"] };
-"bewerbung.mdx": {
-	id: "bewerbung.mdx";
-  slug: "bewerbung";
-  body: string;
-  collection: "impact";
   data: any
 } & { render(): Render[".mdx"] };
 };
@@ -1874,35 +1858,35 @@ declare module 'astro:content' {
   slug: "datenschutz";
   body: string;
   collection: "pages";
-  data: InferEntrySchema<"pages">
+  data: any
 } & { render(): Render[".mdx"] };
 "elements.mdx": {
 	id: "elements.mdx";
   slug: "elements";
   body: string;
   collection: "pages";
-  data: InferEntrySchema<"pages">
+  data: any
 } & { render(): Render[".mdx"] };
 "privacy-policy.md": {
 	id: "privacy-policy.md";
   slug: "privacy-policy";
   body: string;
   collection: "pages";
-  data: InferEntrySchema<"pages">
+  data: any
 } & { render(): Render[".md"] };
 "sitemap.mdx": {
 	id: "sitemap.mdx";
   slug: "sitemap";
   body: string;
   collection: "pages";
-  data: InferEntrySchema<"pages">
+  data: any
 } & { render(): Render[".mdx"] };
 "w50jahre.mdx": {
 	id: "w50jahre.mdx";
   slug: "w50jahre";
   body: string;
   collection: "pages";
-  data: InferEntrySchema<"pages">
+  data: any
 } & { render(): Render[".mdx"] };
 };
 "preise": {
@@ -2276,5 +2260,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = typeof import("../../src/content/config.js");
+	export type ContentConfig = never;
 }

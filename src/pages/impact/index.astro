@@ -1,21 +1,11 @@
 ---
 import Base from "@/layouts/Base.astro";
-import { getEntry } from "astro:content";
-import TestimonialSlider from "@/layouts/react-partials/TestmonialSlider.jsx";
-import ImageMod from "@/components/ImageMod.astro";
 
-const COLLECTION_FOLDER = "impact";
-const {
-  body,
-  render,
-  data: { title, image, meta_title, description, keywords, intro1 },
-} = await getEntry(COLLECTION_FOLDER, "-index");
-const { Content } = await render();
-
-const testimonials = (await getEntry("testimonial", "-index")).data.testimonial_items;
-const fotografieTestimonials = testimonials.filter(
-  (item) => item.section === "business"
-);
+const title = "Impact – Ein bedeutungsvolles Projekt";
+const meta_title = "Impact | Ein bedeutungsvolles Projekt für nachhaltige Veränderung";
+const keywords = "Impact, Nachhaltigkeit, Projekte, Zusammenarbeit, soziales Engagement";
+const image = "/images/impact-cover.jpg";
+const description = "Impact steht für bedeutsame Projekte, die einen nachhaltigen positiven Einfluss auf die Gesellschaft haben.";
 ---
 
 <Base
@@ -47,13 +37,7 @@ const fotografieTestimonials = testimonials.filter(
       </p>
     </div>
     <div class="text-center">
-      <ImageMod 
-        src="/images/impact/mission.jpg" 
-        width="full" 
-        height="full" 
-        class="rounded-lg shadow-lg" 
-        alt="Unsere Mission"
-      />
+      
     </div>
   </div>
 </section>
@@ -62,13 +46,7 @@ const fotografieTestimonials = testimonials.filter(
 <section class="py-12">
   <div class="container mx-auto px-6 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
     <div class="text-center order-last lg:order-first">
-      <ImageMod 
-        src="/images/impact/beitrag.jpg" 
-        width="full" 
-        height="full" 
-        class="rounded-lg shadow-lg" 
-        alt="Euer Beitrag"
-      />
+      
     </div>
     <div>
       <h2 class="text-3xl font-bold mb-4">Euer Beitrag</h2>
@@ -89,13 +67,7 @@ const fotografieTestimonials = testimonials.filter(
       </p>
     </div>
     <div class="text-center">
-      <ImageMod 
-        src="/images/impact/zukunft.jpg" 
-        width="full" 
-        height="full" 
-        class="rounded-lg shadow-lg" 
-        alt="Gemeinsam Zukunft gestalten"
-      />
+      
     </div>
   </div>
 </section>
