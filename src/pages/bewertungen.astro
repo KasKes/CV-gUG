@@ -1,0 +1,96 @@
+---
+import Base from "@/layouts/Base.astro";
+// Entfernen Sie die folgende Zeile, da DynamicIcon nicht verwendet wird
+// import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+import { getEntry } from "astro:content";
+import Testmonial from "@/layouts/react-partials/Testmonial";
+const { data } = await getEntry("testimonial", "-index");
+const { title, meta_title, description, keywords } = data;
+import PageHeader from "@/partials/PageHeader.astro";
+const testimonials = (await getEntry("testimonial", "-index")).data.testimonial_items;
+
+// Function to convert date format to sortable format
+function convertToDateObject(dateString) {
+  var parts = dateString.split(".");
+  return new Date(parts[2], parts[1] - 1, parts[0]);
+}
+
+testimonials.sort(function (a, b) {
+  return convertToDateObject(b.date) - convertToDateObject(a.date);
+});
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  keywords="Bewertung, Begeisterte Kundenstimmen, Dienstleistungen, Kunden, zufrieden"
+  body_class="page-color-dark-weristcv page-color-light-weristcv">
+  <PageHeader title={data.title} />
+  <section class="section-sm pt-4">
+    <div class="container">
+          <p class="mb-4">
+            Auf dieser Seite findest du authentische Eindrücke und Meinungen von meinen Kunden zu den verschiedenen Dienstleistungen, die ich anbiete. Ich bin stolz darauf, dass viele meiner Kunden begeistert von meiner Professionalität und Kreativität sind, die ich in jedes Projekt einbringe. Ob bei Vereinsjubiläen, Hochzeiten oder geschäftlichen Projekten – ich bemühe mich, einzigartige Momente einzufangen und auf beeindruckende Weise darzustellen.
+          </p>
+          <p class="mb-4">
+            Meine freundliche und unkomplizierte Art wird oft hervorgehoben, und ich freue mich, dass sich jeder vor meiner Kamera wohlfühlt. Die Qualität meiner Bilder und Videos wird häufig gelobt, ebenso wie mein technisches Know-how und mein Gespür für Details. Es freut mich sehr, dass meine Flexibilität und mein persönlicher Einsatz, der weit über das Übliche hinausgeht, so geschätzt werden.
+          </p>
+          <p class="mb-4">
+            Besonders dankbar bin ich für das Feedback, das zeigt, wie sehr meine Kunden die individuellen Wünsche und die Erinnerungen, die ich für sie schaffe, schätzen. Es ist erfüllend zu hören, dass meine Arbeit in lebendigen und emotionalen Aufnahmen unvergesslich bleibt.
+          </p>   
+      <div class="row gy-4 pt-5">
+        {
+          testimonials.map((item) => {
+            return (
+              <div class="lg:col-6">
+                <Testmonial
+                  client:load
+                  name={item.name}
+                  image={item.image}
+                  link={item.link}
+                  content={item.content}
+                  colorChangeable={true}
+                  colorName={item.section}
+                />
+              </div>
+            );
+          })
+        }
+      </div>
+      <div class="text-xs uppercase text-textdark dark:text-textweiss text-end">
+        Referenzen quelle:
+        <a
+          href="https://www.google.com/search?client=firefox-b-d&sa=X&sca_esv=1fd21f177eb912ee&sca_upv=1&tbm=lcl&q=CV+-+Campos+Viola+Photography+Rezensionen&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxI2NDAxNzE3NDMA0pYGJsamluYbGBlfMWo6hynoKjgn5hbkFyuEZebnJCoEZOSX5KcXJRZkVCoEpVal5hVn5uel5i1iJV4tAGYe69hyAAAA&rldimm=1047471600479043597&hl=de-DE&ved=2ahUKEwio5rmnm7WFAxUOQfEDHa1mC_QQ9fQKegQIGhAF&biw=1482&bih=902&dpr=2#lkt=LocalPoiReviews">
+          Google
+        </a> -
+        <a href="https://www.provenexpert.com/michael-campos-viola/">
+          provenexpert
+        </a>
+      </div>
+      <p class="my-8">Wir danken allen, die sich die Zeit genommen haben, ihre Erfahrungen zu teilen und uns dadurch helfen, jeden Tag ein wenig besser zu werden. Lass uns wissen, wie auch du unsere Arbeit erlebt hast!</p>
+
+    </div>
+    <!-- ProvenExpert Bewertungssiegel -->
+    <style type="text/css">
+      @media (max-width: 767px) {
+        #ProvenExpert_widgetbar_container {
+          display: none !important;
+        }
+      }
+      @media (min-width: 768px) {
+        html {
+          padding-bottom: 44px;
+          box-sizing: border-box;
+        }
+      }
+    </style>
+    <div id="ProvenExpert_widgetbar_container"></div>
+    <script
+      type="text/javascript"
+      src="//www.provenexpert.com/widget/bar_michael-campos-viola.js?style=black&feedback=0"
+      async>
+    </script>
+    <div>
+  </section>
+</Base>
