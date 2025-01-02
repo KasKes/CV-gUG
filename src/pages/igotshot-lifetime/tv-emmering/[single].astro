@@ -38,6 +38,7 @@ const {
   btn_link,
   text,
   noindex
+
 } = data;
 
 const { Content } = await render();
@@ -49,9 +50,10 @@ const { Content } = await render();
   section={section}
   keywords={keywords}
   meta_title={meta_title}
+  noindex={noindex}
   description={description}
   body_class="page-color-dark-igotshot page-color-light-igotshot">
-  {noindex && <meta name="robots" content="noindex, nofollow" />}
+
   <PageHeader title={title} />
 
   <section class="section">

@@ -77,8 +77,9 @@ const { pathname } = Astro.url;
     {canonical && <link rel="canonical" href={canonical} item-prop="url" />}
 
     <!-- noindex robots -->
-    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    {noindex ? <meta name="robots" content="noindex,nofollow" /> : <meta name="robots" content="index,follow" />}
 
+   
     <!-- meta-description -->
     <meta
       name="description"
