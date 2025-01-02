@@ -1088,7 +1088,7 @@ declare module 'astro:content' {
   slug: "-index";
   body: string;
   collection: "homepage";
-  data: any
+  data: InferEntrySchema<"homepage">
 } & { render(): Render[".mdx"] };
 };
 "igotshot": {
@@ -1858,35 +1858,35 @@ declare module 'astro:content' {
   slug: "datenschutz";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".mdx"] };
 "elements.mdx": {
 	id: "elements.mdx";
   slug: "elements";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".mdx"] };
 "privacy-policy.md": {
 	id: "privacy-policy.md";
   slug: "privacy-policy";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".md"] };
 "sitemap.mdx": {
 	id: "sitemap.mdx";
   slug: "sitemap";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".mdx"] };
 "w50jahre.mdx": {
 	id: "w50jahre.mdx";
   slug: "w50jahre";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".mdx"] };
 };
 "preise": {
@@ -2260,5 +2260,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("../../src/content/config.js");
 }
