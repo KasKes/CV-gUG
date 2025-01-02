@@ -93,20 +93,16 @@
     },
     {
       "name": "IMPACT",
-      "url": "/fotografie/",
+      "url": "/impact/",
       "hasChildren": true,
       "children": [
         {
           "name": "IMPACT",
-          "url": "/fotografie/"
+          "url": "/impact/"
         },
         {
-          "name": "Bewerbungsbilder",
-          "url": "/bewerbungsbilder/"
-        },
-        {
-          "name": "Artist Statement",
-          "url": "/artist-statement/"
+          "name": "Unterstützen & Fördern",
+          "url": "/unterstuetzen-foerdern/"
         }
       ]
     }
@@ -215,21 +211,17 @@
     },
     {
       "name": "IMPACT",
-      "url": "/fotografie/",
+      "url": "/impact/",
       "claim": "/images/icons/corporate-visibility.svg",
       "hasChildren": true,
       "children": [
         {
           "name": "IMPACT",
-          "url": "/fotografie/"
+          "url": "/impact/"
         },
         {
-          "name": "Bewerbungsbilder",
-          "url": "/bewerbungsbilder/"
-        },
-        {
-          "name": "Artist Statement",
-          "url": "/artist-statement/"
+          "name": "Unterstützen & Fördern",
+          "url": "/unterstuetzen-foerdern/"
         }
       ]
     },

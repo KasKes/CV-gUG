@@ -114,7 +114,7 @@ if (!activeMenu.claim) {
           </div>
         )
       }
-      <div class="navbar-nav-wrapper lg:block">
+    <div class="navbar-nav-wrapper lg:block">
         <div class="nav-wrapper px-0">
           <ul
             class="navbar-nav navbar-child-nav mt-0 !border-t-transparent items-center justify-end px-4 flex flex-wrap gap-y-6 gap-4 lg:w-auto lg:mx-8 pb-3 mb-3"
@@ -210,6 +210,10 @@ if (!activeMenu.claim) {
           </ul>
         </div>
       </div>
+
+
+
+
       <!-- menü unten linje 2 -->
       {
         submenu && activeMenu.hasChildren && (
@@ -239,6 +243,11 @@ if (!activeMenu.claim) {
           </ul>
         )
       }
+
+
+
+
+
       <!-- menü unten linje 1 -->
       <div class="px-4 g-0 row items-center w-full">
         <div class="col-4 !pt-2">
@@ -247,18 +256,18 @@ if (!activeMenu.claim) {
         <div class="col-8">
           <div class="flex items-center justify-between gap-2">
             <a
-              href="tel:+4915174309863"
+              href="/unterstuetzen-foerdern/"
               class="inline-flex flex-col items-center justify-center w-fit hover:bg-gray-50 dark:hover:bg-gray-800 group"
               role="button"
             >
               <DynamicIcon
                 className="inline-block w-6 h-6 mb-2"
-                icon="TfiMobile"
+                icon="TfiHeart"
               />
               <span
                 class="text-xs md:text-sm text-textdark dark:text-[var(--pageColor)]"
               >
-                Telefon
+              Fördern
               </span>
             </a>
 
@@ -277,6 +286,7 @@ if (!activeMenu.claim) {
                 E-Mail
               </span>
             </a>
+            
             <button
               class="relative group navbar-toggler p-0 w-fit cursor-pointer flex flex-col items-center justify-center"
               aria-label="Toggle navigation"

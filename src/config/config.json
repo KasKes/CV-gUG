@@ -30,8 +30,9 @@
     "blog_description": "Unterstütze uns, indem du uns auf Instagram, LinkedIn oder Vimeo folgst.",
     "copyright": "© 2009 – 2025 Campos Viola gUG (i.G.), All rights reserved",
     "contact_info": {
-      "email": "werde Fördermitglied",
-      "phone": "+4981052080020"
+      "support": "werde Fördermitglied",
+      "phone": "+4981052080020",
+      "support_link": "/unterstuetzen-foerdern/"
     },
     "google_map": {
       "enable": false,

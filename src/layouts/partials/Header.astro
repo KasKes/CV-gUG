@@ -104,30 +104,36 @@ if (!activeMenu.claim) {
 <header class={`header header-lg-devices group sticky-navbar max-lg:hidden`}>
   <div class="hidden md:hidden lg:block">
     <div class="pb-4">
-      <!--   email kontakt oben -->
+      <!--   support kontakt oben -->
       {
         config.params.top_header &&
-          (config.params.contact_info.email ||
+          (config.params.contact_info.support ||
             config.params.contact_info.phone) && (
-            <div class=" group-[&:not(.header-sticky-top)]:bg-bgweiss group-[&:not(.header-sticky-top)]:dark:bg-bgdark py-3 top-header">
+            <div class="group-[&:not(.header-sticky-top)]:bg-bgweiss group-[&:not(.header-sticky-top)]:dark:bg-bgdark py-3 top-header">
               <div class="container">
                 <ul
                   class="lg:mr-10 flex-wrap lg:justify-end lg:gap-y-2 flex lg:list-separator lg:items-center"
                   data-swup-preload-all
                 >
-                  {config.params.contact_info.email && (
-                    <li
-                      class="text-sm max-lg:w-1/2 lg:text-base max-lg:order-1"
-                      set:html={markdownify(config.params.contact_info.email)}
-                    />
+                  {config.params.contact_info.support && (
+                    <li class="text-sm max-lg:w-1/2 lg:text-base max-lg:order-1">
+                      <a
+                      href={config.params.contact_info.support_link}
+                      class="inline-block py-2 px-4 rounded transition-all"
+                      style="box-shadow: 0 0 8px 1px var(--pageColorDark);"
+                    >
+                        {config.params.contact_info.support}
+                      </a>
+                    </li>
                   )}
-                  {config.params.contact_info.email && (
+                  {config.params.contact_info.phone && (
                     <li class="max-lg:order-3 max-lg:w-1/2">
                       <a
                         href={`tel:${config.params.contact_info.phone}`}
                         class="text-sm lg:text-base"
-                        set:html="+49 (0) 8105 20 800 20"
-                      />
+                      >
+                        {config.params.contact_info.phone}
+                      </a>
                     </li>
                   )}
                   <li class="max-lg:order-2 max-lg:w-1/2 max-lg:text-end lg:after:hidden lg:!pr-0">
@@ -138,6 +144,7 @@ if (!activeMenu.claim) {
             </div>
           )
       }
+      
       <nav class="navbar container max-lg:justify-center">
         <!-- logo -->
         <div class="order-1">

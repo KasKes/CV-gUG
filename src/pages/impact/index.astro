@@ -1,0 +1,118 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getEntry } from "astro:content";
+import TestimonialSlider from "@/layouts/react-partials/TestmonialSlider.jsx";
+import ImageMod from "@/components/ImageMod.astro";
+
+const COLLECTION_FOLDER = "impact";
+const {
+  body,
+  render,
+  data: { title, image, meta_title, description, keywords, intro1 },
+} = await getEntry(COLLECTION_FOLDER, "-index");
+const { Content } = await render();
+
+const testimonials = (await getEntry("testimonial", "-index")).data.testimonial_items;
+const fotografieTestimonials = testimonials.filter(
+  (item) => item.section === "business"
+);
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  keywords={keywords}
+  image={image}
+  description={description}
+  body_class="page-color-dark-fotografie page-color-light-fotografie"
+>
+<section class="py-12">
+  <div class="container mx-auto px-6 lg:px-20 text-center">
+    <h1 class="text-4xl lg:text-5xl font-bold mb-6">
+      Mehr als Fotografie – Ein Beitrag für eine bessere Gesellschaft
+    </h1>
+    <p class="text-lg max-w-3xl mx-auto">
+      Fotografie ist für uns mehr als das Festhalten von Momenten. Jeder Klick, jedes Bild und jedes Projekt trägt dazu bei, eine größere Geschichte zu erzählen. Unsere Arbeit ist nicht nur ein kreativer Prozess, sondern ein Werkzeug für gesellschaftlichen Wandel.
+    </p>
+  </div>
+</section>
+
+<!-- Mission -->
+<section class="py-12">
+  <div class="container mx-auto px-6 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    <div>
+      <h2 class="text-3xl font-bold mb-4">Unsere Mission</h2>
+      <p class="leading-relaxed">
+        Mit jedem fotografischen Projekt unterstützen wir gemeinnützige Initiativen in den Bereichen Kunst, Kultur und bürgerschaftliches Engagement. Ob durch dokumentarische Filme, kreative Workshops oder kulturelle Events – unser Ziel ist es, positive Veränderungen anzustoßen und nachhaltig Wirkung zu erzielen.
+      </p>
+    </div>
+    <div class="text-center">
+      <ImageMod 
+        src="/images/impact/mission.jpg" 
+        width="full" 
+        height="full" 
+        class="rounded-lg shadow-lg" 
+        alt="Unsere Mission"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Beitrag -->
+<section class="py-12">
+  <div class="container mx-auto px-6 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    <div class="text-center order-last lg:order-first">
+      <ImageMod 
+        src="/images/impact/beitrag.jpg" 
+        width="full" 
+        height="full" 
+        class="rounded-lg shadow-lg" 
+        alt="Euer Beitrag"
+      />
+    </div>
+    <div>
+      <h2 class="text-3xl font-bold mb-4">Euer Beitrag</h2>
+      <p class="leading-relaxed">
+        Jede Hochzeit, jedes Porträt und jedes Fotoprojekt trägt dazu bei, diese Mission voranzutreiben. Ein Teil eurer Investition fließt direkt in unsere gemeinnützigen Projekte und schafft Raum für neue kreative und gesellschaftlich relevante Geschichten.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Zukunft gestalten -->
+<section class="py-12">
+  <div class="container mx-auto px-6 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    <div>
+      <h2 class="text-3xl font-bold mb-4">Gemeinsam Zukunft gestalten</h2>
+      <p class="leading-relaxed">
+        Indem ihr euch für uns entscheidet, werdet ihr Teil eines größeren Ganzen. Ihr unterstützt nicht nur visuelle Kunst und kulturelle Vielfalt, sondern tragt aktiv dazu bei, dass wichtige gesellschaftliche Themen sichtbar gemacht werden.
+      </p>
+    </div>
+    <div class="text-center">
+      <ImageMod 
+        src="/images/impact/zukunft.jpg" 
+        width="full" 
+        height="full" 
+        class="rounded-lg shadow-lg" 
+        alt="Gemeinsam Zukunft gestalten"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Call-to-Action -->
+<section class="py-12 text-bgweiss text-center">
+  <div class="container mx-auto px-6 lg:px-20">
+    <h3 class="text-3xl font-bold mb-4">Erfahrt mehr darüber, wie eure Unterstützung einen Unterschied macht!</h3>
+    <p class="text-lg mb-6">
+      Gemeinsam schaffen wir bleibende Werte durch Kunst, Kultur und bürgerschaftliches Engagement.
+    </p>
+    <a 
+      href="/categories/igotshot-photo/" 
+      class="inline-block bg-impact/20 font-semibold py-3 px-6 rounded shadow-md hover:bg-impact transition-all">
+      Unsere Projekte entdecken
+    </a>
+  </div>
+</section>
+
+</Base>

@@ -6,12 +6,12 @@ import ServiceSidebar from "@/partials/ServiceSidebarFotografie.astro";
 import { type CollectionEntry } from "astro:content";
 
 interface Props {
-  service: CollectionEntry<"fotografie">;
+  service: CollectionEntry<"impact">;
 }
 
-const COLLECTION_FOLDER = "fotografie";
+const COLLECTION_FOLDER = "impact";
 export async function getStaticPaths() {
-  const COLLECTION_FOLDER = "fotografie";
+  const COLLECTION_FOLDER = "impact";
   const servicesCollection = await getSinglePage(COLLECTION_FOLDER);
 
   const paths = servicesCollection.map((service) => ({

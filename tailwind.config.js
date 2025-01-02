@@ -54,7 +54,7 @@ module.exports = {
         dark: "#1b1b1b",
         wedding: "#d4af37",
         wedding2: "#d4af37",
-        // portrait: "#7b848c",
+        impact: "#7b848c",
         video: "#f67a18",
         igot: "#34a19f",
         igot2: "#1fdeda",

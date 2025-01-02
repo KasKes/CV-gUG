@@ -175,22 +175,6 @@ declare module 'astro:content' {
   data: any
 } & { render(): Render[".mdx"] };
 };
-"fotografie": {
-"-index.md": {
-	id: "-index.md";
-  slug: "-index";
-  body: string;
-  collection: "fotografie";
-  data: any
-} & { render(): Render[".md"] };
-"bewerbung.mdx": {
-	id: "bewerbung.mdx";
-  slug: "bewerbung";
-  body: string;
-  collection: "fotografie";
-  data: any
-} & { render(): Render[".mdx"] };
-};
 "gilching": {
 "-index.md": {
 	id: "-index.md";
@@ -1264,6 +1248,22 @@ declare module 'astro:content' {
   slug: "unruly-ghosts";
   body: string;
   collection: "igotshot-photo";
+  data: any
+} & { render(): Render[".mdx"] };
+};
+"impact": {
+"-index.md": {
+	id: "-index.md";
+  slug: "-index";
+  body: string;
+  collection: "impact";
+  data: any
+} & { render(): Render[".md"] };
+"bewerbung.mdx": {
+	id: "bewerbung.mdx";
+  slug: "bewerbung";
+  body: string;
+  collection: "impact";
   data: any
 } & { render(): Render[".mdx"] };
 };
