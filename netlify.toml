@@ -6,6 +6,18 @@ command = "yarn build"
 NODE_VERSION = "18"
 
 [[redirects]]
+  from = "https://camposviola.de/*"
+  to = "https://camposviola.ngo/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.camposviola.de/*"
+  to = "https://camposviola.ngo/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/beach"
   to = "/igotshot-photo/guichinger-brauchtum-beach-party-2024/?utm_source=QR+Code&utm_medium=Visitenkarte&utm_campaign=igotshot+Ehrenamtlich&utm_content=Beach+Party+2024"
   status = 301
