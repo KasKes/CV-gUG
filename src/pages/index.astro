@@ -5,7 +5,7 @@ import InitialenCV from "@/components/InitialenCV.astro";
 import Video from "@/components/VideoSection.astro";
 import Igotshot from "@/components/IgotshotSection.astro";
 import Wedding from "@/components/WeddingSection.astro";
-import Impact from "@/components/ImpactSection.astro";
+
 
 
 const { body, render, data: { title, image, meta_title, keywords, description } } = await getEntry("homepage", "-index");
@@ -32,7 +32,6 @@ const { Content } = await render();
 <!-- Mach Mit -->
 <Wedding body={body} Content={Content} />
 
-<!-- Corporate Fotografie und Bewerbungsbilder 
-<Impact body={body} Content={Content} />-->
+
 
 </Base>
