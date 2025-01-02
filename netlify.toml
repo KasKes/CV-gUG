@@ -262,3 +262,21 @@ NODE_VERSION = "18"
   to = "/igotshot-photo/graffiti-gegen-bomben-auf-wohngebiete/"
   status = 301
   force = true
+
+  [[redirects]]
+  from = "/fotografie/"
+  to = "/"
+  status = 301
+  force = true
+
+  [[redirects]]
+  from = "/bewerbungsbilder/"
+  to = "/"
+  status = 301
+  force = true
+
+  [[redirects]]
+  from = "/artist-statement/"
+  to = "/"
+  status = 301
+  force = true
