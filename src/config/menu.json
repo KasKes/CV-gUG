@@ -27,7 +27,7 @@
       "hasChildren": true,
       "children": [
         {
-          "name": "Cinema",
+          "name": "Video",
           "url": "/video/"
         },
         {
@@ -120,7 +120,7 @@
       "hasChildren": true,
       "children": [
         {
-          "name": "Cinema",
+          "name": "Video",
           "url": "/video/"
         },
         {
