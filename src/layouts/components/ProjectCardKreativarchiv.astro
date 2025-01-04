@@ -5,13 +5,13 @@ import type { CollectionEntry } from "astro:content";
 import dateFormat from "@/lib/utils/dateFormatShort";
 
 interface Props {
-  content: CollectionEntry<"video">;
+  content: CollectionEntry<"kreativarchiv">;
 }
 
 const { content } = Astro.props as Props;
 const { data: { title, date, image, category }, slug } = content;
 ---
-<a href={`/video/${slug}/`} class="relative overflow-hidden block group hover:no-underline md:hover:underline">
+<a href={`/kreativarchiv/${slug}/`} class="relative overflow-hidden block group hover:no-underline md:hover:underline">
   <!-- Normalansicht -->
   <div class="overlay after:opacity-0 after:bg-video/90 after:rounded group-hover:after:opacity-100 after:duration-300 hidden md:block">
     {image && (

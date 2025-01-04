@@ -2,7 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { getEntry } from "astro:content";
-import ProjectCard from "@/components/ProjectCardVideo.astro";
+import ProjectCard from "@/components/ProjectCardKreativarchiv.astro";
 import PageHeader from "@/partials/PageHeader.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
 import DynamicIcon from "@/helpers/DynamicIcon";
@@ -11,9 +11,9 @@ const {
   body,
   render,
   data: { title, meta_title, description, keywords, image },
-} = await getEntry("video", "-index");
+} = await getEntry("kreativarchiv", "-index");
 
-const COLLECTION_FOLDER = "video";
+const COLLECTION_FOLDER = "kreativarchiv";
 const projects = await getSinglePage(COLLECTION_FOLDER);
 const { Content } = await render();
 const sortedProjects = sortByDate(projects);

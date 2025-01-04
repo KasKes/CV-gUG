@@ -1,0 +1,189 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import PageHeader from "@/partials/PageHeader.astro";
+import Social from "@/components/Social.astro";
+import social from "@/config/social.json";
+
+export async function getStaticPaths() {
+  const COLLECTION_FOLDER = "filmgespraech";
+  const teamCollection = await getSinglePage(COLLECTION_FOLDER);
+
+  const paths = teamCollection.map((team) => ({
+    params: {
+      single: team.slug,
+    },
+    props: { team },
+  }));
+  return paths;
+}
+
+const {
+  team: { data, body, render },
+} = Astro.props;
+const {
+  title,
+  logo,
+  logodark,
+  meta_title,
+  contacts,
+  section,
+  description,
+  image,
+  keywords,
+  tag,
+  information,
+  noindex,
+} = data;
+const { Content } = await render();
+---
+
+<Base
+  title={title}
+  image={image}
+  section={section}
+  keywords={keywords}
+  meta_title={meta_title}
+  description={description}
+  noindex={noindex}
+  body_class="page-color-dark-video page-color-light-video">
+  <PageHeader title={title}/>
+  <section class="pt-12">
+    <div class="container">
+      <div class="row items-start">
+        <aside
+          class="lg:col-4 lg:sticky lg:top-0 ms-sticky-sidebar"
+          ms-sticky-top-offset="230"
+          ms-sticky-bottom-offset="10">
+          <div class="flex flex-col gap-12">
+            <div class="text-center h-full md:rounded overflow-hidden group">
+              {
+                logo && (
+                  <img
+                    src={logo}
+                    width={300}
+                    height="full"
+                    alt={title ? title : "projekt image"}
+                    class="dark:hidden w-full inline-block object-cover pb-8 object-center"
+                  />
+                )
+              }
+              {
+                logo && (
+                  <img
+                    src={logodark}
+                    width={300}
+                    height="full"
+                    alt={title ? title : "projekt image"}
+                    class="hidden dark:inline-block w-full object-cover pb-8 object-center"
+                  />
+                )
+              }
+              {
+                information && (
+                  <div class="py-2 px-4 pb-3">
+                    {information.map((info) => {
+                      const { data, label, icon } = info;
+                      return (
+                        <div class="p-3 flex justify-between">
+                          <p class=" font-primary m-0">
+                            {icon && (
+                              <DynamicIcon
+                                className="inline-block me-2"
+                                icon={icon}
+                              />
+                            )}
+                            {label}
+                          </p>
+                          <span
+                            class="font-medium text-end text-dark dark:text-video"
+                            set:html={markdownify(data)}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )
+              }
+              {
+                tag && (
+                  <div class="px-4 pb-3 text-base">
+                    {tag.map((info) => {
+                      const { data, label, icon, link } = info;
+                      return (
+                        <div class="p-3 flex justify-between ">
+                          <p class=" font-primary m-0 text-base">
+                            {icon && (
+                              <DynamicIcon
+                                className="inline-block me-2"
+                                icon={icon}
+                              />
+                            )}
+                            {label}
+                          </p>
+                          <a class="border border-video rounded-xl hover:bg-video hover:text-bgweiss dark:hover:text-bgdark py-1 px-4"
+                            href={link}>
+                          <span
+                            class="text-end hover:text-textweiss "
+                            set:html={markdownify(data)}
+                          /></a>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )
+              }
+              <div>
+                { contacts && (
+                  <hr class="h-px my-2">
+                      <h2 class="h5 pt-2 text-start ml-8" set:html="Information" />
+                      <ul class="pl-0 mb-5 md:mb-10">
+                        {contacts.map((contact) => {
+                          const { id, link, icon } = contact;
+                          if (!id) return null;
+                          return (
+                            <li class="text-color text-start ml-8 my-3">
+                              {icon && (
+                                <DynamicIcon
+                                  className="me-3 inline-block"
+                                  icon={icon}
+                                />
+                              )}
+                              <a href={link} class="">
+                                {id}
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    
+                  )
+                }
+              </div>
+           <!-- Social Links -->
+            <hr class="h-px my-2">
+              <h2 class="h5 pt-2 text-start ml-8" set:html="Folge uns auf" />
+                <p class="my-2 text-base text-start ml-8" set:html="Whatsapp, Instagram, LinkedIn, Vimeo" />
+                <div class="py-4"> 
+                  <Social source={social.main} className="social-icons" />
+                </div>
+            </div>
+          </div>
+        </aside>
+        <article class="lg:col-8 justify-end items-end">
+          <div class="row pb-10">
+            {
+              body && (
+                <p class="content ">
+                  <Content />
+                </p>
+              )
+            }
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</Base>

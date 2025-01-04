@@ -23,16 +23,20 @@
   "mobileMain": [
     {
       "name": "Cinema",
-      "url": "/video/",
+      "url": "/cinema/",
       "hasChildren": true,
       "children": [
         {
-          "name": "Video",
-          "url": "/video/"
-        },
-        {
           "name": "Cinema",
           "url": "/cinema/"
+        },
+        {
+          "name": "Filmgespräch",
+          "url": "/filmgespraech/"
+        },
+        {
+          "name": "Kreativarchiv",
+          "url": "/kreativarchiv/"
         }
       ]
     },
@@ -115,17 +119,21 @@
     },
     {
       "name": "Cinema",
-      "url": "/video/",
+      "url": "/cinema/",
       "claim": "/images/icons/cinematography-with-value.svg",
       "hasChildren": true,
       "children": [
         {
-          "name": "Video",
-          "url": "/video/"
-        },
-        {
           "name": "Cinema",
           "url": "/cinema/"
+        },
+        {
+          "name": "Filmgespräch",
+          "url": "/filmgespraech/"
+        },
+        {
+          "name": "Kreativarchiv",
+          "url": "/kreativarchiv/"
         }
       ]
     },

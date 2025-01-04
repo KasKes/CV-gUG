@@ -167,11 +167,20 @@ declare module 'astro:content' {
   collection: "cinema";
   data: any
 } & { render(): Render[".md"] };
+};
+"filmgespraech": {
+"-index.md": {
+	id: "-index.md";
+  slug: "-index";
+  body: string;
+  collection: "filmgespraech";
+  data: any
+} & { render(): Render[".md"] };
 "125-jahre-tv-emmering-film.mdx": {
 	id: "125-jahre-tv-emmering-film.mdx";
   slug: "125-jahre-tv-emmering-film";
   body: string;
-  collection: "cinema";
+  collection: "filmgespraech";
   data: any
 } & { render(): Render[".mdx"] };
 };
@@ -1088,7 +1097,7 @@ declare module 'astro:content' {
   slug: "-index";
   body: string;
   collection: "homepage";
-  data: any
+  data: InferEntrySchema<"homepage">
 } & { render(): Render[".mdx"] };
 };
 "igotshot": {
@@ -1259,6 +1268,57 @@ declare module 'astro:content' {
   collection: "kontakt";
   data: any
 } & { render(): Render[".md"] };
+};
+"kreativarchiv": {
+"-index.md": {
+	id: "-index.md";
+  slug: "-index";
+  body: string;
+  collection: "kreativarchiv";
+  data: any
+} & { render(): Render[".md"] };
+"filmstation-livestream.mdx": {
+	id: "filmstation-livestream.mdx";
+  slug: "filmstation-livestream";
+  body: string;
+  collection: "kreativarchiv";
+  data: any
+} & { render(): Render[".mdx"] };
+"gauting-live.mdx": {
+	id: "gauting-live.mdx";
+  slug: "gauting-live";
+  body: string;
+  collection: "kreativarchiv";
+  data: any
+} & { render(): Render[".mdx"] };
+"leuchtkraft.mdx": {
+	id: "leuchtkraft.mdx";
+  slug: "leuchtkraft";
+  body: string;
+  collection: "kreativarchiv";
+  data: any
+} & { render(): Render[".mdx"] };
+"peterchens-mondfahrt.mdx": {
+	id: "peterchens-mondfahrt.mdx";
+  slug: "peterchens-mondfahrt";
+  body: string;
+  collection: "kreativarchiv";
+  data: any
+} & { render(): Render[".mdx"] };
+"rosezaddach-genesis.mdx": {
+	id: "rosezaddach-genesis.mdx";
+  slug: "rosezaddach-genesis";
+  body: string;
+  collection: "kreativarchiv";
+  data: any
+} & { render(): Render[".mdx"] };
+"we-art-one.mdx": {
+	id: "we-art-one.mdx";
+  slug: "we-art-one";
+  body: string;
+  collection: "kreativarchiv";
+  data: any
+} & { render(): Render[".mdx"] };
 };
 "kundenbereich": {
 "-index.mdx": {
@@ -1858,28 +1918,28 @@ declare module 'astro:content' {
   slug: "datenschutz";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".mdx"] };
 "privacy-policy.md": {
 	id: "privacy-policy.md";
   slug: "privacy-policy";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".md"] };
 "sitemap.mdx": {
 	id: "sitemap.mdx";
   slug: "sitemap";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".mdx"] };
 "w50jahre.mdx": {
 	id: "w50jahre.mdx";
   slug: "w50jahre";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".mdx"] };
 };
 "preise": {
@@ -2013,57 +2073,6 @@ declare module 'astro:content' {
   slug: "taekwondo-training";
   body: string;
   collection: "tv-emmering";
-  data: any
-} & { render(): Render[".mdx"] };
-};
-"video": {
-"-index.md": {
-	id: "-index.md";
-  slug: "-index";
-  body: string;
-  collection: "video";
-  data: any
-} & { render(): Render[".md"] };
-"filmstation-livestream.mdx": {
-	id: "filmstation-livestream.mdx";
-  slug: "filmstation-livestream";
-  body: string;
-  collection: "video";
-  data: any
-} & { render(): Render[".mdx"] };
-"gauting-live.mdx": {
-	id: "gauting-live.mdx";
-  slug: "gauting-live";
-  body: string;
-  collection: "video";
-  data: any
-} & { render(): Render[".mdx"] };
-"leuchtkraft.mdx": {
-	id: "leuchtkraft.mdx";
-  slug: "leuchtkraft";
-  body: string;
-  collection: "video";
-  data: any
-} & { render(): Render[".mdx"] };
-"peterchens-mondfahrt.mdx": {
-	id: "peterchens-mondfahrt.mdx";
-  slug: "peterchens-mondfahrt";
-  body: string;
-  collection: "video";
-  data: any
-} & { render(): Render[".mdx"] };
-"rosezaddach-genesis.mdx": {
-	id: "rosezaddach-genesis.mdx";
-  slug: "rosezaddach-genesis";
-  body: string;
-  collection: "video";
-  data: any
-} & { render(): Render[".mdx"] };
-"we-art-one.mdx": {
-	id: "we-art-one.mdx";
-  slug: "we-art-one";
-  body: string;
-  collection: "video";
   data: any
 } & { render(): Render[".mdx"] };
 };
@@ -2253,5 +2262,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("../../src/content/config.js");
 }

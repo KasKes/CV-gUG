@@ -292,3 +292,21 @@ NODE_VERSION = "18"
   to = "/"
   status = 301
   force = true
+
+  [[redirects]]
+  from = "/video/"
+  to = "/kreativarchiv/"
+  status = 301
+  force = true
+
+  [[redirects]]
+  from = "/cinema/125-jahre-tv-emmering-film/"
+  to = "/kreativarchiv/125-jahre-tv-emmering-film/"
+  status = 301
+  force = true
+
+  [[redirects]]
+  from = "/video/*"
+  to = "/kreativarchiv/:splat"
+  status = 301
+  force = true
