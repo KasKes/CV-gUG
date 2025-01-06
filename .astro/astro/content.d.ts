@@ -167,6 +167,20 @@ declare module 'astro:content' {
   collection: "cinema";
   data: any
 } & { render(): Render[".md"] };
+"feuerwahr.mdx": {
+	id: "feuerwahr.mdx";
+  slug: "feuerwahr";
+  body: string;
+  collection: "cinema";
+  data: any
+} & { render(): Render[".mdx"] };
+"tv-emmering.mdx": {
+	id: "tv-emmering.mdx";
+  slug: "tv-emmering";
+  body: string;
+  collection: "cinema";
+  data: any
+} & { render(): Render[".mdx"] };
 };
 "filmgespraech": {
 "-index.md": {

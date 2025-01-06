@@ -1,0 +1,95 @@
+---
+import { getCollection } from "astro:content";
+
+// Lade nur Videos, die das Attribut `featured: true` haben
+const videos = (await getCollection("cinema")).filter(video => video.data.featured);
+---
+
+<section id="video-carousel" class="video-container">
+  {videos.map((video, index) => (
+    <div
+      class={`carousel-item ${
+        index === 0 ? "active" : "hidden"
+      } duration-custom ease-in-out transition-opacity`}
+      style={{ opacity: index === 0 ? 1 : 0 }}
+      key={video.id}
+    >
+      <script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script>
+      <mux-player
+        id={`videoPlayer-${index}`}
+        playback-id={video.data.playbackId}
+        metadata-video-title={video.data.title}
+        metadata-viewer-user-id="anonymous"
+        muted
+        autoplay
+        preload="auto"
+        style="--media-object-fit: contain;"
+      ></mux-player>
+    </div>
+  ))}
+</section>
+
+<style>
+/* 🎥 Video-Container */
+.video-container {
+  margin-top: 2rem;
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 🎞️ Video-Item */
+.carousel-item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.carousel-item.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.carousel-item.hidden {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+/* 🎬 Mux Player Bedienelemente deaktivieren */
+mux-player {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none; /* Verhindert Interaktion */
+  --controls: none; /* Alle Bedienelemente ausblenden */
+  --dialog: none; /* Fehlerdialog ausblenden */
+  --loading-indicator: none; /* Ladeindikator ausblenden */
+  --play-button: none;
+  --live-button: none;
+  --seek-backward-button: none;
+  --seek-forward-button: none;
+  --mute-button: none;
+  --captions-button: none;
+  --airplay-button: none;
+  --pip-button: none;
+  --fullscreen-button: none;
+  --cast-button: none;
+  --playback-rate-button: none;
+  --volume-range: none;
+  --time-range: none;
+  --time-display: none;
+  --duration-display: none;
+  --rendition-menu-button: none;
+  --center-controls: none;
+  --bottom-play-button: none;
+  --controls-backdrop-color: transparent; /* Transparenter Hintergrund für die Controls */
+}
+</style>
+
+<!-- Client-Side Script -->
+<script type="module" src="/src/layouts/helpers/VideoController.js"></script>

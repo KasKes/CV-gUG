@@ -1,0 +1,404 @@
+---
+import { getCollection } from "astro:content";
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+// Lade nur Videos, die das Attribut `featured: true` haben
+const videos = (await getCollection("cinema")).filter(video => video.data.featured);
+
+// Definiere das erste Video als aktives Video
+const activeVideo = videos.length > 0 ? videos[0].data : null;
+const bodyContent = videos.length > 0 ? videos[0].body : null;
+---
+
+<section id="dvd-cover-slider" class="carousel-container flex flex-col md:flex-row gap-4 mt-4">
+
+  <!-- Aktiver Bereich (3/4) -->
+  <div class="carousel-active md:w-3/4 flex">
+    <!-- Aktives DVD-Cover (1/3 von 3/4) -->
+<div class="active-dvd-cover md:w-1/3 flex items-center justify-center relative">
+    {activeVideo && (
+      <>
+        <img
+          src={activeVideo["dvd-cover"]}
+          alt={`DVD Cover von ${activeVideo.title}`}
+          class="dvd-cover-main"
+          id="main-dvd-cover"
+          loading="lazy"
+        />
+        {activeVideo.banderole && (
+          <div class="banderole" id="main-banderole">
+            {activeVideo.banderole}
+          </div>
+        )}
+      </>
+    )}
+  </div>
+  
+
+    <div class="active-video-info w-2/3 flex flex-col justify-between relative">
+      {activeVideo && (
+        <>
+          <div class="info-text">
+            <h2 id="main-video-title">{activeVideo.title}</h2>
+            <p id="main-video-description">{activeVideo.description}</p>
+            {bodyContent && (
+              <div class="text-video-body mt-2">
+                {bodyContent}
+              </div>
+            )}
+          </div>
+        </>
+      )}
+      <ul class="video-details">
+        <li><DynamicIcon icon="TfiCalendar" /> <span>{activeVideo.datum || 'Unbekannt'}</span></li>
+        <li><DynamicIcon icon="TfiTime" /> <span>{activeVideo.Duration || 'Unbekannt'}</span></li>
+        <li><DynamicIcon icon="TfiVideoClapper" /> <span>{activeVideo.VideoQuality || 'Unbekannt'}</span></li>
+        <li><DynamicIcon icon="TfiRulerAlt2" /> <span>{activeVideo.ResolutionTier || 'Unbekannt'}</span></li>
+        <li><DynamicIcon icon="TfiControlPlay" /> <span>{activeVideo.MaxFrameRate || 'Unbekannt'}</span></li>
+        <li><DynamicIcon icon="TfiLayoutSlider" /> <span>{activeVideo.AspectRatio || 'Unbekannt'}</span></li>
+      </ul>
+    </div>
+  </div>
+
+<!-- 🎬 Buttons mit Dynamic Icons -->
+<div class="video-actions flex gap-4 mt-4">
+    <!-- Trailer Button -->
+    <button id="trailer-button" class="btn-primary hidden flex items-center gap-2">
+      <DynamicIcon icon="TfiControlPlay" class="icon-btn text-white" />
+      <span>Trailer</span>
+    </button>
+    
+    <!-- Film Button -->
+    <button id="film-button" class="btn-primary hidden flex items-center gap-2">
+      <DynamicIcon icon="TfiVideoClapper" class="icon-btn" />
+      <span>Film</span>
+    </button>
+    
+    <!-- Blog Button -->
+    <a id="blog-button" class="btn-secondary hidden flex items-center gap-2">
+      <DynamicIcon icon="TfiWrite" class="icon-btn !text-white" />
+      <span>Blogbeitrag</span>
+    </a>
+  </div>
+  
+
+  <!-- Popup -->
+  <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <span class="popup-close" onclick="closePopup()">✖</span>
+      <mux-player
+        id="popup-video-player"
+        playback-id=""
+        metadata-video-title=""
+        metadata-viewer-user-id="anonymous"
+        controls
+        muted
+        preload="none"
+      ></mux-player>
+    </div>
+  </div>
+
+  <!-- Inaktive Thumbnails -->
+  <div class="carousel-inactive w-1/4 flex flex-col items-center gap-4 relative">
+    {videos.map((video, i) => (
+      <button
+        type="button"
+        data-cover={video.data["dvd-cover"]}
+        data-title={video.data.title}
+        data-description={video.data.description}
+        data-body={video.body}
+        data-datum={video.data.datum}
+        data-duration={video.data.Duration}
+        data-videoquality={video.data.VideoQuality}
+        data-resolutiontier={video.data.ResolutionTier}
+        data-maxframerate={video.data.MaxFrameRate}
+        data-aspectratio={video.data.AspectRatio}
+        data-blog={video.data["link-blog"]}
+        data-playbackid={video.data.playbackId}
+        data-playvollid={video.data.playvollId}
+        data-banderole={video.data.banderole}
+        key={i}
+        class={`carousel-thumbnail ${i === 0 ? "hidden" : ""}`}
+      >
+        <img
+          src={video.data["dvd-cover"]}
+          alt={`DVD Cover von ${video.data.title}`}
+          loading="lazy"
+        />
+      </button>
+    ))}
+  </div>
+</section>
+
+  
+  
+  <script>
+    function openPopup(type, cover) {
+      const popup = document.getElementById('popup');
+      const popupPlayer = document.getElementById('popupPlayer');
+      popup.classList.remove('hidden');
+  
+      if (type === 'trailer' || type === 'film') {
+        popupPlayer.playbackId = cover;
+      }
+    }
+  
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      const popupPlayer = document.getElementById('popupPlayer');
+      popup.classList.add('hidden');
+      popupPlayer.pause();
+    }
+  </script>
+
+<style>
+/* 🎀 Banderole (Aktives Video) */
+.banderole {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 0, 0, 0.85);
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* 🎀 Banderole (Thumbnail) */
+.banderole-thumbnail {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: rgba(255, 0, 0, 0.85);
+  color: white;
+  font-size: 0.8rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  z-index: 5;
+}
+
+/* Popup-Container */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup.hidden {
+  display: none;
+}
+
+.popup-content {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  max-width: 1200px;
+  background: black;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+mux-player {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+.btn-primary {
+    @apply bg-video/90 rounded-xl shadow-lg;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.icon-btn{
+    color: #fff important;
+
+}
+
+
+
+.btn-primary:hover {
+    @apply bg-video/20 text-video rounded-xl shadow-lg ;
+}
+
+.btn-secondary {
+    @apply bg-video/20 text-video rounded-xl shadow-lg ;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+
+}
+.btn-secondary:hover {
+    @apply bg-video/20 text-video rounded-xl shadow-lg ;
+}
+/* 🎥 Gesamtcontainer */
+.carousel-container {
+  display: flex;
+  width: 100%;
+  margin-top: 2rem;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+/* 🟢 Aktiver Bereich (3/4) */
+.carousel-active {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  overflow: hidden;
+  @apply bg-video/90 rounded-e-xl shadow-lg;
+}
+
+/* Aktives DVD-Cover (1/3 von 3/4) */
+.active-dvd-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 283px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.active-dvd-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+/* Informationen (2/3 von 3/4) */
+.active-video-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Platz aufteilen */
+  gap: 1rem;
+  height: 400px;
+  position: relative;
+}
+
+/* Titel oben */
+.active-video-info .info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: auto; /* Abstand zum unteren Bereich */
+}
+
+/* Überschrift (H2) */
+.text-video-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Beschreibung direkt unter der H2 */
+.text-video-description {
+  font-size: 1.2rem;
+  margin-top: 0.5rem; /* Leichter Abstand zur Überschrift */
+}
+
+/* Video-Details Styling (Fester unterer Teil) */
+.video-details {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  position: absolute;
+  bottom: 0; /* Am unteren Rand ausrichten */
+  left: 0;
+  right: 0;
+  padding-bottom: 0.5rem;
+  color: #ddd; /* Gedämpftes Weiß */
+}
+
+.video-details li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  color: #ddd; /* Gedämpftes Weiß */
+}
+
+/* 🔹 Spezifische Icon-Styling für DVD */
+.icon-dvd {
+  width: 20px;
+  height: 20px;
+  color: #ddd; /* Gedämpftes Weiß */
+}
+
+/* 🟡 Inaktiver Bereich (1/4) */
+.carousel-inactive {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: end;
+  overflow-y: auto;
+  height: 400px;
+}
+
+/* Inaktive Covers */
+.carousel-thumbnail {
+  width: 212px;
+  height: 300px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+  transform-style: preserve-3d;
+  perspective: 7000px;
+  transform-origin: center center;
+  transform: rotateY(-40deg) rotateX(10deg);
+}
+
+/* Bilder innerhalb der inaktiven Covers */
+.carousel-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  border-radius: 6px;
+  transition: filter 0.5s ease-in-out;
+}
+
+/* Hover-Effekt für Inaktive Covers */
+.carousel-thumbnail:hover {
+  transform: rotateY(0deg) rotateX(0deg) translateZ(20px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-thumbnail:hover img {
+  filter: grayscale(0%);
+}
+
+/* Verstecke aktives Thumbnail im inaktiven Bereich */
+.carousel-thumbnail.hidden {
+  display: none;
+}
+
+</style>

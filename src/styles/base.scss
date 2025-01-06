@@ -1,6 +1,46 @@
 // ----------------------------------------------------------------------
 // If page has color varialbe then style will be
 // ----------------------------------------------------------------------
+@media (max-width: 768px) {
+  mux-player {
+    object-fit: contain; /* Schwarze Balken auf kleinen Bildschirmen zulassen */
+  }
+
+  .video-overlay h1 {
+    font-size: 1.5rem;
+  }
+
+  .video-overlay p {
+    font-size: 0.9rem;
+  }
+}
+
+/* 🎥 DVD-Cover-Slider spezifische Ausnahmen */
+
+/* Verhindere das Überschreiben der Farben für Texte und Icons im aktiven Bereich */
+.active-video-info,
+.active-video-info .text-video-title,
+.active-video-info .text-video-description,
+.active-video-info .video-details li span,
+.active-video-info .video-details .icon-style {
+  @apply text-gray-100 ;
+}
+
+/* Verhindere globale Überschreibungen für die Icons */
+.video-details .icon-style {
+  @apply text-gray-100 ;
+}
+
+/* Füge eine Ausnahme hinzu, damit spezifische Styles im DVD-Slider nicht durch globale H1-H6-Regeln überschrieben werden */
+.active-video-info h2,
+.active-video-info p,
+.active-video-info .video-details li {
+  @apply text-gray-100 !important;
+}
+
+/* Stelle sicher, dass der Hintergrund der aktiven Video-Info nicht überschrieben wird */
+
+
 .btn-dynamic-shadow {
   box-shadow: 0 0 12px 4px var(--pageColorDark);
 }
