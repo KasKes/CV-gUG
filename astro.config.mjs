@@ -28,7 +28,6 @@ export default defineConfig({
       morph: ["header", "main", "footer", ".header-mobile"],
       containers: ["main"],
       cache: true,
-      preload: true,
       progress: true
     }),
     react(), // React-Integration ist korrekt eingefügt

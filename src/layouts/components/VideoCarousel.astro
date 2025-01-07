@@ -1,8 +1,16 @@
 ---
 import { getCollection } from "astro:content";
+import DynamicIcon from "@/helpers/DynamicIcon";
 
-// Lade nur Videos, die das Attribut `featured: true` haben
-const videos = (await getCollection("cinema")).filter(video => video.data.featured);
+// Lade Videos und sortiere sie nach `sortOrder`
+const videos = (await getCollection("cinema"))
+  .filter(video => video.data.featured)
+  .sort((a, b) => (a.data.sortOrder || 0) - (b.data.sortOrder || 0));
+
+// Definiere das erste Video als aktives Video
+const activeVideo = videos.length > 0 ? videos[0].data : null;
+const bodyContent = videos.length > 0 ? videos[0].body : null;
+
 ---
 
 <section id="video-carousel" class="video-container">

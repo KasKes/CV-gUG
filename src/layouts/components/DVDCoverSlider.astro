@@ -7,6 +7,7 @@ const videos = (await getCollection("cinema"))
   .filter(video => video.data.featured)
   .sort((a, b) => (a.data.sortOrder || 999) - (b.data.sortOrder || 999));
 
+
 // Definiere das erste Video als aktives Video
 const activeVideo = videos.length > 0 ? videos[0].data : null;
 const bodyContent = videos.length > 0 ? videos[0].body : null;
@@ -15,26 +16,25 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
 <section id="dvd-cover-slider" class="carousel-container flex flex-col md:flex-row gap-4 mt-4">
 
   <!-- Aktiver Bereich (3/4) -->
-  <div class="carousel-active md:w-3/4 flex">
-    <!-- Aktives DVD-Cover (1/3 von 3/4) -->
-<div class="active-dvd-cover md:w-1/3 flex items-center justify-center relative">
-    {activeVideo && (
-      <>
-        <img
-          src={activeVideo["dvd-cover"]}
-          alt={`DVD Cover von ${activeVideo.title}`}
-          class="dvd-cover-main"
-          id="main-dvd-cover"
-          loading="lazy"
-        />
-        {activeVideo.banderole && (
-          <div class="banderole" id="main-banderole">
-            {activeVideo.banderole}
-          </div>
-        )}
-      </>
-    )}
-  </div>
+  <div class="carousel-active w-3/4 flex">
+    <div class="active-dvd-cover w-1/3 flex items-center justify-center relative">
+      {activeVideo && (
+        <>
+          <img
+            src={activeVideo["dvd-cover"]}
+            alt={`DVD Cover von ${activeVideo.title}`}
+            class="dvd-cover-main"
+            id="main-dvd-cover"
+            loading="lazy"
+          />
+          {activeVideo.banderole && (
+            <div class="banderole" id="main-banderole">
+              {activeVideo.banderole}
+            </div>
+          )}
+        </>
+      )}
+    </div>
   
 
     <div class="active-video-info w-2/3 flex flex-col justify-between relative">
@@ -101,35 +101,45 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
   </div>
 
   <!-- Inaktive Thumbnails -->
-  <div class="carousel-inactive w-1/4 flex flex-col items-center gap-4 relative">
-    {videos.map((video, i) => (
-      <button
-        type="button"
-        data-cover={video.data["dvd-cover"]}
-        data-title={video.data.title}
-        data-description={video.data.description}
-        data-body={video.body}
-        data-datum={video.data.datum}
-        data-duration={video.data.Duration}
-        data-videoquality={video.data.VideoQuality}
-        data-resolutiontier={video.data.ResolutionTier}
-        data-maxframerate={video.data.MaxFrameRate}
-        data-aspectratio={video.data.AspectRatio}
-        data-blog={video.data["link-blog"]}
-        data-playbackid={video.data.playbackId}
-        data-playvollid={video.data.playvollId}
-        data-banderole={video.data.banderole}
-        key={i}
-        class={`carousel-thumbnail ${i === 0 ? "hidden" : ""}`}
-      >
+  <!-- 🟡 Inaktiver Bereich (1/4) -->
+<div class="carousel-inactive w-1/4 flex flex-col items-center gap-4 relative">
+  {videos.map((video, i) => (
+    <button
+      type="button"
+      data-cover={video.data["dvd-cover"]}
+      data-title={video.data.title}
+      data-description={video.data.description}
+      data-body={video.body}
+      data-datum={video.data.datum}
+      data-duration={video.data.Duration}
+      data-videoquality={video.data.VideoQuality}
+      data-resolutiontier={video.data.ResolutionTier}
+      data-maxframerate={video.data.MaxFrameRate}
+      data-aspectratio={video.data.AspectRatio}
+      data-blog={video.data["link-blog"]}
+      data-playbackid={video.data.playbackId}
+      data-playvollid={video.data.playvollId}
+      data-banderole={video.data.banderole}
+      key={i}
+      class={`carousel-thumbnail ${i === 0 ? "hidden" : ""}`}
+    >
+      <div class="relative">
         <img
           src={video.data["dvd-cover"]}
           alt={`DVD Cover von ${video.data.title}`}
+          class="carousel-thumbnail-image"
           loading="lazy"
         />
-      </button>
-    ))}
-  </div>
+        {video.data.banderole && (
+          <div class="banderole-thumbnail">
+            {video.data.banderole}
+          </div>
+        )}
+      </div>
+    </button>
+  ))}
+</div>
+
 </section>
 
   

@@ -143,17 +143,3 @@ document.addEventListener("DOMContentLoaded", () => {
     showSlide(currentIndex);
   });
   
-  // 🟢 Initialer Aufruf beim Seitenladen
-document.addEventListener("DOMContentLoaded", initializeVideoController);
-
-// 🔄 Swup-Seitenwechsel behandeln
-document.addEventListener("swup:contentReplaced", () => {
-  console.log("🔄 Seiteninhalt ersetzt. VideoController wird neu initialisiert!");
-  initializeVideoController();
-});
-
-// 🔄 Swup-Preload behandeln
-document.addEventListener("swup:pageView", () => {
-  console.log("📥 Swup preloaded die Seite. VideoController wird neu geladen!");
-  initializeVideoController();
-});
