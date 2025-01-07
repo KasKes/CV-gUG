@@ -3,7 +3,9 @@ import { getCollection } from "astro:content";
 import DynamicIcon from "@/helpers/DynamicIcon";
 
 // Lade nur Videos, die das Attribut `featured: true` haben
-const videos = (await getCollection("cinema")).filter(video => video.data.featured);
+const videos = (await getCollection("cinema"))
+  .filter(video => video.data.featured)
+  .sort((a, b) => (a.data.sortOrder || 999) - (b.data.sortOrder || 999));
 
 // Definiere das erste Video als aktives Video
 const activeVideo = videos.length > 0 ? videos[0].data : null;
@@ -370,10 +372,7 @@ mux-player {
   overflow: hidden;
   border-radius: 8px;
   transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
-  transform-style: preserve-3d;
-  perspective: 7000px;
-  transform-origin: center center;
-  transform: rotateY(-40deg) rotateX(10deg);
+ 
 }
 
 /* Bilder innerhalb der inaktiven Covers */
@@ -388,7 +387,6 @@ mux-player {
 
 /* Hover-Effekt für Inaktive Covers */
 .carousel-thumbnail:hover {
-  transform: rotateY(0deg) rotateX(0deg) translateZ(20px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
