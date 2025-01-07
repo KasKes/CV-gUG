@@ -12,7 +12,7 @@ import swup from "@swup/astro";
 // https://astro.build/config
 
 export default defineConfig({
-  site: config.site.base_url ? config.site.base_url : "https://camposviola.de",
+  site: config.site.base_url ? config.site.base_url : "https://camposviola.ngo",
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash,
   devToolbar: {
@@ -28,6 +28,7 @@ export default defineConfig({
       morph: ["header", "main", "footer", ".header-mobile"],
       containers: ["main"],
       cache: true,
+      preload: true,
       progress: true
     }),
     react(), // React-Integration ist korrekt eingefügt
