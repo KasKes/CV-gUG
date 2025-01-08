@@ -1,0 +1,25 @@
+---
+// Props
+const { images, galleryId } = Astro.props;
+---
+
+<section class="py-2">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {images.map((src, index) => (
+      <div key={index} class="text-center">
+        <a
+          href={src}
+          data-no-swup
+          class="glightbox"
+          data-gallery={`gallery-group-${galleryId}`}
+        >
+          <img
+            src={src}
+            alt={`Bild ${index + 1}`}
+            class="rounded-lg w-full h-auto"
+          />
+        </a>
+      </div>
+    ))}
+  </div>
+</section>

@@ -12,7 +12,7 @@ category: doko
 tags: 
   - Fürstenfeldbruck
 section: "doko"
-keywords: "tv-emmering, 125 Film, turnverein, emmering"
+keywords: "tv-emmering, 125 Film, turnverein, emmering, Chronik, Vereinschronik, Dokumentarfilm, 125 Jahre TV-Emmering Film, Fürstenfeldbruck"
 beschreibung: Dokumentarfilm über die 125-jährige Vereinschronik des TV-Emmering
 path: /
 
@@ -65,81 +65,204 @@ contacts:
   - icon: TfiWorld
     id: Bauernhofmuseum Jexhof
     link: https://www.jexhof.de
+
 ---
+import DynamicIcon from "@/helpers/DynamicIcon";
+import ImageGallery from "@/components/ImageGallery.astro";
+import ImageGalleryOne from "@/components/ImageGalleryOne.astro";
 
-import React from 'react';
+      <div id="buch-sonderausstellung" class="text-6xl font-bold pt-12 flex items-center gap-2">
+        <DynamicIcon icon="TfiBook" class="text-video text-4xl" />
+        <div class="text-3xl pl-4">Das Buch: Ein professioneller Auftritt für den TV Emmering
+        <p class="text-sm">01.01.2025</p></div>
+      </div>
+      <div class="flex flex-col mt-8 md:flex-row gap-6 items-start">
+        <div class="w-full md:w-1/3">
+          <ImageGalleryOne
+            images={[
+              "/images/cinema/filmgespraech/tve/es-lebe-der-sport.JPG",
+            ]}
+            galleryId="1"
+          />
+        </div>
+        <div class="w-full md:w-2/3">
+          <p>
+            Das Begleitbuch zur Sonderausstellung <strong>„Es lebe der Sport“</strong> wurde erstellt, um die historischen und kulturellen Inhalte der Ausstellung festzuhalten.  
+            Es vereint eine Vielzahl an Materialien, die die Vereinsgeschichte lebendig und zugänglich machen.
+          </p>
+          <p>
+            Durch die umfassende Digitalisierung der <strong>1.200 Seiten starken Vereinschronik</strong> konnten wertvolle Inhalte für das Buch bereitgestellt werden. 
+            Diese Beiträge bereichern das Buch visuell und inhaltlich gleichermaßen.
+          </p>
+        </div>
+      </div>
 
-export const screenings = [
-  {
-    date: '22. Juni bis 3. November 2024',
-    location: 'Bauernhofmuseum Jexhof',
-    event: 'Sonderausstellungen - Es lebe der Sport',
-    link: 'https://www.jexhof.de/sonderausstellungen.html'
-  },  
-  {
-    date: '04.02.2024',
-    location: 'Bürgerhaus Emmering',
-    event: 'Zweite Vorführung'
-  },
-  {
-    date: '02.02.2024',
-    location: 'Bürgerhaus Emmering',
-    event: 'Erstvorführung'
-  }
-];
 
-<div className="p-8 border border-video rounded">
-  <h2 className="text-2xl font-bold mb-4">Filmvorführungen</h2>
-  <ul className="space-y-4">
-    {screenings.map((screening) => (
-      <li className="p-4 bg-video/20 rounded shadow" key={screening.date + screening.location}>
-        {screening.link ? (
-          <a href={screening.link} target="_blank" rel="noopener noreferrer" className="no-underline">
-            <p className="text-lg font-semibold">{screening.date}</p>
-            <p className="text-lg">{screening.location}</p>
-            <p className="text-lg">{screening.event}</p>
-          </a>
-        ) : (
-          <>
-            <p className="text-lg font-semibold">{screening.date}</p>
-            <p className="text-lg">{screening.location}</p>
-            <p className="text-lg">{screening.event}</p>
-          </>
-        )}
-      </li>
-    ))}
-  </ul>
-</div>
-<p class="pt-8">
-Mir wurde die Ehre erteilt, einen Dokumentarfilm über die 125-jährige Vereinschronik zu erstellen und stand vor einer großen Herausforderung: Die Vereinschronik war satte 1200 Seiten dick. Wie sollte ich daraus einen Film machen? Zum Glück hatte ich Manfred Sinner an meiner Seite, der alles klar im Kopf hatte. So setzten wir uns zusammen und überlegten, wie wir all die Informationen nicht nur spannend, sondern auch in unter 45 Minuten in einen Film packen könnten.
+      <div class=" py-8">
+        <p class="mt-4 pl-8"><strong>Digitale Reproduktion:</strong></p>
+          <p class="pl-12">Die umfangreiche Vereinschronik wurde vollständig digitalisiert und in hoher Qualität aufbereitet.</p>
+          
+          <p class="mt-4 pl-8"><strong>Visuelle Integration:</strong></p>
+         <p class="pl-12">Zahlreiche digitalisierte Bilder und historische Dokumente wurden gezielt in das Buch eingearbeitet.</p>
+          
+          <p class="mt-4 pl-8"><strong>Strukturelle Unterstützung:</strong></p>
+          <p class="pl-12">Die digitale Aufbereitung trug dazu bei, eine klare und ansprechende Struktur für das Buch zu schaffen.</p>
+      </div>
+      <p class="mt-4">
+          Das Buch dient nicht nur als Dokumentation der Ausstellung, sondern auch als bleibendes Archiv wertvoller Vereinsgeschichte.
+      </p>
+<hr class="w-4/5 mx-auto my-8 border-t border-video" />
+
+    <div id="film-sonderausstellung" class="text-6xl font-bold pt-12 flex items-center gap-2">
+      <DynamicIcon icon="TfiVideoClapper" class="text-video text-4xl" />
+      <div class="text-3xl pl-4">Der Film: Von der Premiere zur Sonderausstellung
+     <p class="text-sm"> 22.05.2024 bis 03.11.2024</p></div>
+    </div>
+
+    <div class="flex flex-col mt-8 md:flex-row gap-6 items-start">
+      
+      <div class="w-full md:w-1/3">
+        <ImageGalleryOne
+          images={[
+            "/images/cinema/filmgespraech/tve/es-lebe-der-sport2.JPG",
+          ]}
+          galleryId="1"
+        />
+      </div>
+      
+      <div class="w-full md:w-2/3">
+        <p>
+          Ursprünglich wurde der Film <strong>„125 Jahre TV-Emmering“</strong> exklusiv für den Turnverein Emmering erstellt. 
+          Nach der erfolgreichen Premiere war das Projekt abgeschlossen.
+        </p>
+        <p>
+          Durch die Recherche des Bauernhofmuseums <strong>Jexhof</strong> im Rahmen der Sonderausstellung 
+          <strong>„Es lebe der Sport“</strong> wurde der Film erneut aufgegriffen. Manfred Sinner stellte den Kontakt her, und so begannen die Nachbearbeitungen.
+        </p>
+      </div>
+    </div>
+    <div class=" py-8">
+        <p class="mt-4 pl-8"><strong>Filmische Anpassungen:</strong></p>
+        <p class="pl-12">Der Film wurde auf 15 Minuten gekürzt, um sich in das Ausstellungskonzept einzufügen, und gezielt auf die wichtigsten Szenen reduziert. Zusätzlich wurde er mit deutschen Untertiteln versehen.</p>
+        
+        <p class="mt-4 pl-8"><strong>Technische Anpassungen:</strong></p>
+        <p class="pl-12">Ursprünglich wurde der Film im <strong>Digital Cinema Package (DCP)</strong> Format für Kinovorführungen erstellt, was eine hohe Bild- und Tonqualität garantiert. Da die Geräte im Museum dieses Format nicht unterstützen, wurde der Film in ein kompatibles <strong>MP4-Format</strong> konvertiert. Dadurch war sichergestellt, dass der Film problemlos auf den Monitoren der Ausstellung abgespielt werden konnte.</p>
+        
+        <p class="mt-4 pl-8"><strong>Gestalterische Anpassungen:</strong></p>
+        <p class="pl-12">Der Film wurde im Seitenverhältnis <strong>2.41:1</strong> gedreht, wodurch bei der Wiedergabe auf Standard-Monitoren ein schwarzer Balken oben und unten entsteht. Dieses gestalterische Element wurde gezielt genutzt:</p>
+      
+        <p class="mt-4 pl-8"><strong>Oberer Balken:</strong> </p>
+        <p class="pl-12">Enthielt Informationen darüber, wo der gesamte Film angesehen werden kann.</p>
+        
+        <p class="mt-4 pl-8"><strong>Unterer Balken:</strong></p>
+        <p class="pl-12">Wurde für den deutschen Untertitel genutzt, um den Inhalt des Films auch ohne Ton verständlich zu machen. Die Entscheidung für Untertitel war bewusst, da das Abspielgerät im Museum lediglich einen Kopfhöreranschluss bot. So konnte der Film unabhängig vom Ton seine volle Wirkung entfalten. </p>
+        
+        <p class="mt-4 pl-8"><strong>Präsentation:</strong></p>
+        <p class="pl-12">Der angepasste Film wurde schließlich nahtlos in die Sonderausstellung integriert und auf Monitoren präsentiert, die den technischen Anforderungen gerecht wurden.</p>
+    </div>
+    <p class="mt-4">
+        Durch diese gezielten Anpassungen konnte der Film nicht nur technisch kompatibel, sondern auch gestalterisch ansprechend und inhaltlich klar vermittelt werden. Er leistete somit nicht nur einen filmischen, sondern auch einen kulturellen Beitrag zur Ausstellung.
+    </p>
+<hr class="w-4/5 mx-auto my-8 border-t border-video" />
+
+
+ <div id="storytelling" class="text-6xl font-bold pt-12 flex items-center gap-2">
+      <DynamicIcon icon="TfiPencil" class="text-video text-4xl" />
+      <div class="text-3xl pl-4">Das Ergebnis: Eine Zeitreise voller Emotionen und Geschichte
+     <p class="text-sm"> 04.2023 bis 02. 2024</p></div>
+    </div>
+<p class="pt-8" >
+Mir wurde die besondere Ehre zuteil, einen Dokumentarfilm über die 125-jährige Vereinschronik des TV-Emmering zu erstellen. Eine gewaltige Herausforderung, denn die Chronik umfasste beeindruckende 1.200 Seiten. Wie lässt sich eine solche Fülle an Informationen in einen spannenden und gleichzeitig kompakten Film von unter 45 Minuten verwandeln? Zum Glück stand mir Manfred Sinner zur Seite – mit einem klaren Kopf, einem präzisen Blick fürs Wesentliche und einem tiefen Verständnis der Vereinsgeschichte. Gemeinsam entwickelten wir eine Strategie, die es uns ermöglichte, die komplexen Inhalte in eine fesselnde filmische Erzählung zu übersetzen.
 </p>
-<p class="pt-8">
-## Das Ergebnis kann sich sehen lassen.
+      <div class="w-full">
+        <ImageGallery
+          images={[
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of01.jpg",
+             "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of16.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of17.jpg",
+          ]}
+          galleryId="1"
+        />
+      </div>
+<p class="pb-8">
+Zu Beginn war klar: Die Geschichte sollte von den Ursprüngen des Vereins im Jahr 1898 bis in die Zeit nach dem Zweiten Weltkrieg 1945 erzählt werden – und darüber hinaus. Besondere Aufmerksamkeit galt den prägenden Vereinsfiguren und den herausragenden Momenten der Chronik. Immer wieder betonte Manfred, wie wichtig bestimmte historische Bilder und Dokumente für die Erzählung waren. Meine Aufgabe bestand darin, daraus einen klaren roten Faden zu weben. Schnell wurde mir klar: Für diese Reise durch die Zeit brauche ich ein Fahrrad.
 </p>
-<div style="padding:41.89% 0 0 0;position:relative;">
-  <iframe src="https://player.vimeo.com/video/835334414?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-    frameborder="0" allow="autoplay; fullscreen; picture-in-picture" 
-    style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
-    title="125 Jahre TV Emmering #V4.C9.T8.M4.FX8.R132">
-  </iframe>
-</div>
-<script src="https://player.vimeo.com/api/player.js"></script>
+      <div class="w-full">
+        <ImageGallery
+          images={[
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of14.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of15.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of33.jpg",
+          ]}
+          galleryId="1"
+        />
+      </div>
+<p class="pb-8">
+Die Idee eines „Roadtrips“ war geboren. Mit dem Fahrrad als verbindendes Element zwischen den Kapiteln konnten wir eine klare Struktur schaffen. Jeder Abschnitt wurde sorgfältig vorbereitet, besprochen und anschließend umgesetzt. Das Zusammenspiel zwischen Planung und Spontanität funktionierte reibungslos: Ich bereitete ein Kapitel vor, während Manfred bereits den nächsten Schritt plante. So entstand Schritt für Schritt ein kohärentes und visuell beeindruckendes Konzept.
+</p>
+ <div class="w-full">
+        <ImageGallery
+          images={[   
+
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of21.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of22.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of23.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of24.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of25.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of26.jpg", 
+          ]}
+          galleryId="1"
+        />
+      </div>
+<p class="pb-8">
+Die Dreharbeiten stellten besonders für Manfred eine große Herausforderung dar. Als völliger Neuling in der filmischen Praxis wusste er nicht, was ihn erwarten würde. Viele Szenen mussten wir mehrfach drehen – an unterschiedlichen Tagen und zu verschiedenen Uhrzeiten. Ein gutes Beispiel ist der Gründungsstein, den wir an zwei verschiedenen Tagen, mit einem Abstand von zwei Wochen, erneut filmten, um die perfekte Aufnahme einzufangen.
+</p>
 
 <p class="pb-8">
-Am Anfang sollte die Geschichte erzählt werden, von 1898 bis nach dem Zweiten Weltkrieg im Jahr 1945 und was danach alles passierte. Besonderes Augenmerk wurde auch auf Vereinsikonen und besondere Ereignisse gelegt. Manfred betonte immer wieder, dass wir diese Bilder brauchen und hier sind noch welche vorhanden. Meine Aufgabe bestand darin, aus ihnen einen roten Faden zu schaffen und schnell wurde mir klar: Ich brauche ein Fahrrad.
+Ein weiterer wichtiger Aspekt war der visuelle Stil des Films. Mir war es wichtig, moderne und dynamische Sequenzen einzufügen. Eine der größten Herausforderungen bestand darin, die Seiten der umfangreichen Vereinschronik filmisch darzustellen. Jede Animation wurde manuell mit Keyframes erstellt, um das Gefühl eines echten Blätterns durch die Chronikseiten zu vermitteln. Eine akribische Detailarbeit, die sich am Ende mehr als gelohnt hat.
 </p>
+ <div class="w-full">
+        <ImageGallery
+          images={[   
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of28.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of29.jpg",
+
+              "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of19.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of20.jpg",
+                      "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of31.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of32.jpg",
+            
+
+          ]}
+          galleryId="1"
+        />
+      </div>
+
 <p class="pb-8">
-Nachdem das Konzept für "roadtrip" gefunden war, konnten wir problemlos Kapitel erstellen und sie mit dem Fahrrad verbinden. Alles lief reibungslos ab. Wir begannen ein Kapitel, ich bereitete es vor und dann überlegte sich Manfred, was im nächsten Kapitel geschehen soll. So entwickelte sich Schritt für Schritt das Konzept vom Anfang bis zum Ende.
+Der fertige Film wurde im Rahmen der Vereinssitzung zum 125-jährigen Jubiläum präsentiert und löste bei den Mitgliedern große Begeisterung und emotionale Resonanz aus. Es war ein Moment, der zeigte, dass all die investierte Zeit und Mühe ihren Wert hatten.
 </p>
+
 <p class="pb-8">
-Nur das Drehen war eine Herausforderung für Manfred, da er so etwas noch nie gemacht hatte und sicherlich nicht wusste, was auf ihn zukommen würde. Die Aufnahmen drehten wir zum größsten teils doppelt und dazu auch an verschiedenen Tagen sowie zu unterschiedlichen Zeiten. Zum Beispiel filmten wir den Gründungsstein an zwei verschiedenen Tagen sogar mit einer Pause von zwei Wochen dazwischen.
+Ein besonderer Dank gebührt auch **Limelight Veranstaltungstechnik**, die uns am Tag der Präsentation mit einem hochwertigen Beamer und einer großen Leinwand zu einem äußerst fairen Preis unterstützt haben. Ohne diese technische Unterstützung wäre die Wirkung des Films niemals so beeindruckend gewesen.
 </p>
+      <div class="w-full">
+        <ImageGallery
+          images={[
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of03.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of04.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of05.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of06.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of07.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of08.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of09.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of10.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of11.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of12.jpg",
+            "/images/cinema/filmgespraech/tve/125-jahre-tv-emmering-film-making-of13.jpg",
+          ]}
+          galleryId="1"
+        />
+      </div>
 <p class="pb-8">
-Am Ende war es mir jedoch wichtig moderne Sequenzen einzufügen. Eine der größten Herausforderungen bestand darin herauszufinden wie man die Seiten der Vereinskroniken darstellen könnte. Im Film wurden alle Animationen manuell mit Keyframes erstellt um den Eindruck zu vermitteln als blättere man tatsächlich durch die Chroniken.
-</p>
-<p class="pb-8">
-Der Film wurde während der Vereinssitzung zum 125-jährigen Jubiläum gezeigt und stieß bei den Mitgliedern auf große Begeisterung.
-</p>
-<p class="pb-8">
-Ein herzliches Dankeschön gebührt auch Limelight, die uns am Tag der Vereinssitzung zu einem äußerst günstigen Preis den Beamer und die Leinwand zur Verfügung gestellt haben. Ein großes Dankeschön über diese großartige Unterstützung!
+Dieses Projekt war mehr als nur ein Film – es war eine Reise durch die Geschichte, eine kreative Herausforderung und ein gemeinsames Erlebnis, das mir noch lange in Erinnerung bleiben wird.
 </p>
