@@ -56,7 +56,7 @@
       ]
     },
     {
-      "name": "Hochzeit",
+      "name": "Engagement",
       "url": "/hochzeitsfotos/",
       "hasChildren": true,
       "children": [
@@ -177,7 +177,7 @@
       ]
     },
     {
-      "name": "Hochzeit",
+      "name": "Engagement",
       "url": "/hochzeitsfotos/",
       "claim": "/images/icons/celebrating-your-vows.svg",
       "hasChildren": true,
