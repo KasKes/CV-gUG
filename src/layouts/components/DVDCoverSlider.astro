@@ -66,22 +66,17 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
             class="dvd-cover-main"
             id="main-dvd-cover"
             loading="lazy"
-          />
-          {activeVideo.banderole && (
-            <div class="banderole banderole" id="main-banderole">
-              {activeVideo.banderole}
-            </div>
-          )}
+          /> 
         </>
       )}
     </div>
-    
-
-
     <div class="active-video-info w-2/3 flex flex-col justify-between relative">
       {activeVideo && (
         <>
           <div class="info-text text-center">
+            <div class="banderole -ml-20" id="main-banderole">
+  {activeVideo.banderole || "Keine Banderole vorhanden"}
+</div>
             <h2 id="main-video-title">{activeVideo.title}</h2>
             <p id="main-video-description" class="-mt-4">{activeVideo.description}</p>
             {bodyContent && (
@@ -170,24 +165,29 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
 /* 🎀 Banderole (Aktives Video) */
 .banderole {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background: rgba(255, 0, 0, 0.85);
-  color: white;
-  font-weight: bold;
-  font-size: 0.9rem;
-  padding: 4px 8px;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  z-index: 10;
+  top: 10px; /* Abstand vom oberen Rand des Covers */
+  left: 10px; /* Abstand vom linken Rand des Covers */
+  background: rgba(255, 0, 0, 0.85); /* Rot für die aktive Banderole */
+  color: white; /* Schriftfarbe */
+  font-weight: bold; /* Fettschrift */
+  font-size: 0.9rem; /* Schriftgröße */
+  padding: 4px 8px; /* Innenabstand */
+  border-radius: 4px; /* Abgerundete Ecken */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Schatten für 3D-Effekt */
+  z-index: 10; /* Sicherstellen, dass die Banderole oben liegt */
+  pointer-events: none; /* Verhindern von Mausinteraktionen */
 }
+.carousel-active {
+  position: relative; /* Stellt sicher, dass die Banderole relativ dazu positioniert wird */
+}
+
 
 /* 🎀 Banderole (Thumbnail) */
 .banderole-thumbnail {
   position: absolute;
   top: 5px;
   left: 5px;
-  background: rgba(255, 0, 0, 0.85);
+  background: rgba(255, 0, 0, 0.85); /* Rot für die aktive Banderole */
   color: white;
   font-size: 0.8rem;
   padding: 2px 4px;

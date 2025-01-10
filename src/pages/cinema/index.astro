@@ -10,14 +10,12 @@ import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
 
 <Base
   title="Cinema Projekte – Campos Viola"
-  meta_title="Cinema | Do"
+  meta_title="Cinema | Dokumentationen"
   description="Erlebe beeindruckende Filme und Dokumentationen von Campos Viola. Entdecke Projekte, die inspirieren und Geschichten erzählen, die berühren."
   keywords="Film, Dokumentation, Campos Viola, Videoproduktion, Kino"
   image=""
   body_class="page-color-dark-video page-color-light-video"
 >
-
-
 
 <section>
   <!-- Video Carousel -->
@@ -30,7 +28,14 @@ import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
     <DVDCoverSlider />
   </div>
 </section>
+
+
 <script>
+  document.addEventListener("astro:page-load", () => {
+  console.log("Seite neu geladen, initialisiere Inhalte...");
+  VideoController.init();
+});
+
   document.addEventListener("DOMContentLoaded", () => {
     const activeCover = document.getElementById("main-dvd-cover");
     const activeTitle = document.getElementById("main-video-title");
@@ -180,6 +185,16 @@ console.log('VideoController.js wurde geladen');
 
 export default function initVideoController() {
   console.log('VideoController initialisiert');
+
 }
+
+document.addEventListener("swup:contentReplaced", () => {
+  console.log("Inhalt ersetzt, initialisiere Skripte neu...");
+  initVideoController(); // Dein Controller
+});
+
 </script>
+
+<script src="scripts/VideoController.js" data-swup-reload></script>
+
 </Base>
