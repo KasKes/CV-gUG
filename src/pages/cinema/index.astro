@@ -2,12 +2,14 @@
 import Base from "@/layouts/Base.astro";
 import VideoCarousel from "@/components/VideoCarousel.astro";
 import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
+import VideoController from " @/scripts/VideoController.js";
+
 
 ---
 
 <Base
   title="Cinema Projekte – Campos Viola"
-  meta_title="Cinema | Dokumentationen"
+  meta_title="Cinema | Do"
   description="Erlebe beeindruckende Filme und Dokumentationen von Campos Viola. Entdecke Projekte, die inspirieren und Geschichten erzählen, die berühren."
   keywords="Film, Dokumentation, Campos Viola, Videoproduktion, Kino"
   image=""
@@ -26,5 +28,8 @@ import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
     <DVDCoverSlider />
   </div>
 </section>
-<script type="module" src="/scripts/VideoController.js"></script>
+<script type="module">
+  import VideoController from '/scripts/VideoController.js';
+  VideoController.init();
+</script>
 </Base>

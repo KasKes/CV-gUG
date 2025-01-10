@@ -162,6 +162,10 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
       popupPlayer.pause();
     }
   </script>
+  <script type="module">
+    import VideoController from '/scripts/VideoController.js';
+    VideoController.init();
+  </script>
 
 <style>
 /* 🎀 Banderole (Aktives Video) */
