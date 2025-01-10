@@ -4,8 +4,8 @@ import DynamicIcon from "@/helpers/DynamicIcon";
 
 // Lade nur Videos, die das Attribut `featured: true` haben
 const videos = (await getCollection("cinema"))
-  .filter(video => video.data.featured)
-  .sort((a, b) => (a.data.sortOrder || 999) - (b.data.sortOrder || 999));
+  .filter((video: any) => video.data.featured)
+  .sort((a: any, b: any) => (a.data.sortOrder || 999) - (b.data.sortOrder || 999));
 
 
 // Definiere das erste Video als aktives Video
@@ -35,7 +35,7 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
         </>
       )}
     </div>
-  
+
 
     <div class="active-video-info w-2/3 flex flex-col justify-between relative">
       {activeVideo && (
@@ -69,20 +69,20 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
       <DynamicIcon icon="TfiControlPlay" class="icon-btn text-white" />
       <span>Trailer</span>
     </button>
-    
+
     <!-- Film Button -->
     <button id="film-button" class="btn-primary hidden flex items-center gap-2">
       <DynamicIcon icon="TfiVideoClapper" class="icon-btn" />
       <span>Film</span>
     </button>
-    
+
     <!-- Blog Button -->
     <a id="blog-button" class="btn-secondary hidden flex items-center gap-2">
       <DynamicIcon icon="TfiWrite" class="icon-btn !text-white" />
       <span>Blogbeitrag</span>
     </a>
   </div>
-  
+
 
   <!-- Popup -->
   <div id="popup" class="popup hidden">
@@ -103,7 +103,7 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
   <!-- Inaktive Thumbnails -->
   <!-- 🟡 Inaktiver Bereich (1/4) -->
 <div class="carousel-inactive w-1/4 flex flex-col items-center gap-4 relative">
-  {videos.map((video, i) => (
+  {videos.map((video: any, i: number) => (
     <button
       type="button"
       data-cover={video.data["dvd-cover"]}

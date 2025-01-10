@@ -29,7 +29,18 @@ import VideoController from " @/scripts/VideoController.js";
   </div>
 </section>
 <script type="module">
-  import VideoController from '/scripts/VideoController.js';
-  VideoController.init();
+  document.addEventListener('DOMContentLoaded', () => {
+  const script = document.createElement('script');
+  script.type = 'module';
+  script.src = '/scripts/VideoController.js';
+  script.onload = () => {
+    console.log('VideoController.js wurde erfolgreich geladen');
+  };
+  script.onerror = () => {
+    console.error('Fehler beim Laden von VideoController.js');
+  };
+  document.body.appendChild(script);
+});
+
 </script>
 </Base>
