@@ -11,6 +11,8 @@ const videos = (await getCollection("cinema"))
 // Definiere das erste Video als aktives Video
 const activeVideo = videos.length > 0 ? videos[0].data : null;
 const bodyContent = videos.length > 0 ? videos[0].body : null;
+
+
 ---
 
 <section id="dvd-cover-slider" class="carousel-container flex flex-col md:flex-row gap-4 mt-4">
@@ -161,10 +163,6 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
       popup.classList.add('hidden');
       popupPlayer.pause();
     }
-  </script>
-  <script type="module">
-    import VideoController from '/scripts/VideoController.js';
-    VideoController.init();
   </script>
 
 <style>

@@ -142,4 +142,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Lade das erste Video beim Start
     showSlide(currentIndex);
   });
-  
+  // VideoController.js
+console.log('VideoController.js wurde geladen');
+
+export default function initVideoController() {
+  console.log('VideoController initialisiert');
+}
+
