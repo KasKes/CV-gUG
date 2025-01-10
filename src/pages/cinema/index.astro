@@ -3,9 +3,6 @@ import Base from "@/layouts/Base.astro";
 import VideoCarousel from "@/components/VideoCarousel.astro";
 import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
 
-
-
-
 ---
 
 <Base
@@ -29,14 +26,17 @@ import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
   </div>
 </section>
 
-
 <script>
+  // Initialisierung der Logik für die Seite
   document.addEventListener("astro:page-load", () => {
-  console.log("Seite neu geladen, initialisiere Inhalte...");
-  VideoController.init();
-});
+    console.log("Seite wurde neu geladen. Initialisiere Inhalte...");
+    initVideoController();
+  });
 
-  document.addEventListener("DOMContentLoaded", () => {
+  // Hauptlogik für Video-Controller
+  function initVideoController() {
+    console.log("VideoController initialisiert.");
+    
     const activeCover = document.getElementById("main-dvd-cover");
     const activeTitle = document.getElementById("main-video-title");
     const activeDescription = document.getElementById("main-video-description");
@@ -55,8 +55,8 @@ import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
     const popupVideoPlayer = document.getElementById("popup-video-player");
     
     let currentIndex = 0;
-  
-    // 🎬 Hauptfunktion zum Wechseln des Videos
+
+    // Funktion zum Wechseln der Videos
     const showSlide = (index) => {
       const selectedThumbnail = thumbnails[index];
       const cover = selectedThumbnail.dataset.cover;
@@ -73,15 +73,15 @@ import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
       const playbackId = selectedThumbnail.dataset.playbackid;
       const playvollId = selectedThumbnail.dataset.playvollid;
       const banderole = selectedThumbnail.dataset.banderole;
-    
-      // 🖼️ Cover, Titel, Beschreibung aktualisieren
+
+      // Cover und Details aktualisieren
       activeCover.src = cover;
       activeTitle.textContent = title;
       activeDescription.textContent = description;
       activeBody.innerHTML = body;
 
-          // 🏷️ Banderole aktualisieren
-    if (activeBanderole) {
+      // Banderole aktualisieren
+      if (activeBanderole) {
         if (banderole) {
           activeBanderole.textContent = banderole;
           activeBanderole.style.display = "block";
@@ -89,16 +89,16 @@ import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
           activeBanderole.style.display = "none";
         }
       }
-    
-      // 📝 Details aktualisieren
+
+      // Details aktualisieren
       activeDetails[0].textContent = datum || "Unbekannt";
       activeDetails[1].textContent = duration || "Unbekannt";
       activeDetails[2].textContent = videoQuality || "Unbekannt";
       activeDetails[3].textContent = resolution || "Unbekannt";
       activeDetails[4].textContent = frameRate || "Unbekannt";
       activeDetails[5].textContent = aspectRatio || "Unbekannt";
-    
-      // 🎥 Video aktualisieren
+
+      // Video aktualisieren
       videoItems.forEach((video, i) => {
         const videoPlayer = video.querySelector("mux-player");
         if (i === index) {
@@ -116,85 +116,56 @@ import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
           }
         }
       });
-    
-      // 🔗 Buttons aktualisieren
-      if (trailerButton) {
-        if (playbackId) {
-          trailerButton.style.display = "inline-block";
-          trailerButton.onclick = () => openPopup('trailer', playbackId);
-        } else {
-          trailerButton.style.display = "none";
-        }
-      }
-    
-      if (filmButton) {
-        if (playvollId) {
-          filmButton.style.display = "inline-block";
-          filmButton.onclick = () => openPopup('film', playvollId);
-        } else {
-          filmButton.style.display = "none";
-        }
-      }
-    
-      if (blogButton) {
-        if (blogLink) {
-          blogButton.style.display = "inline-block";
-          blogButton.href = blogLink;
-        } else {
-          blogButton.style.display = "none";
-        }
-      }
-    
-      // 🎯 Aktive/Passive Thumbnails
+
+      // Buttons aktualisieren
+      trailerButton.style.display = playbackId ? "inline-block" : "none";
+      filmButton.style.display = playvollId ? "inline-block" : "none";
+      blogButton.style.display = blogLink ? "inline-block" : "none";
+
+      if (playbackId) trailerButton.onclick = () => openPopup("trailer", playbackId);
+      if (playvollId) filmButton.onclick = () => openPopup("film", playvollId);
+      if (blogLink) blogButton.href = blogLink;
+
+      // Aktive Thumbnails verwalten
       thumbnails.forEach((thumb, i) => {
         thumb.classList.remove("hidden");
         thumb.classList.toggle("active", i === index);
       });
       selectedThumbnail.classList.add("hidden");
-    
+
       currentIndex = index;
     };
-    
-    // 🎬 Popup öffnen
+
+    // Popup-Logik
     window.openPopup = (type, playbackId) => {
       if (!playbackId) return;
       popup.classList.remove("hidden");
       popupVideoPlayer.setAttribute("playback-id", playbackId);
       popupVideoPlayer.play();
     };
-    
-    // ❌ Popup schließen
+
     window.closePopup = () => {
       popup.classList.add("hidden");
       popupVideoPlayer.pause();
       popupVideoPlayer.removeAttribute("playback-id");
     };
-    
-    // 🎯 Thumbnail-Events
+
+    // Thumbnails-Events
     thumbnails.forEach((thumbnail, index) => {
       thumbnail.addEventListener("click", () => {
         showSlide(index);
       });
     });
-    
-    // Lade das erste Video beim Start
+
+    // Erstes Video laden
     showSlide(currentIndex);
+  }
+
+  // Swup-Ereignis, um Skripte neu zu laden
+  document.addEventListener("swup:contentReplaced", () => {
+    console.log("Inhalt ersetzt. Skripte neu initialisieren...");
+    initVideoController();
   });
-  // VideoController.js
-console.log('VideoController.js wurde geladen');
-
-export default function initVideoController() {
-  console.log('VideoController initialisiert');
-
-}
-
-document.addEventListener("swup:contentReplaced", () => {
-  console.log("Inhalt ersetzt, initialisiere Skripte neu...");
-  initVideoController(); // Dein Controller
-});
-
 </script>
-
-<script src="scripts/VideoController.js" data-swup-reload></script>
 
 </Base>
