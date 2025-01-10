@@ -15,19 +15,6 @@ import VideoController from " @/scripts/VideoController.js";
   image=""
   body_class="page-color-dark-video page-color-light-video"
 >
-
-
-<section>
-  <!-- Video Carousel -->
-  <div class="relative z-0">
-    <VideoCarousel />
-  </div>
-
-  <!-- DVD-Cover Slider -->
-  <div class="-mt-36 relative z-10">  
-    <DVDCoverSlider />
-  </div>
-</section>
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
   const script = document.createElement('script');
@@ -41,6 +28,18 @@ import VideoController from " @/scripts/VideoController.js";
   };
   document.body.appendChild(script);
 });
-
 </script>
+
+<section>
+  <!-- Video Carousel -->
+  <div class="relative z-0">
+    <VideoCarousel />
+  </div>
+
+  <!-- DVD-Cover Slider -->
+  <div class="-mt-36 relative z-10">  
+    <DVDCoverSlider />
+  </div>
+</section>
+
 </Base>
