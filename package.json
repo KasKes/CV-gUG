@@ -24,6 +24,7 @@
     "@mux/mux-player": "^3.2.4",
     "@mux/mux-player-react": "^3.2.4",
     "@swup/astro": "^1.4.0",
+    "@swup/preload-plugin": "^3.2.11",
     "aos": "^2.3.4",
     "astro": "^4.15.1",
     "astro-auto-import": "^0.4.2",

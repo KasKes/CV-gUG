@@ -7,16 +7,14 @@ const videos = (await getCollection("cinema"))
   .filter((video: any) => video.data.featured)
   .sort((a: any, b: any) => (a.data.sortOrder || 999) - (b.data.sortOrder || 999));
 
-
 // Definiere das erste Video als aktives Video
 const activeVideo = videos.length > 0 ? videos[0].data : null;
 const bodyContent = videos.length > 0 ? videos[0].body : null;
-
-
 ---
+
 <!-- 🎬 Buttons mit Dynamic Icons -->
- <section class="w-3/4 flex justify-start ml-4">
-<div class="video-actions flex gap-4 mt-4 ">
+<section class="w-3/4 flex justify-start ml-4">
+  <div class="video-actions flex gap-4 mt-4 ">
     <!-- Trailer Button -->
     <button id="trailer-button" class="btn-primary hidden flex items-center gap-2">
       <DynamicIcon icon="TfiControlPlay" className="icon-btn !text-white" />
@@ -36,7 +34,6 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
     </a>
   </div>
 
-
   <!-- Popup -->
   <div id="popup" class="popup hidden">
     <div class="popup-content">
@@ -51,10 +48,10 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
         preload="none"
       ></mux-player>
     </div>
-  </div> 
+  </div>
 </section>
+
 <section id="dvd-cover-slider" class="carousel-container flex flex-col md:flex-row gap-4">
-  
   <!-- Aktiver Bereich (3/4) -->
   <div class="carousel-active w-3/4 flex">
     <div class="active-dvd-cover w-1/3 flex items-center justify-center relative">
@@ -66,7 +63,7 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
             class="dvd-cover-main"
             id="main-dvd-cover"
             loading="lazy"
-          /> 
+          />
         </>
       )}
     </div>
@@ -75,91 +72,117 @@ const bodyContent = videos.length > 0 ? videos[0].body : null;
         <>
           <div class="info-text text-center">
             <div class="banderole -ml-20" id="main-banderole">
-  {activeVideo.banderole || "Keine Banderole vorhanden"}
-</div>
+              {activeVideo.banderole || "Bitte laden die Seite mit gedrückter Umschalttaste (Shift) neu, um sicherzustellen, dass alle Inhalte vollständig und korrekt angezeigt werden."}
+            </div>
             <h2 id="main-video-title">{activeVideo.title}</h2>
             <p id="main-video-description" class="-mt-4">{activeVideo.description}</p>
-            {bodyContent && (
-              <div class="text-video-body text-start mt-4">
-                {bodyContent}
-              </div>
-            )}
+            {bodyContent && <div class="text-video-body text-start mt-4">{bodyContent}</div>}
           </div>
         </>
       )}
       <ul class="video-details">
-        <li><DynamicIcon icon="TfiCalendar" className="icon-btn !text-white"/> <span>{activeVideo.datum || 'Unbekannt'}</span></li>
-        <li><DynamicIcon icon="TfiTime" className="icon-btn !text-white"/> <span>{activeVideo.Duration || 'Unbekannt'}</span></li>
-        <li><DynamicIcon icon="TfiVideoClapper" className="icon-btn !text-white" /> <span>{activeVideo.VideoQuality || 'Unbekannt'}</span></li>
-        <li><DynamicIcon icon="TfiRulerAlt2" className="icon-btn !text-white"/> <span>{activeVideo.ResolutionTier || 'Unbekannt'}</span></li>
-        <li><DynamicIcon icon="TfiControlPlay" className="icon-btn !text-white"/> <span>{activeVideo.MaxFrameRate || 'Unbekannt'}</span></li>
-        <li><DynamicIcon icon="TfiLayoutSlider" className="icon-btn !text-white"/> <span>{activeVideo.AspectRatio || 'Unbekannt'}</span></li>
+        <li>
+          <DynamicIcon icon="TfiCalendar" className="icon-btn !text-white" />{" "}
+          <span>{activeVideo.datum || "Unbekannt"}</span>
+        </li>
+        <li>
+          <DynamicIcon icon="TfiTime" className="icon-btn !text-white" />{" "}
+          <span>{activeVideo.Duration || "Unbekannt"}</span>
+        </li>
+        <li>
+          <DynamicIcon icon="TfiVideoClapper" className="icon-btn !text-white" />{" "}
+          <span>{activeVideo.VideoQuality || "Unbekannt"}</span>
+        </li>
+        <li>
+          <DynamicIcon icon="TfiRulerAlt2" className="icon-btn !text-white" />{" "}
+          <span>{activeVideo.ResolutionTier || "Unbekannt"}</span>
+        </li>
+        <li>
+          <DynamicIcon icon="TfiControlPlay" className="icon-btn !text-white" />{" "}
+          <span>{activeVideo.MaxFrameRate || "Unbekannt"}</span>
+        </li>
+        <li>
+          <DynamicIcon icon="TfiLayoutSlider" className="icon-btn !text-white" />{" "}
+          <span>{activeVideo.AspectRatio || "Unbekannt"}</span>
+        </li>
       </ul>
     </div>
   </div>
 
   <!-- Inaktive Thumbnails -->
-  <!-- 🟡 Inaktiver Bereich (1/4) -->
-<div class="carousel-inactive w-1/4 flex flex-col items-center gap-4 relative">
-  {videos.map((video: any, i: number) => (
-    <button
-      type="button"
-      data-cover={video.data["dvd-cover"]}
-      data-title={video.data.title}
-      data-description={video.data.description}
-      data-body={video.body}
-      data-datum={video.data.datum}
-      data-duration={video.data.Duration}
-      data-videoquality={video.data.VideoQuality}
-      data-resolutiontier={video.data.ResolutionTier}
-      data-maxframerate={video.data.MaxFrameRate}
-      data-aspectratio={video.data.AspectRatio}
-      data-blog={video.data["link-blog"]}
-      data-playbackid={video.data.playbackId}
-      data-playvollid={video.data.playvollId}
-      data-banderole={video.data.banderole}
-      key={`video-${i}`}
-      class={`carousel-thumbnail ${i === 0 ? "hidden" : ""}`}
-    >
-      <div class="relative">
-        <img
-          src={video.data["dvd-cover"]}
-          alt={`DVD Cover von ${video.data.title}`}
-          class="carousel-thumbnail-image"
-          loading="lazy"
-        />
-        {video.data.banderole && (
-          <div class="banderole-thumbnail">
-            {video.data.banderole}
-          </div>
-        )}
-      </div>
-    </button>
-  ))}
-</div>
-
+  <div class="carousel-inactive w-1/4 flex flex-col items-center gap-4 relative">
+    {videos.map((video: any, i: number) => (
+      <button
+        type="button"
+        data-cover={video.data["dvd-cover"]}
+        data-title={video.data.title}
+        data-description={video.data.description}
+        data-body={video.body}
+        data-datum={video.data.datum}
+        data-duration={video.data.Duration}
+        data-videoquality={video.data.VideoQuality}
+        data-resolutiontier={video.data.ResolutionTier}
+        data-maxframerate={video.data.MaxFrameRate}
+        data-aspectratio={video.data.AspectRatio}
+        data-blog={video.data["link-blog"]}
+        data-playbackid={video.data.playbackId}
+        data-playvollid={video.data.playvollId}
+        data-banderole={video.data.banderole}
+        key={`video-${i}`}
+        class={`carousel-thumbnail ${i === 0 ? "hidden" : ""}`}
+      >
+        <div class="relative">
+          <img
+            src={video.data["dvd-cover"]}
+            alt={`DVD Cover von ${video.data.title}`}
+            class="carousel-thumbnail-image"
+            loading="lazy"
+          />
+          {video.data.banderole && <div class="banderole-thumbnail">{video.data.banderole}</div>}
+        </div>
+      </button>
+    ))}
+  </div>
 </section>
 
-  
-  
-  <script>
-    function openPopup(type: string, cover: string) {
-      const popup = document.getElementById('popup');
-      const popupPlayer = document.getElementById('popupPlayer') as HTMLElement & { playbackId: string };
-      popup?.classList.remove('hidden');
+<script>
+  document.addEventListener("swup:contentReplaced", () => {
+    console.log("Inhalt ersetzt. Initialisiere Inhalte neu...");
+    initVideoController();
+  });
 
-      if (type === 'trailer' || type === 'film') {
-        popupPlayer.playbackId = cover;
-      }
-    }
+  function initVideoController() {
+    console.log("VideoController initialisiert.");
+    const thumbnails = document.querySelectorAll(".carousel-thumbnail");
+    thumbnails.forEach((thumbnail, index) => {
+      thumbnail.addEventListener("click", () => {
+        console.log(`Thumbnail ${index} geklickt.`);
+      });
+    });
+  }
 
-    function closePopup() {
-      const popup = document.getElementById('popup');
-      const popupPlayer = document.getElementById('popupPlayer') as HTMLElement & { pause: () => void };
-      popup?.classList.add('hidden');
-      popupPlayer?.pause();
+  function openPopup(type, cover) {
+    const popup = document.getElementById("popup");
+    const popupPlayer = document.getElementById("popup-video-player");
+    popup?.classList.remove("hidden");
+
+    if (type === "trailer" || type === "film") {
+      popupPlayer.setAttribute("playback-id", cover);
     }
-  </script>
+  }
+
+  function closePopup() {
+    const popup = document.getElementById("popup");
+    const popupPlayer = document.getElementById("popup-video-player");
+    popup?.classList.add("hidden");
+    popupPlayer?.pause();
+  }
+</script>
+
+<style>
+/* CSS bleibt wie in deinem ursprünglichen Code */
+</style>
+
 
 <style>
 /* 🎀 Banderole (Aktives Video) */
