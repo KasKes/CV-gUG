@@ -7,7 +7,7 @@ import PageHeader from "@/partials/PageHeader.astro";
 import Social from "@/components/Social.astro";
 import social from "@/config/social.json";
 import { sortByDate } from "@/lib/utils/sortByDate";
-import ImageMod from "@/components/ImageMod.astro";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   const COLLECTION_FOLDER = "filmgespraech";
@@ -21,16 +21,11 @@ export async function getStaticPaths() {
   }));
   return paths;
 }
-const blogEntriesAssembly = await getCollection( "tv-emmering-timline", ({ data }) => {
-  return data.draft !== true;
-});
-
-
-import { getCollection } from "astro:content";
 
 const {
   team: { data, body, render },
 } = Astro.props;
+
 const {
   title,
   logo,
@@ -44,15 +39,26 @@ const {
   tag,
   information,
   noindex,
+  dataSource, // Wert kommt aus der MDX-Datei
+  showCurriculum,
   bilder1,
 } = data;
+
+// Blog-Einträge basierend auf `dataSource` dynamisch laden
+let blogEntriesAssembly: any[] = [];
+if (dataSource && showCurriculum) {
+  blogEntriesAssembly = await getCollection(dataSource, ({ data }: { data: any }) => {
+    return data.draft !== true;
+  });
+}
+
 const { Content } = await render();
+
 ---
 
 <Base
   title={title}
   image={image}
-  section={section}
   keywords={keywords}
   meta_title={meta_title}
   description={description}
@@ -116,60 +122,56 @@ const { Content } = await render();
                   </div>
                 )
               }
-              {
-                tag && (
-                  <div class="px-4 pb-3 text-base">
-                    {tag.map((info) => {
-                      const { data, label, icon, link } = info;
+              {tag && (
+                <div class="px-4 pb-3 text-base">
+                  {tag.map((info: any) => {
+                    const { data, label, icon, link } = info;
+                    return (
+                      <div class="p-3 flex justify-between ">
+                        <p class=" font-primary m-0 text-base">
+                          {icon && (
+                            <DynamicIcon
+                              className="inline-block me-2"
+                              icon={icon}
+                            />
+                          )}
+                          {label}
+                        </p>
+                        <a class="border border-video rounded-xl hover:bg-video hover:text-bgweiss dark:hover:text-bgdark py-1 px-4"
+                          href={link}>
+                        <span
+                          class="text-end hover:text-textweiss "
+                          set:html={markdownify(data)}
+                        /></a>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+              <div>
+                {contacts && (
+                  <hr class="h-px my-2">
+                  <h2 class="h5 pt-2 text-start ml-8" set:html="Information" />
+                  <ul class="pl-0 mb-5 md:mb-10">
+                    {contacts.map((contact: any) => {
+                      const { id, link, icon } = contact;
+                      if (!id) return null;
                       return (
-                        <div class="p-3 flex justify-between ">
-                          <p class=" font-primary m-0 text-base">
-                            {icon && (
-                              <DynamicIcon
-                                className="inline-block me-2"
-                                icon={icon}
-                              />
-                            )}
-                            {label}
-                          </p>
-                          <a class="border border-video rounded-xl hover:bg-video hover:text-bgweiss dark:hover:text-bgdark py-1 px-4"
-                            href={link}>
-                          <span
-                            class="text-end hover:text-textweiss "
-                            set:html={markdownify(data)}
-                          /></a>
-                        </div>
+                        <li class="text-color text-start ml-8 my-3">
+                          {icon && (
+                            <DynamicIcon
+                              className="me-3 inline-block"
+                              icon={icon}
+                            />
+                          )}
+                          <a href={link} class="">
+                            {id}
+                          </a>
+                        </li>
                       );
                     })}
-                  </div>
-                )
-              }
-              <div>
-                { contacts && (
-                  <hr class="h-px my-2">
-                      <h2 class="h5 pt-2 text-start ml-8" set:html="Information" />
-                      <ul class="pl-0 mb-5 md:mb-10">
-                        {contacts.map((contact) => {
-                          const { id, link, icon } = contact;
-                          if (!id) return null;
-                          return (
-                            <li class="text-color text-start ml-8 my-3">
-                              {icon && (
-                                <DynamicIcon
-                                  className="me-3 inline-block"
-                                  icon={icon}
-                                />
-                              )}
-                              <a href={link} class="">
-                                {id}
-                              </a>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    
-                  )
-                }
+                  </ul>
+                )}
               </div>
            <!-- Social Links -->
             <hr class="h-px my-2">
@@ -182,54 +184,52 @@ const { Content } = await render();
           </div>
         </aside>
         <article class="lg:col-8 justify-end items-end">
-<section class="px-4 bg-video/20 rounded"> 
-  <div class="text-center pt-8"> 
-    <h2 id="termine" class="text-video text-4xl underline-offset-8 underline font-bold pb-8">Curriculum Cinematicum</h2>
-    <div class="py-2 pl-4 md:pl-8">
-      {blogEntriesAssembly
-        .sort(sortByDate)
-        .slice(0, 50)
-        .map((blogPostEntry) => (
-          <ol class="relative border-l-2 border-video pl-4">                  
-            <li class="mb-10 ml-6 md:ml-12">            
-              <span class="absolute flex items-center justify-center w-8 h-8 md:w-12 md:h-12 ml-2 md:ml-0 bg-white rounded-full -left-6 ring-4 ring-video">
-                <svg class="w-4 h-4 md:w-6 md:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                </svg>
-              </span>
-              <h3 class="flex text-start mb-1 text-video text-2xl md:text-3xl">{blogPostEntry.data.title}</h3>
-              <time class="block text-start mb-2 text-lg font-normal leading-none text-video">{blogPostEntry.data.visibleDate}</time>
-              <p class="mb-4 text-start">{blogPostEntry.data.description}</p>   
-              {blogPostEntry.data.link && (
-                <p class="mb-4 text-start text-sm">
-                  <a 
-                    href={`#${blogPostEntry.data.link}`} 
-                    class="text-video hover:underline hover:text-video-dark transition-colors"
-                  >
-                    Mehr erfahren...
-                  </a>
-                </p>
-              )}
-            </li>
-          </ol>
-        ))
-      }
-    </div>
-  </div>
-</section>
+          {showCurriculum && (
+            <section class="px-4 bg-video/20 rounded">
+              <div class="text-center pt-8">
+                <h2 id="termine" class="text-video text-4xl underline-offset-8 underline font-bold pb-8">Curriculum Cinematicum</h2>
+                <div class="py-2 pl-4 md:pl-8">
+                  {blogEntriesAssembly
+                    .sort(sortByDate)
+                    .slice(0, 50)
+                    .map((blogPostEntry: any) => (
+                      <ol class="relative border-l-2 border-video pl-4">
+                        <li class="mb-10 ml-6 md:ml-12">
+                          <span class="absolute flex items-center justify-center w-8 h-8 md:w-12 md:h-12 ml-2 md:ml-0 bg-white rounded-full -left-6 ring-4 ring-video">
+                            <svg
+                              class="w-4 h-4 md:w-6 md:h-6"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="currentColor"
+                              viewBox="0 0 20 20">
+                              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                            </svg>
+                          </span>
+                          <h3 class="flex text-start mb-1 text-video text-2xl md:text-3xl">{blogPostEntry.data.title}</h3>
+                          <time class="block text-start mb-2 text-lg font-normal leading-none text-video">{blogPostEntry.data.visibleDate}</time>
+                          <p class="mb-4 text-start">{blogPostEntry.data.description}</p>
+                          {blogPostEntry.data.link && (
+                            <p class="mb-4 text-start text-sm">
+                              <a
+                                href={`#${blogPostEntry.data.link}`}
+                                class="text-video hover:underline hover:text-video-dark transition-colors">
+                                Mehr erfahren...
+                              </a>
+                            </p>
+                          )}
+                        </li>
+                      </ol>
+                    ))}
+                </div>
+              </div>
+            </section>
+          )}
+
           <div class="row pb-10">
-            {
-              body && (
-                <p class="content ">
-                  <Content />
-                </p>
-              )
-            }
+            {body && <p class="content "><Content /></p>}
           </div>
-        </article>    
+        </article>
       </div>
     </div>
   </section>
-  
-
 </Base>

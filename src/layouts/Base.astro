@@ -24,6 +24,7 @@ export interface Props {
   canonical?: string;
   keywords?: string;
   sections?: string;
+  body_class?: string;
 }
 
 // distructure frontmatters
@@ -115,7 +116,7 @@ const { pathname } = Astro.url;
     {keywords && <meta name="keywords" content={plainify(keywords)} />}
 
     <!-- section meta -->
-    {sections && sections.map((section) => (
+    {sections && Array.isArray(sections) && sections.map((section: string) => (
       <meta name="section" content={plainify(section)} />
     ))}
 
@@ -240,9 +241,9 @@ const { pathname } = Astro.url;
 
     <!-- reading indicator -->
     <script>
-      const readingIndicator = document.querySelector(".reading-indicator");
+      const readingIndicator = document.querySelector(".reading-indicator") as HTMLElement;
 
-      function updateReadingIndicator(event) {
+      function updateReadingIndicator() {
         // Calculate page height and reading progress dynamically
         const pageHeight = document.documentElement.scrollHeight;
         const viewportHeight = window.innerHeight;
@@ -251,12 +252,14 @@ const { pathname } = Astro.url;
         const progress = Math.min(scrollTop / (pageHeight - viewportHeight), 1); // Avoid exceeding 1
 
         // Adjust indicator width based on progress
-        readingIndicator.style.width = `${progress * 100}%`; // Adjust percentage based on your desired width
+        if (readingIndicator) {
+          readingIndicator.style.width = `${progress * 100}%`; // Adjust percentage based on your desired width
+        }
       }
 
       // Update indicator on initial load and window resize
       updateReadingIndicator();
-      window.addEventListener("scroll", updateReadingIndicator);
+      window.addEventListener("scroll", () => updateReadingIndicator());
 
       // Handle swup events (optional)
       if (typeof Swup !== "undefined") {
@@ -307,9 +310,7 @@ const { pathname } = Astro.url;
       };
 
       // Proven Expert
-      const src = document
-        .querySelector(".review-script")
-        ?.getAttribute("data-src");
+      const src = document.querySelector(".review-script")?.getAttribute("data-src") || "";
       document.querySelector(".review-script")?.setAttribute("src", src);
 
       document.addEventListener("swup:page:view", () => {
@@ -346,6 +347,9 @@ const { pathname } = Astro.url;
         };
       });
       document.addEventListener("swup:page:view", () => {
+        if (typeof window !== "undefined" && "Swup" in window) {
+          const swup = new (window as any).Swup();
+        }
         const lightbox = GLightbox({
           touchNavigation: true,
         });

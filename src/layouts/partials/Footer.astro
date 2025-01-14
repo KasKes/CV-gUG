@@ -12,28 +12,41 @@ import { markdownify } from "@/lib/utils/textConverter";
     <div class="container pt-4 border-t border-bgdark dark:border-[var(--pageColorDark)]">
       <div class="mx-6 pt-10 md:py-10 text-center md:text-left">
         <div class="grid-1 grid gap-x-20 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
-          <!-- Öffnungszeiten -->
-          <div class="w-fit max-md:mx-auto">
-            <legend class="font-thin mb-4 uppercase underline underline-offset-8 text-2xl">
-              Erreichbar
-            </legend>
-            <ul class="grid grid-cols-2 gap-x-4 md:gap-x-16 gap-y-4 text-start">
-              <li>Montag</li>
-              <li>10:30 - 18:00</li>
-              <li>Dienstag</li>
-              <li>10:30 - 18:00</li>
-              <li>Mittwoch</li>
-              <li>10:30 - 18:00</li>
-              <li>Donnerstag</li>
-              <li>12:00 - 20:00</li>
-              <li>Freitag</li>
-              <li>10:30 - 18:00</li>
-              <li>Samstag</li>
-              <li>10:00 - 16:00</li>
-              <li>Sonntag</li>
-              <li>Geschlossen</li>
-            </ul>
-          </div>
+         <!-- Unterstützung durch Gemeinden -->
+            <div class="w-fit max-md:mx-auto">
+              <legend class="font-thin mb-4 uppercase underline underline-offset-8 text-2xl">
+                Offiziell unterstützt
+              </legend>
+              <p class="text-base">
+                Die Campos Viola gUG (i.G.) wird stolz von der Gemeinde Gilching und der Gemeinde Emmering unterstützt, um Kunst, Kultur und ehrenamtliches Engagement in der Region zu fördern.
+              </p>
+              <div class="flex justify-center space-x-8 mt-4">
+                <!-- Logo Gemeinde Gilching -->
+                <div class="text-center">
+                  <picture>
+                    <!-- Dark Mode -->
+                    <source srcset="/images/referenz/WappenGilching.png" media="(prefers-color-scheme: dark)">
+                    <!-- Light Mode -->
+                    <img src="/images/referenz/WappenGilching.png" alt="Stadtwappen Gilching" class="h-auto max-h-28 mx-auto px-8">
+                  </picture>
+                  <p class="text-xs mt-2">Gemeinde Gilching</p>
+                </div>
+                
+
+                <!-- Logo Gemeinde Emmering -->
+                <div class="text-center">
+                  <picture>
+                    <!-- Dark Mode -->
+                    <source srcset="/images/referenz/logo-emmering.png" media="(prefers-color-scheme: dark)">
+                    <!-- Light Mode -->
+                    <img src="/images/referenz/logo-emmering.png" alt="Stadtwappen Gilching" class="h-auto max-h-28 mx-auto px-8">
+                  </picture>
+                  <p class="text-xs mt-2">Gemeinde Emmering</p>
+                </div>
+              </div>
+            </div>
+
+
 
           <!-- Kontaktinformationen -->
           <div>

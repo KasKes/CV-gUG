@@ -1,6 +1,11 @@
 // ----------------------------------------------------------------------
 // If page has color varialbe then style will be
 // ----------------------------------------------------------------------
+
+h1 {
+  @apply mb-6; /* Größerer Abstand für h1 */
+}
+
 @media (max-width: 768px) {
   mux-player {
     object-fit: contain; /* Schwarze Balken auf kleinen Bildschirmen zulassen */
