@@ -1,6 +1,5 @@
-// VideoController.js
+// /src/scripts/VideoController.js
 
-// Initialisiert den Controller sowohl bei DOMContentLoaded als auch bei Swup-Events
 document.addEventListener("DOMContentLoaded", () => {
   console.log("VideoController initialisiert bei DOMContentLoaded.");
   initVideoController();
@@ -51,6 +50,7 @@ function initVideoController() {
       return;
     }
 
+    // Lese Daten aus den data-Attributen des angeklickten Thumbnails
     const {
       cover = "",
       title = "Unbekannt",
@@ -72,7 +72,9 @@ function initVideoController() {
     activeCover.src = cover;
     activeTitle.textContent = title;
     activeDescription.textContent = description;
-    activeBody.innerHTML = body;
+    if (activeBody) {
+      activeBody.innerHTML = body;
+    }
 
     // Banderole aktualisieren
     if (activeBanderole) {
@@ -84,7 +86,7 @@ function initVideoController() {
       }
     }
 
-    // Video-Details aktualisieren
+    // Video-Details aktualisieren (es werden sechs Werte erwartet)
     if (activeDetails.length >= 6) {
       activeDetails[0].textContent = datum;
       activeDetails[1].textContent = duration;
@@ -94,7 +96,7 @@ function initVideoController() {
       activeDetails[5].textContent = aspectRatio;
     }
 
-    // Videos aktualisieren
+    // Videos aktualisieren: Nur das Video an der Position index sichtbar machen und abspielen
     videoItems.forEach((video, i) => {
       const videoPlayer = video.querySelector("mux-player");
       if (i === index) {
@@ -116,12 +118,14 @@ function initVideoController() {
     updateButton(filmButton, playvollId, () => openPopup("film", playvollId));
     updateButton(blogButton, blogLink, null, blogLink);
 
-    // Thumbnails aktualisieren
+    // Thumbnails aktualisieren: Entferne das "active" Styling von allen und verstecke das aktuell gewählte Thumbnail
     thumbnails.forEach((thumb, i) => {
+      thumb.classList.remove("active");
       thumb.classList.remove("hidden");
-      thumb.classList.toggle("active", i === index);
+      if (i === index) {
+        thumb.classList.add("hidden");
+      }
     });
-    thumbnails[index].classList.add("hidden");
 
     currentIndex = index;
   };
@@ -154,13 +158,13 @@ function initVideoController() {
     popupVideoPlayer.removeAttribute("playback-id");
   };
 
-  // Event-Listener für Thumbnails
+  // Event-Listener für alle Thumbnails: Beim Klick wird showSlide(index) aufgerufen
   thumbnails.forEach((thumbnail, index) => {
     thumbnail.addEventListener("click", () => {
       showSlide(index);
     });
   });
 
-  // Lade das erste Video
+  // Zeige das erste Video (Startzustand)
   showSlide(currentIndex);
 }

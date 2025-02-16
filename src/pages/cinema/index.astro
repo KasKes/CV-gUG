@@ -8,7 +8,6 @@ import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
 
 <Base
   title="Cinema Projekte – Campos Viola"
-  
   meta_title="Cinema | Dokumentationen"
   description="Erlebe beeindruckende Filme und Dokumentationen von Campos Viola. Entdecke Projekte, die inspirieren und Geschichten erzählen, die berühren."
   keywords="Film, Dokumentation, Campos Viola, Videoproduktion, Kino"
@@ -27,6 +26,7 @@ import DVDCoverSlider from "@/layouts/components/DVDCoverSlider.astro";
     <DVDCoverSlider />
   </div>
 </section>
+
 <script>
   document.addEventListener("astro:page-load", () => {
   console.log("Seite neu geladen, initialisiere Inhalte...");
@@ -192,6 +192,7 @@ document.addEventListener("swup:contentReplaced", () => {
 
 </script>
 
-<script src="scripts/VideoController.js" data-swup-reload></script>
+<script src="/scripts/VideoController.js" data-swup-reload></script>
+
 
 </Base>
