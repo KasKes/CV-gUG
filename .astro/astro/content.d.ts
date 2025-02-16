@@ -1119,7 +1119,7 @@ declare module 'astro:content' {
   slug: "-index";
   body: string;
   collection: "homepage";
-  data: InferEntrySchema<"homepage">
+  data: any
 } & { render(): Render[".mdx"] };
 };
 "igotshot": {
@@ -1465,6 +1465,13 @@ declare module 'astro:content' {
 "carmen-flo.mdx": {
 	id: "carmen-flo.mdx";
   slug: "carmen-flo";
+  body: string;
+  collection: "kundenbereich";
+  data: any
+} & { render(): Render[".mdx"] };
+"christian-lisa.mdx": {
+	id: "christian-lisa.mdx";
+  slug: "christian-lisa";
   body: string;
   collection: "kundenbereich";
   data: any
@@ -1940,28 +1947,28 @@ declare module 'astro:content' {
   slug: "datenschutz";
   body: string;
   collection: "pages";
-  data: InferEntrySchema<"pages">
+  data: any
 } & { render(): Render[".mdx"] };
 "privacy-policy.md": {
 	id: "privacy-policy.md";
   slug: "privacy-policy";
   body: string;
   collection: "pages";
-  data: InferEntrySchema<"pages">
+  data: any
 } & { render(): Render[".md"] };
 "sitemap.mdx": {
 	id: "sitemap.mdx";
   slug: "sitemap";
   body: string;
   collection: "pages";
-  data: InferEntrySchema<"pages">
+  data: any
 } & { render(): Render[".mdx"] };
 "w50jahre.mdx": {
 	id: "w50jahre.mdx";
   slug: "w50jahre";
   body: string;
   collection: "pages";
-  data: InferEntrySchema<"pages">
+  data: any
 } & { render(): Render[".mdx"] };
 };
 "partyofone-timeline": {
@@ -2323,5 +2330,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = typeof import("../../src/content/config.js");
+	export type ContentConfig = never;
 }
