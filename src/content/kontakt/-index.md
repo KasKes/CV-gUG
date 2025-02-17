@@ -32,8 +32,6 @@ kontakt_studio:
 
 
 verein_info:
-  - name: BPP PHOTOGRAPHER
-    content: BPP PHOTOGRAPHER <br>bund professioneller portraitfotografen
 
   - name: STUD. MEMBER BFF E.V.
     content: STUD. MEMBER BFF E.V.<br>berufsverband freie fotografen und filmgestalter e.v.
