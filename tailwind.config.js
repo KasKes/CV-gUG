@@ -26,12 +26,9 @@ if (theme.fonts.font_family.secondary) {
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   safelist: [
-    "swiper-container",
-    "swiper-slide",
-    "yarl__wrapper",
-    "yarl__overlay",
-    "gslide-title",
-    "gslide-desc",
+    { pattern: /^swiper-/ },
+    { pattern: /^yarl__/ },
+    { pattern: /^gslide-/ },
     "header-sticky-top",
     "glightbox-clean",
     "header-pinned",
