@@ -46,5 +46,3 @@ verein_info:
 
 
 ---
-
-    bild: "images/mcv/tom-trenkle"

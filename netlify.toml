@@ -17,7 +17,14 @@ NODE_VERSION = "18"
   status = 301
   force = true
 
+
 [[redirects]]
+  from = "/fasching"
+  to = "/igotshot-photo/weiberfasching-emmering-2025/?utm_source=QR+Code&utm_medium=Visitenkarte&utm_campaign=igotshot+Ehrenamtlich&utm_term=Emmering&utm_content=Weiberfasching+Emmering"
+  status = 301
+  force = true
+
+  [[redirects]]
   from = "/beach"
   to = "/igotshot-photo/guichinger-brauchtum-beach-party-2024/?utm_source=QR+Code&utm_medium=Visitenkarte&utm_campaign=igotshot+Ehrenamtlich&utm_content=Beach+Party+2024"
   status = 301
@@ -308,5 +315,11 @@ NODE_VERSION = "18"
   [[redirects]]
   from = "/video/*"
   to = "/kreativarchiv/:splat"
+  status = 301
+  force = true
+
+  [[redirects]]
+  from = "/Bilder"
+  to = "/bilder"
   status = 301
   force = true

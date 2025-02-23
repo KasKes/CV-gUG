@@ -1,0 +1,83 @@
+---
+title: Weiberfasching Emmering 2025
+date: 2025-02-27
+description: Entdecke und lade kostenlos alle Fotos der "Weiberfasching Emmering 2025" herunter.
+image: "/images/igotshot/photos/weiberfasching-emmering-2025/weiberfasching-emmering-2025.jpg"
+logo: "/images/igotshot/photos/weiberfasching-emmering-2025/weiberfasching-emmering-2025.jpg"
+logodark: "/images/igotshot/photos/weiberfasching-emmering-2025/weiberfasching-emmering-2025.jpg"
+categories: ["Igotshot Photo"]
+category: Kultur
+tags: ["Fürstenfeldbruck"]
+section: "Kultur"
+keywords: "Weiberfasching Emmering 2025, kostenlose Fotos, Weiberfasching Bilder herunterladen, zeitgenössische Fotografie, Eventfotos"
+path: /
+draft: false
+BildLoesung: true
+
+# information
+information:
+  - label: Datum
+    icon: TfiCalendar
+    data: 27.02.2025
+
+  - label: Project
+    icon: TfiNotepad
+    data: Eventfotografie
+
+  - label: Crew
+    icon: TfiVideoClapper
+    data: 1 Personen
+
+  - label: Technik
+    icon: TfiTarget
+    data: Nikon Z6III<br>Z 20mm f/1.8<br>Z 35mm f/1.8<br>Z 85mm f/1.8<br>Z 105mm f/2.8<br>Profoto A10 mit Clic Color Effects
+
+  - label: Projekttyp
+    icon: TfiDashboard
+    data: "S<br>Ehrenamtlich"
+
+tag:
+  - label: Alle Bilder
+    icon: TfiCloudDown
+    data: intern Download
+    link: "#"
+
+  - label: Ort
+    icon: TfiLocationPin
+    data: Emmering
+    link: "/tags/fürstenfeldbruck/"
+
+  - label: Kategorie
+    icon: TfiTag
+    data: igotshot.photo
+    link: "/categories/igotshot-photo/"
+
+# contacts
+contacts:
+  - icon: TfiWorld
+    id: Madlverein Emmering e.V.
+    link: https://madlverein-emmering.com
+    
+### code: GBV-24-AwXf
+---
+
+import MasonaryImages from "@/layouts/react-partials/MasonaryImages.tsx";
+
+export const images = await import.meta.glob(
+    '/public/images/igotshot/photos/weiberfasching-emmering-2025/bilder/*.{jpeg,jpg,png,gif}'
+);
+
+
+
+Willkommen auf der Fotoseite zum Weiberfasching Emmering 2025!
+
+Im Zeichen der Tradition und Gemeinschaft haben wir die schönsten Momente dieses einzigartigen Abends für euch festgehalten. Alle Bilder sind hier veröffentlicht und können kostenlos heruntergeladen und privat genutzt werden.
+
+Viel Spaß beim Durchstöbern und Erinnern an eine unvergessliche Faschingsnacht! 🥳🎶
+
+<div class="py-4 px-4 bg-igot/10 rounded border border-igot">
+Hinweis: Auf dieser Seite werden viele Bilder geladen! 📸✨ Sie sind zwar optimiert, aber es kann trotzdem ein wenig dauern. Danke für deine Geduld – und viel Freude beim Anschauen! 😊🎭
+</div>
+<div class="py-8">
+  <MasonaryImages client:load images={images} mobile={2} desktop={3} large={4} />
+</div>
