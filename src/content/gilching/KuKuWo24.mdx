@@ -6,7 +6,7 @@ image: "/images/igotshot/liftime/gilching/kukuwo24/plakat-kulturwoche2024v2.jpg"
 logo: "/images/igotshot/liftime/gilching/kukuwo24/plakat-kulturwoche2024v2.jpg"
 link: ""
 categories: ["Igotshot Lifetime"]
-category: ["Kultur" , "Lightpainting"] 
+category: ["Kultur"] 
 tags: ["Starnberg"]
 section: kultur
 keywords: "KuKuWo24, 10. Kunst und Kulturwoche, Gilching"
@@ -80,6 +80,9 @@ export const images41 = await import.meta.glob(
 export const images5 = await import.meta.glob(
     '/public/images/igotshot/liftime/gilching/kukuwo24/teilnehmer/*.{jpeg,jpg,png,gif}'
 );
+export const images6 = await import.meta.glob(
+    '/public/images/igotshot/liftime/gilching/kukuwo24/plakarte/*.{jpeg,jpg,png,gif}'
+);
 
 <div class="col-12 text-center">
   <a
@@ -100,7 +103,19 @@ export const images5 = await import.meta.glob(
 # KuKuWo24 – 10. Kunst und Kulturwoche Gilching 2024: Ein Jubiläum in Bildern
 
 Die 10. Kunst und Kulturwoche in Gilching feiert ihr Jubiläum in einem ganz besonderen Rahmen. Vom **11. Oktober bis 27. Oktober 2024** verwandelt sich das Rathaus-Foyer in eine Bühne, auf der innovative Kunstwerke und interaktive Erlebnisse zusammenkommen. Dieses Jahr stehen vor allem **innovative Lenticular-Porträts** und ein **interaktiver Fotostand für Kinder** im Mittelpunkt – Konzepte, die die kreative Energie der Kulturschaffenden in der Region eindrucksvoll inszenieren.
-
+  <a
+    href="/images/igotshot/liftime/gilching/kukuwo24/gruppenfoto-kulturschaffende-kukuwo10-plakate-gilching.jpg"
+    data-no-swup
+    class="glightbox"
+    data-gallery="gallery-group-1">
+    <ImageMod
+      src="/images/igotshot/liftime/gilching/kukuwo24/gruppenfoto-kulturschaffende-kukuwo10-plakate-gilching.jpg"
+      width="full"
+      height="full"
+      class="mx-auto rounded"
+      alt="Kunst und Kulturwoche Gilching – Ein Jubiläum in Bildern"
+    />
+  </a>
 ## Ein Projekt mit Geschichte und frischem Elan
 
 Seit 2017 begleite ich die Kunst- und Kulturwoche in Gilching und durfte in den vergangenen Jahren viele spannende Projekte realisieren. Zum 10. Jubiläum wurde mir das Besondere anvertraut:  
@@ -110,41 +125,43 @@ Seit 2017 begleite ich die Kunst- und Kulturwoche in Gilching und durfte in den 
 
 Parallel zur Covergestaltung kuratieren renommierte Kulturschaffende wie **Ruth Neureiter** (Malerin und Lyrikerin) und **Jakobus Ciolek** (Kulturbeauftragter) die Ausstellung, die einen spannenden Rückblick auf vergangene Kunstwochen sowie neue Impulse bietet.
 
-## Eindrucksvolle Impressionen
-
-Die folgenden Bilderserien fangen die Vielfalt und Dynamik der Kunst- und Kulturwoche ein:
+### Variationen des Plakatmotivs
+<div class="py-8">
+  <MasonaryImages client:load images={images6} mobile={2} desktop={2} large={2} />
+</div>
 
 ### Gesamteindruck der Veranstaltung
 <div class="py-8">
-  <MasonaryImages client:load images={images0} mobile={2} desktop={3} large={4} />
+  <MasonaryImages client:load images={images0} mobile={3} desktop={4} large={5} />
 </div>
 
 ### Porträts der Kulturschaffenden
 <div class="py-8">
-  <MasonaryImages client:load images={images1} mobile={2} desktop={3} large={4} />
+  <MasonaryImages client:load images={images1} mobile={3} desktop={4} large={5} />
 </div>
 
 ### Skizzen und digitale Illustrationen
 <div class="py-8">
-  <MasonaryImages client:load images={images2} mobile={2} desktop={3} large={4} />
+  <MasonaryImages client:load images={images2} mobile={3} desktop={4} large={5} />
 </div>
 <div class="py-8">
-  <MasonaryImages client:load images={images3} mobile={2} desktop={3} large={4} />
+  <MasonaryImages client:load images={images3} mobile={3} desktop={4} large={5} />
 </div>
 
-### Variationen des Plakatmotivs
+### Variationen für das 4 Stufige Lenticularbild
 <div class="py-8">
-  <MasonaryImages client:load images={images41} mobile={2} desktop={3} large={4} />
+  <MasonaryImages client:load images={images41} mobile={2} desktop={4} large={4} />
+  <a class=" no-underline">Alle Bilder sind in 4 Wariationen angefertigt, Hitergrund, Konturen, Konturen2 und Vordergrund mit Schatten</a>
 </div>
 
 ### Fertige Lenticular-Drucke
 <div class="py-8">
-  <MasonaryImages client:load images={images4} mobile={2} desktop={3} large={4} />
+  <MasonaryImages client:load images={images4} mobile={3} desktop={4} large={5} />
 </div>
 
 ### Eindrücke vom Kinder- und Jugendkulturtag
 <div class="py-8">
-  <MasonaryImages client:load images={images5} mobile={2} desktop={3} large={4} />
+  <MasonaryImages client:load images={images5} mobile={3} desktop={4} large={5} />
 </div>
 
 ## Interaktiver Fotostand für Kinder
