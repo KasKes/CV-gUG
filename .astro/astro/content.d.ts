@@ -263,6 +263,13 @@ declare module 'astro:content' {
   collection: "gilching";
   data: any
 } & { render(): Render[".mdx"] };
+"KuKuWo24.mdx": {
+	id: "KuKuWo24.mdx";
+  slug: "kukuwo24";
+  body: string;
+  collection: "gilching";
+  data: any
+} & { render(): Render[".mdx"] };
 };
 "hochzeitsfotos": {
 "-config.md": {
@@ -1177,6 +1184,13 @@ declare module 'astro:content' {
 "KuKuWo23.mdx": {
 	id: "KuKuWo23.mdx";
   slug: "kukuwo23";
+  body: string;
+  collection: "igotshot-lifetime";
+  data: any
+} & { render(): Render[".mdx"] };
+"KuKuWo24.mdx": {
+	id: "KuKuWo24.mdx";
+  slug: "kukuwo24";
   body: string;
   collection: "igotshot-lifetime";
   data: any

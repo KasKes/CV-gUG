@@ -20,7 +20,7 @@ NODE_VERSION = "18"
 
 [[redirects]]
   from = "/fasching"
-  to = "/igotshot-photo/weiberfasching-emmering-2025/?utm_source=QR+Code&utm_medium=Visitenkarte&utm_campaign=igotshot+Ehrenamtlich&utm_term=Emmering&utm_content=Weiberfasching+Emmering"
+  to = "/igotshot-photo/weiberfasching-emmering-2025/?utm_source=QR+Code&utm_medium=Visitenkarte&utm_campaign=igotshot+Ehrenamtlich&utm_term=Emmering&utm_content=Weiberfasching+Emmering+2025"
   status = 301
   force = true
 
