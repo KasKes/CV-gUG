@@ -323,8 +323,13 @@ const { Content } = await render();
                 class="my-2 text-base text-start ml-8"
                 set:html="Whatsapp, Instagram, LinkedIn, Vimeo"
               /> 
-              <div class="py-4">
+               <!-- Social Links -->
+            <hr class="h-px my-2">
+            <h2 class="h5 pt-2 text-start ml-8" set:html="Folge uns auf" />
+              <p class="my-2 text-base text-start ml-8" set:html="Whatsapp, Instagram, LinkedIn, Vimeo" />
+              <div class="py-4"> 
                 <Social source={social.main} className="social-icons" />
+              </div>
               </div>
             </div>
           </div>
