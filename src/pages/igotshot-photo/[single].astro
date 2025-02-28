@@ -22,9 +22,10 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const {
-  team: { slug, data, body, render },
-} = Astro.props;
+const { team } = Astro.props;
+const { slug, data, body, render } = team;
+
+// Daten aus Frontmatter extrahieren
 const {
   title,
   beschreibung,
@@ -39,10 +40,17 @@ const {
   logo,
   logodark,
   tag,
+  playback, // playback aus MDX holen
+  playbackId,
   BildLoesung: showBildLoesung
 } = data;
+
+// Überprüfung, ob ein Video vorhanden ist
+const hasVideo = playback && playbackId ? true : false;
+
 const { Content } = await render();
 ---
+
 <Base
   title={title}
   image={image}
@@ -54,6 +62,24 @@ const { Content } = await render();
 >
   <!-- Normal Mode -->
   <section class="hidden md:block">
+    
+     <!-- Video einfügen, falls vorhanden -->
+     {hasVideo && (
+        <div class="relative w-full h-[600px] flex items-center justify-center" style="background: transparent;">
+  <mux-player
+    playback-id={playbackId}
+    metadata-video-title={title}
+    primary-color="#ffffff"
+    secondary-color="#000000"
+    accent-color="#34a19f"
+    autoplay
+    loop
+    muted
+    class="absolute top-0 left-0 w-full h-full object-cover z-0"
+  ></mux-player>
+</div>
+    
+    )}
     
     <div class="pb-10">
       <PageHeader title={title} />
@@ -173,6 +199,7 @@ const { Content } = await render();
             </div>
           </div>
         </aside>
+
         <article class="lg:col-8">
           {title && <h2 class="h3" set:html={markdownify(description)} />}
           {designation && (
@@ -339,4 +366,23 @@ const { Content } = await render();
       </div>
     </div>
   </section>
+  <script is:inline>
+    // Hier wird der Wert der Variable aus Astro korrekt in den Client-Code injiziert.
+    const playbackId = ${JSON.stringify(playbackId)};
+    console.log("Playback ID:", playbackId);
+  </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script>
+  <style>
+    /* Versuche zuerst, die CSS-Custom Property zu nutzen, die der mux-player eventuell unterstützt */
+    mux-player {
+      --mux-player-background: transparent;
+      background-color: transparent !important;
+    }
+  
+    /* Falls der Hintergrund im Shadow DOM des Players gesetzt wird, kannst du ggf. ein ::part-Selektor ansprechen (sofern verfügbar) */
+    mux-player::part(container) {
+      background-color: transparent !important;
+    }
+  </style>
 </Base>
