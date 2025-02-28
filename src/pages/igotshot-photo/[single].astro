@@ -63,26 +63,27 @@ const { Content } = await render();
   <!-- Normal Mode -->
   <section class="hidden md:block">
     
-     <!-- Video einfügen, falls vorhanden -->
-     {hasVideo && (
-        <div class="relative w-full h-[600px] flex items-center justify-center" style="background: transparent;">
-  <mux-player
-    playback-id={playbackId}
-    metadata-video-title={title}
-    primary-color="#ffffff"
-    secondary-color="#000000"
-    accent-color="#34a19f"
-    autoplay
-    loop
-    muted
-    class="absolute top-0 left-0 w-full h-full object-cover z-0"
-  ></mux-player>
-</div>
-    
-    )}
-    
     <div class="pb-10">
       <PageHeader title={title} />
+          <!-- Video einfügen, falls vorhanden -->
+        {hasVideo && (
+          <div class="relative w-full h-[600px] flex items-center justify-center" style="background: transparent;">
+    <mux-player
+      playback-id={playbackId}
+      metadata-video-title={title}
+      primary-color="#ffffff"
+      secondary-color="#000000"
+      accent-color="#34a19f"
+      autoplay
+      muted
+      loop
+      controls
+      class="absolute top-0 left-0 w-full h-full object-cover z-0"
+    ></mux-player>
+    </div>
+      
+      )}
+  
     </div>
     
     <div class="container">
@@ -248,7 +249,27 @@ const { Content } = await render();
         )}
         <div class="container"> 
           <div class="h1 py-8">{title}</div>
+          {hasVideo && (
+            <div class="full-bleed relative flex items-center justify-center" style="background: transparent;">
+              <mux-player
+                playback-id={playbackId}
+                metadata-video-title={title}
+                primary-color="#ffffff"
+                secondary-color="#000000"
+                accent-color="#34a19f"
+                autoplay
+                muted
+                loop
+                controls
+                class="absolute top-0 left-0 object-cover z-0"
+              ></mux-player>
+            </div>
+          )}
+          
           {title && <h2 class="h2 pt-4" set:html={markdownify(description)} />}
+
+
+
           {designation && (
             <span class="text-primary h6 mb-8" set:html={designation} />
           )}
@@ -374,6 +395,14 @@ const { Content } = await render();
   
   <script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script>
   <style>
+    .full-bleed {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+  }
     /* Versuche zuerst, die CSS-Custom Property zu nutzen, die der mux-player eventuell unterstützt */
     mux-player {
       --mux-player-background: transparent;
